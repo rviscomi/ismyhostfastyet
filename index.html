@@ -53,7 +53,7 @@
     </div>
     <script>
 const results = document.getElementById('results');
-fetch('/ttfb.json').then(r => r.json).then(r => {
+fetch('/ttfb.json').then(r => r.json()).then(r => {
   console.log(r);
 });
     </script>
