@@ -58,9 +58,26 @@ function makeRow(host, client, n, fast, avg, slow) {
   let td = document.createElement('td');
   td.innerText = host;
   tr.appendChild(td);
+  td = document.createElement('td');
   td.innerText = client;
   tr.appendChild(td);
+  td = document.createElement('td');
+  td.innerText = n.toLocaleString();
+  tr.appendChild(td);
+  td = document.createElement('td');
+  td.innerText = formatPct(fast);
+  tr.appendChild(td);
+  td = document.createElement('td');
+  td.innerText = formatPct(avg);
+  tr.appendChild(td);
+  td = document.createElement('td');
+  td.innerText = formatPct(slow);
+  tr.appendChild(td);
   return tr;
+}
+      
+function formatPct(n) {
+  return (n * 100).toFixed(2) + '%';
 }
 
 const results = document.getElementById('results');
