@@ -1,0 +1,23 @@
+{
+  "WP Engine": {
+    "header": "wpe-backend"
+  },
+  "Siteground": {
+    "header": "192fc2e7e50945beb8231a492d6a8024"
+  },
+  "Automattic": {
+    "header": "automattic.com/jobs"
+  },
+  "Acquia": {
+    "header": "x-ah-environment"
+  },
+  "Pantheon": {
+    "header": "x-pantheon-styx-hostname"
+  },
+  "Kinsta": {
+    "header": "x-kinsta-cache"
+  },
+  "HubSpot": {
+    "header": "hubspot"
+  }
+}
