@@ -199,10 +199,12 @@ fetch('ttfb.json').then(r => r.text()).then(r => {
     return a;
   }, []);
 
+  const frag = document.createDocumentFragment();
   r.forEach(i => {
     const tr = makeRow(i.platform, i.client, i.n, i.fast, i.avg, i.slow);
-    results.appendChild(tr);
+    frag.appendChild(tr);
   });
+  results.appendChild(frag);
 });
     </script>
   </body>
