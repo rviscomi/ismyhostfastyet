@@ -195,21 +195,29 @@ function makeRow(host, client, n, fast, avg, slow) {
 function formatPct(n) {
   return (n * 100).toFixed(2) + '%';
 }
+      
+function updateResultsTable(data) {
+  const results = document.getElementById('results');
+  // Clear any stale contents.
+  results.innerHTML = '';
+  
+  const frag = document.createDocumentFragment();
+  data.forEach(i => {
+    const tr = makeRow(i.platform, i.client, i.n, i.fast, i.avg, i.slow);
+    frag.appendChild(tr);
+  });
+  results.appendChild(frag);
+}
 
-const results = document.getElementById('results');
 fetch('ttfb.json').then(r => r.text()).then(r => {
   // Convert newline-delimited JSON to regular JSON.
   r = r.split('\n').reduce((a, i) => {
     a.push(JSON.parse(i));
     return a;
   }, []);
+  window.data = r;
 
-  const frag = document.createDocumentFragment();
-  r.forEach(i => {
-    const tr = makeRow(i.platform, i.client, i.n, i.fast, i.avg, i.slow);
-    frag.appendChild(tr);
-  });
-  results.appendChild(frag);
+  updateResultsTable(r);
 });
     </script>
   </body>
