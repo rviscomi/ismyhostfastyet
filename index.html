@@ -37,6 +37,7 @@
           <table>
              <thead>
                <th>Host</th>
+               <th>Client</th>
                <th># Websites</th>
                <th>Fast TTFB (< 200ms)</th>
                <th>Average TTFB</th>
@@ -52,9 +53,22 @@
       </div>
     </div>
     <script>
+function makeRow(host, client, n, fast, avg, slow) {
+  const tr = document.createElement('tr');
+  let td = document.createElement('td');
+  td.innerText = host;
+  tr.appendChild(td);
+  td.innerText = client;
+  tr.appendChild(td);
+  return tr;
+}
+
 const results = document.getElementById('results');
 fetch('ttfb.json').then(r => r.json()).then(r => {
-  console.log(r);
+  r.forEach(i => {
+    const tr = makeRow(i.platform, i.client, i.n, i.fast, i.avg, i.slow);
+    results.appendChild(tr);
+  });
 });
     </script>
   </body>
