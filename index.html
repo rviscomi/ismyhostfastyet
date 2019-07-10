@@ -5,6 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-22381566-4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-22381566-4');
+    </script>
+
     <link rel="stylesheet" href="/assets/css/style.css?v=fce44eb7c709d09c86467165cd3491649251445b">
     <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
     <!--[if lt IE 9]>
@@ -52,7 +61,7 @@
         <hr>
         
         <section id="main_content">
-          <h2>How it works (briefly)</h2>
+          <h2>How it works</h2>
           
           <p>
             Hosts are detected by their HTTP header signatures. For example, a response header 
@@ -66,13 +75,27 @@
             Once we know the websites for each host, we intersect those with the
             <a href="http://bit.ly/chrome-ux-report">Chrome UX Report</a> dataset. This gives us
             real user experience data about each website, including <abbr title="Time to First Byte">TTFB</abbr>.
+            TTFB values are rated as fast, average, or slow according to these rules:
           </p>
+          
+          <dl>
+            <dt>Fast</dt>
+            <dd>Less than 200 ms</dd>
+
+            <dt>Average</dt>
+            <dd>Greater than or equal to 200 ms and less than 1000 ms</dd>
+
+            <dt>Slow</dt>
+            <dd>Greater than or equal to 1000 ms</dd>
+          </dl>
           
           <p>
             <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#methodology">
-              ℹ️ Learn more about our methodology
+              Learn more about our methodology
             </a>
           </p>
+          
+          <h2>Leaderboard</h2>
           
           <table>
              <thead>
