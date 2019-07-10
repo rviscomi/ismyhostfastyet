@@ -52,6 +52,28 @@
         <hr>
         
         <section id="main_content">
+          <h2>How it works (briefly)</h2>
+          
+          <p>
+            Hosts are detected by their HTTP header signatures. For example, a response header 
+            of <code>x-powered-by: HubSpot</code> for a website's HTML page indicates that it 
+            is hosted by HubSpot. The <a href="https://httparchive.org/">HTTP Archive</a> dataset 
+            includes metadata for over 5 million web pages and is updated monthly. We use query 
+            this dataset to detect whether the response headers include the signatures for known hosts.
+          </p>
+          
+          <p>
+            Once we know the websites for each host, we intersect those with the
+            <a href="http://bit.ly/chrome-ux-report">Chrome UX Report</a> dataset. This gives us
+            real user experience data about each website, including <abbr title="Time to First Byte">TTFB</abbr>.
+          </p>
+          
+          <p>
+            <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#methodology">
+              ℹ️ Learn more about our methodology
+            </a>
+          </p>
+          
           <table>
              <thead>
                <th>Host</th>
