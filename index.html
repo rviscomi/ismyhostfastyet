@@ -36,7 +36,7 @@
         <section id="main_content">
           <table>
              <thead>
-               <th>Host></th>
+               <th>Host</th>
                <th># Websites</th>
                <th>Fast TTFB (< 200ms)</th>
                <th>Average TTFB</th>
@@ -53,7 +53,7 @@
     </div>
     <script>
 const results = document.getElementById('results');
-fetch('/ttfb.json').then(r => r.json()).then(r => {
+fetch('ttfb.json').then(r => r.json()).then(r => {
   console.log(r);
 });
     </script>
