@@ -99,7 +99,7 @@ function makeRow(host, client, n, fast, avg, slow) {
   span.title = `Fast: ${formatPct(slow)}`;
   span.style.width = `${slow}%`;
   span.innerText = formatPct(slow);
-  td.appendChild(div);
+  td.appendChild(span);
   return tr;
 }
       
