@@ -192,7 +192,13 @@ function formatPct(n) {
 }
 
 const results = document.getElementById('results');
-fetch('ttfb.json').then(r => r.json()).then(r => {
+fetch('ttfb.json').then(r => r.text()).then(r => {
+  // Convert newline-delimited JSON to regular JSON.
+  r = r.split('\n').reduce((a, i) => {
+    a.push(JSON.parse(i));
+    return a;
+  }, []);
+
   r.forEach(i => {
     const tr = makeRow(i.platform, i.client, i.n, i.fast, i.avg, i.slow);
     results.appendChild(tr);
