@@ -62,7 +62,7 @@ function makeRow(host, client, n, fast, avg, slow) {
   td.innerText = client;
   tr.appendChild(td);
   td = document.createElement('td');
-  td.innerText = n.toLocaleString();
+  td.innerText = (+n).toLocaleString();
   tr.appendChild(td);
   td = document.createElement('td');
   td.innerText = formatPct(fast);
