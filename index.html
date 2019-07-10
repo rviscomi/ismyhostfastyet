@@ -25,6 +25,10 @@
     
     <style>
       .ttfb {
+        text-align: left;
+        color: #fff;
+      }
+      .ttfb span {
         display: inline-block;
       }
       .fast {
@@ -81,23 +85,25 @@ function makeRow(host, client, n, fast, avg, slow) {
   tr.appendChild(td);
   td = document.createElement('td');
   td.setAttribute('colspan', 3);
+  td.className = 'ttfb';
+  td.style.textAlign = 'left';
   let span = document.createElement('span');
-  span.className = 'ttfb fast'
+  span.className = 'fast'
   span.title = `Fast: ${formatPct(fast)}`;
-  span.style.width = `${fast}%`;
+  span.style.width = `${fast * 100}%`;
   span.innerText = formatPct(fast);
   td.appendChild(span);
   span = document.createElement('span');
-  span.className = 'ttfb avg'
+  span.className = 'avg'
   span.title = `Average: ${formatPct(avg)}`;
-  span.style.width = `${avg}%`;
+  span.style.width = `${avg * 100}%`;
   span.innerText = formatPct(avg);
   td.appendChild(span);
   tr.appendChild(td);
   span = document.createElement('span');
-  span.className = 'ttfb slow'
+  span.className = 'slow'
   span.title = `Fast: ${formatPct(slow)}`;
-  span.style.width = `${slow}%`;
+  span.style.width = `${slow * 100}%`;
   span.innerText = formatPct(slow);
   td.appendChild(span);
   return tr;
