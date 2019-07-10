@@ -65,25 +65,25 @@ function makeRow(host, client, n, fast, avg, slow) {
   td.innerText = (+n).toLocaleString();
   tr.appendChild(td);
   td = document.createElement('td');
-  td.colspan = 3;
-  let div = document.createElement('div');
-  div.className = 'ttfb fast'
-  div.title = `Fast: ${formatPct(fast)}`;
-  div.style.width = fast;
-  div.innerText = formatPct(fast);
-  td.appendChild(div);
-  div = document.createElement('div');
-  div.className = 'ttfb avg'
-  div.title = `Average: ${formatPct(avg)}`;
-  div.style.width = avg;
-  div.innerText = formatPct(avg);
-  td.appendChild(div);
+  td.setAttribute('colspan', 3);
+  let span = document.createElement('span');
+  span.className = 'ttfb fast'
+  span.title = `Fast: ${formatPct(fast)}`;
+  span.style.width = `${fast}%`;
+  span.innerText = formatPct(fast);
+  td.appendChild(span);
+  span = document.createElement('span');
+  span.className = 'ttfb avg'
+  span.title = `Average: ${formatPct(avg)}`;
+  span.style.width = `${avg}%`;
+  span.innerText = formatPct(avg);
+  td.appendChild(span);
   tr.appendChild(td);
-  div = document.createElement('div');
-  div.className = 'ttfb slow'
-  div.title = `Fast: ${formatPct(slow)}`;
-  div.style.width = slow;
-  div.innerText = formatPct(slow);
+  span = document.createElement('span');
+  span.className = 'ttfb slow'
+  span.title = `Fast: ${formatPct(slow)}`;
+  span.style.width = `${slow}%`;
+  span.innerText = formatPct(slow);
   td.appendChild(div);
   return tr;
 }
