@@ -25,7 +25,7 @@
     
     <style>
       .ttfb {
-        text-align: left;
+        text-align: right;
         color: #fff;
       }
       .ttfb span {
@@ -86,7 +86,6 @@ function makeRow(host, client, n, fast, avg, slow) {
   td = document.createElement('td');
   td.setAttribute('colspan', 3);
   td.className = 'ttfb';
-  td.style.textAlign = 'left';
   let span = document.createElement('span');
   span.className = 'fast'
   span.title = `Fast: ${formatPct(fast)}`;
