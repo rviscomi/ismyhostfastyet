@@ -1,8 +1,8 @@
 #standardSQL
 SELECT
-  CASE 
+  CASE
    WHEN platform = 'seravo' THEN 'Seravo'
-   WHEN platform = 'automattic.com/jobs' THEN 'Automattic' 
+   WHEN platform = 'automattic.com/jobs' THEN 'Automattic'
    WHEN platform = 'x-ah-environment' THEN 'Acquia'
    WHEN platform = 'x-pantheon-styx-hostname' THEN 'Pantheon'
    WHEN platform = 'wpe-backend' THEN 'WP Engine'
@@ -12,6 +12,7 @@ SELECT
    WHEN platform = 'x-github-request' THEN 'GitHub'
    WHEN platform = 'alproxy' THEN 'AlwaysData'
    WHEN platform = 'netlify' THEN 'Netlify'
+   WHEN platform = 'x-lw-cache' THEN 'Liquid Web'
    ELSE NULL
   END AS platform,
   client,
@@ -23,8 +24,8 @@ FROM
   `chrome-ux-report.all.201906`,
   UNNEST(experimental.time_to_first_byte.histogram.bin) AS ttfb
 JOIN
-  (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)), 
-      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify)')
+  (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)),
+      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify|x-lw-cache)')
     AS platform
   FROM `httparchive.summary_requests.2019_06_01_*`)
 ON
