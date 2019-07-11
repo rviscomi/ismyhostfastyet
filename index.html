@@ -299,7 +299,7 @@ function sortResults(data, field) {
 
 fetch('ttfb.json').then(r => r.text()).then(r => {
   // Convert newline-delimited JSON to regular JSON.
-  r = r.split('\n').reduce((a, i) => {
+  r = r.trim().split('\n').reduce((a, i) => {
     a.push(JSON.parse(i));
     return a;
   }, []);
