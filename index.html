@@ -238,7 +238,7 @@ function sortResults(data, field) {
     const diff = b[field] - a[field];
     if (isNaN(diff)) {
       // Do string comparison instead.
-      return b[field].localeCompare(a[field]);
+      return a[field].localeCompare(b[field]);
     }
     return diff;
   });
