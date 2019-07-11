@@ -9,6 +9,7 @@ SELECT
    WHEN platform = 'x-kinsta-cache' THEN 'Kinsta'
    WHEN platform = 'hubspot' THEN 'HubSpot'
    WHEN platform = '192fc2e7e50945beb8231a492d6a8024' THEN 'Siteground'
+   WHEN platform = 'x-github-request' THEN 'GitHub'
    ELSE NULL
   END AS platform,
   client,
@@ -20,7 +21,7 @@ FROM
   `chrome-ux-report.all.201906`,
   UNNEST(experimental.time_to_first_byte.histogram.bin) AS ttfb
 JOIN
-  (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by)), '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024)') AS platform FROM `httparchive.summary_requests.2019_05_01_*`)
+  (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by)), '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request)') AS platform FROM `httparchive.summary_requests.2019_05_01_*`)
 ON
   client = IF(form_factor.name = 'desktop', 'desktop', 'mobile') AND
   CONCAT(origin, '/') = url
