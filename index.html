@@ -249,7 +249,7 @@ fetch('ttfb.json').then(r => r.text()).then(r => {
 });
 
 document.getElementById('filter').addEventListener('change', (e) => {
-  updateResultsTable(sortResults(window.data, e.value));
+  updateResultsTable(sortResults(window.data, e.target.value));
 });
     </script>
   </body>
