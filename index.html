@@ -230,6 +230,11 @@ function updateResultsTable(data) {
   results.appendChild(frag);
 }
 
+function sortResults(data, field) {
+  if (!(field in data[0])) return data;
+  return data.sort((a, b) => b[field] - a[field]);
+}
+
 fetch('ttfb.json').then(r => r.text()).then(r => {
   // Convert newline-delimited JSON to regular JSON.
   r = r.split('\n').reduce((a, i) => {
@@ -242,7 +247,7 @@ fetch('ttfb.json').then(r => r.text()).then(r => {
 });
 
 document.getElementById('filter').addEventListener('change', (e) => {
-  console.log(e);
+  updateResultsTable(sortResults(window.data, e.value));
 });
     </script>
   </body>
