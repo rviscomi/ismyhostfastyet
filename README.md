@@ -4,7 +4,7 @@ Using web transparency data from the Chrome UX Report and HTTP Archive, this pro
 
 ## Methodology
 
-This is still a work in progress, but for an in depth methodology of a WordPress-specific version of this study, see bit.ly/ttfb-crux-wp.
+This is still a work in progress, but for an in depth methodology of a WordPress-specific version of this study, see http://bit.ly/ttfb-crux-wp.
 
 ## Contribute
 
