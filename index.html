@@ -241,7 +241,7 @@ function sortResults(data, field) {
       return b[field].localeCompare(a[field]);
     }
     return diff;
-  };
+  });
 }
 
 fetch('ttfb.json').then(r => r.text()).then(r => {
