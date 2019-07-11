@@ -303,7 +303,7 @@ fetch('ttfb.json').then(r => r.text()).then(r => {
 
 document.getElementById('filter').addEventListener('change', (e) => {
   const field = e.target.value;
-  gtag('event', 'sort', {'event_category': 'engagement', 'event_label': 'method', 'value': field});
+  gtag('event', 'sort', {'event_category': 'engagement', 'event_label': field});
   updateResultsTable(sortResults(window.data, field));
 });
     </script>
