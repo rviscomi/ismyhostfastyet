@@ -11,6 +11,7 @@ SELECT
    WHEN platform = '192fc2e7e50945beb8231a492d6a8024' THEN 'Siteground'
    WHEN platform = 'x-github-request' THEN 'GitHub'
    WHEN platform = 'alproxy' THEN 'AlwaysData'
+   WHEN platform = 'netlify' THEN 'Netlify'
    ELSE NULL
   END AS platform,
   client,
@@ -22,8 +23,8 @@ FROM
   `chrome-ux-report.all.201906`,
   UNNEST(experimental.time_to_first_byte.histogram.bin) AS ttfb
 JOIN
-  (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via)), 
-      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy)')
+  (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)), 
+      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify)')
     AS platform
   FROM `httparchive.summary_requests.2019_06_01_*`)
 ON
