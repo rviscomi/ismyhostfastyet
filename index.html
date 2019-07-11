@@ -90,51 +90,10 @@
       <div class="inner">
         <header>
           <h1>Is my host fast yet?</h1>
-          <h2>A web transparency study using CrUX and HTTP Archive</h2>
-          
-          <p>
-            <a href="https://github.com/rviscomi/ismyhostfastyet/">Contribute on GitHub!</a>
-          </p>
+          <h2>Real-world server response (Time to First Byte) latencies, as experienced by real-world users navigating the web.</h2>
         </header>
         
         <hr>
-        
-        <section>
-          <h2>How it works</h2>
-          
-          <p>
-            Hosts are detected by their HTTP header signatures. For example, a response header 
-            of <code>x-powered-by: HubSpot</code> for a website's HTML page indicates that it 
-            is hosted by HubSpot. The <a href="https://httparchive.org/">HTTP Archive</a> dataset 
-            includes metadata for over 5 million web pages. We query this dataset to detect whether 
-            the response headers include the signatures for known hosts.
-          </p>
-          
-          <p>
-            Once we know the websites for each host, we intersect those with the
-            <a href="http://bit.ly/chrome-ux-report">Chrome UX Report</a> dataset. This gives us
-            <strong><em>real user experience data</em></strong> about the performance of each website, 
-            including <abbr title="Time to First Byte">TTFB</abbr>. These values are rated as 
-            fast, average, or slow according to these rules:
-          </p>
-          
-          <dl>
-            <dt>Fast</dt>
-            <dd>Less than 200 ms</dd>
-
-            <dt>Average</dt>
-            <dd>Greater than or equal to 200 ms and less than 1000 ms</dd>
-
-            <dt>Slow</dt>
-            <dd>Greater than or equal to 1000 ms</dd>
-          </dl>
-          
-          <p>
-            <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#methodology">
-              Learn more about our methodology
-            </a>
-          </p>
-        </section>
         
         <section>
           <h2>Leaderboard: June 2019</h2>
@@ -168,11 +127,96 @@
         
         <section>
           <p>
-            Know how to detect any other hosting providers?
+            See a missing hosting provider?
             <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#contribute">
-              Add a new host.
+              Please help us identify how to surface them here.
             </a>
           </p>
+        </section>
+        
+        <section>
+          <h2>How do you measure real-world Time to First Byte?</h2>
+          
+          <p>
+            his report is powered by [Chrome User Experience Report](http://bit.ly/chrome-ux-report), 
+            which provides user experience metrics for how real-world Chrome users experience popular 
+            destinations on the web. As a result, this report does not rely on synthentic tests of 
+            each hosting provider, but instead provides insight into how real-world users experience 
+            the speed of sites hosted by various providers.
+          </p>
+          
+          <h2>What is Time to First Byte?</h2>
+          
+          <p>
+            TTFB is measured as the time from the start of navigation request until the time that the 
+            client receives the first byte of the response from the server. It includes network setup time 
+            (SSL, DNS, TCP) as well as server-side processing.
+          </p>
+          
+          <img src="ttfb.png" alt="Diagram showing TTFB as the network events from the prompt for unload to the response start">
+          
+          <p>
+            As you can see in the [Navigation Timing Level 2 draft spec](https://w3c.github.io/navigation-timing/) 
+            screenshot above, the metric is equivalent to `performance.getEntriesByType('navigation')[0].responseStart`.
+          </p>
+          
+          <h2>How do you determine: Fast, Average, Slow?</h2>
+
+          <p>
+            The thresholds for fast/average/slow TTFB are 200 ms as the upper limit for fast TTFB and 1000 ms 
+            as the lower limit for slow TTFB.
+          </p>
+          
+          <ul>
+            <li>
+              &lt; 200 ms “fast” TTFB is based on [server responsiveness](https://developers.google.com/speed/docs/insights/Server) 
+                   best practice recommendation
+            </li>
+            <li>
+              &gt;= 1000 ms “slow” TTFB is due to requirement for fast FCP threshold of &lt; 1000 ms. 
+              A server response that exceeds 1000ms cannot, by definition, meet the fast FCP goal and 
+              is thus considered slow.
+            </li>
+          </ul>
+          
+          <h2>What about other metrics, why just TTFB?</h2>
+          
+          <p>
+            Chrome UX Report provides other metrics like First Paint, First Contentful Paint, First Input Delay, 
+            and others. We plan to add more metrics to this report in the future. If you would like to help out, 
+            please [let us know on GitHub](https://github.com/rviscomi/ismyhostfastyet).
+          </p>
+
+          <h2>How frequently is this reported updated?</h2>
+          
+          <p>
+            Chrome UX Report publishes monthly datasets and this report is updated once a month based on that data.
+          </p>
+          
+          <h2>How are the hosting providers detected?</h2>
+          
+          <p>
+            Chrome UX Report does not provide an explicit dimension for which hosting provider 
+            is associated with each origin. To perform the classification we rely on another 
+            dataset: [HTTP Archive](https://httparchive.org) crawls all of the origins provided 
+            in CrUX and runs logic to identify providers based on header signatures, DNS records, and other signals. 
+          </p>
+          
+          <p>
+            For example, a response header of `X-Powered-By: HubSpot` for a website's HTML page indicates that 
+            it is hosted by HubSpot. 
+          </p>
+          
+          <p>
+            Would you like to see a hosting provider included in this report that’s currently 
+            not on the list? Please [read more about our methodology](https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#methodology) 
+            and [join us on GitHub](https://github.com/rviscomi/ismyhostfastyet/) — we’d appreciate your help to 
+            allow us to expand coverage of this report!
+          </p>
+          
+          <h2>What about <em>X</em>?</h2>
+          
+          <p>Good question! Please [start a discussion](https://github.com/rviscomi/ismyhostfastyet/issues) on GitHub, so we can answer it.</p>
         </section>
 
         <footer>
