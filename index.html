@@ -234,7 +234,14 @@ function updateResultsTable(data) {
 
 function sortResults(data, field) {
   if (!(field in data[0])) return data;
-  return data.sort((a, b) => b[field] - a[field]);
+  return data.sort((a, b) => {
+    const diff = b[field] - a[field];
+    if (isNaN(diff)) {
+      // Do string comparison instead.
+      return b[field].localeCompare(a[field]);
+    }
+    return diff;
+  };
 }
 
 fetch('ttfb.json').then(r => r.text()).then(r => {
