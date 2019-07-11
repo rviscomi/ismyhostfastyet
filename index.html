@@ -252,7 +252,7 @@ fetch('ttfb.json').then(r => r.text()).then(r => {
   }, []);
   window.data = r;
 
-  updateResultsTable(r);
+  updateResultsTable(sortResults(r, 'fast'));
 });
 
 document.getElementById('filter').addEventListener('change', (e) => {
