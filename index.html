@@ -261,7 +261,7 @@ function makeRow(host, client, n, fast, avg, slow) {
   tr.appendChild(td);
   span = document.createElement('span');
   span.className = 'slow'
-  span.title = `Fast: ${formatPct(slow)}`;
+  span.title = `Slow: ${formatPct(slow)}`;
   span.style.width = `${slow * 100}%`;
   span.innerText = formatPct(slow);
   td.appendChild(span);
