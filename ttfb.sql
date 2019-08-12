@@ -16,7 +16,7 @@ SELECT
    WHEN platform = 'squarespace' THEN 'Squarespace'
    WHEN platform = 'x-wix-request-id' THEN 'Wix'
    WHEN platform = 'x-shopify-stage' THEN 'Shopify'
-   WHEN platform = 'x-now-id' THEN 'ZEIT Now'
+   WHEN platform = 'x-now-id' AND platform <> 'x-now-instance' THEN 'ZEIT Now'
    WHEN platform = 'flywheel' THEN 'Flywheel'
    WHEN platform = 'weebly' THEN 'Weebly'
    ELSE NULL
