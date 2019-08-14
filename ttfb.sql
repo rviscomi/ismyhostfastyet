@@ -16,7 +16,7 @@ SELECT
    WHEN platform = 'squarespace' THEN 'Squarespace'
    WHEN platform = 'x-wix-request-id' THEN 'Wix'
    WHEN platform = 'x-shopify-stage' THEN 'Shopify'
-   WHEN platform = 'x-now-id' THEN 'ZEIT Now'
+   WHEN platform = 'x-now-cache' THEN 'ZEIT Now'
    WHEN platform = 'flywheel' THEN 'Flywheel'
    WHEN platform = 'weebly' THEN 'Weebly'
    ELSE NULL
@@ -31,7 +31,7 @@ FROM
   UNNEST(experimental.time_to_first_byte.histogram.bin) AS ttfb
 JOIN
   (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)),
-      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-now-id|flywheel|weebly)')
+      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-now-cache|flywheel|weebly)')
     AS platform
   FROM `httparchive.summary_requests.2019_06_01_*`)
 ON
