@@ -48,6 +48,21 @@
       td {
         vertical-align: middle;
       }
+      #results.loading {
+        color: #ddd;
+      }
+      #results.loading .fast {
+        background-color: hsla(153, 0%, 34%, 1);
+        color: hsla(153, 0%, 34%, 1);
+      }
+      #results.loading .avg {
+        background-color: hsl(44, 0%, 62%);
+        color: hsl(44, 0%, 62%);
+      }
+      #results.loading .slow {
+        background-color: hsl(4, 0%, 56%);
+        color: hsl(4, 0%, 56%);
+      }
       .ttfb {
         width: 60%;
         text-align: right;
@@ -130,7 +145,7 @@
                <th>Average</th>
                <th>Slow</th>
             </thead>
-            <tbody id="results"></tbody>
+            <tbody id="results" class="loading"></tbody>
           </table>
         </section>
         
@@ -242,7 +257,7 @@ function makeRow(host, client, n, fast, avg, slow) {
   td.innerText = client;
   tr.appendChild(td);
   td = document.createElement('td');
-  td.innerText = (+n).toLocaleString();
+  td.innerText = isNaN(parseInt(n, 10)) ? n : (+n).toLocaleString();
   tr.appendChild(td);
   td = document.createElement('td');
   td.setAttribute('colspan', 3);
@@ -298,6 +313,34 @@ function sortResults(data, field) {
   });
 }
 
+function getRandomFiller(maxLength) {
+  var filler = '█';
+  var len = Math.ceil(Math.random() * maxLength);
+  return new Array(len).fill(filler).join('');
+}
+
+function getRandomDistribution() {
+  var fast = Math.random();
+  var avg = (1 - fast) * Math.random();
+  var slow = 1 - (fast + avg);
+  return [fast, avg, slow];
+}
+
+// Temporary placeholder data.
+window.data = [];
+for (var i = 0; i < 36; i++) {
+  var [fast, avg, slow] = getRandomDistribution();
+  window.data.push({
+    platform: getRandomFiller(10),
+    client: getRandomFiller(5),
+    n: getRandomFiller(1),
+    fast,
+    avg,
+    slow
+  });
+}
+updateResultsTable(sortResults(window.data, 'fast'));
+
 fetch('ttfb.json').then(r => r.text()).then(r => {
   // Convert newline-delimited JSON to regular JSON.
   r = r.trim().split('\n').reduce((a, i) => {
@@ -306,6 +349,8 @@ fetch('ttfb.json').then(r => r.text()).then(r => {
   }, []);
   window.data = r;
 
+  const results = document.getElementById('results');
+  results.classList.remove('loading');
   updateResultsTable(sortResults(r, 'fast'));
 });
 
