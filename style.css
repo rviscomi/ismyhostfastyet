@@ -145,7 +145,7 @@ body {
     line-height: 1.5;
     color: #6d6d6d;
     text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-    background: #e7e7e7 url(/assets/images/body-bg.png) 0 0 repeat
+    background-color: #e7e7e7
 }
 
 a {
@@ -279,15 +279,6 @@ ul,ol,dl {
     margin-bottom: 20px
 }
 
-hr {
-    height: 1px;
-    padding-bottom: 1em;
-    margin-top: 1em;
-    line-height: 1px;
-    background: transparent url("/assets/images/hr.png") 50% 0 no-repeat;
-    border: none
-}
-
 strong {
     font-weight: bold
 }
@@ -391,8 +382,7 @@ footer {
     padding-bottom: 30px;
     margin-top: 40px;
     font-size: 13px;
-    color: #aaa;
-    background: transparent url("/assets/images/hr.png") 0 0 no-repeat
+    color: #aaa
 }
 
 footer a {
