@@ -378,6 +378,7 @@ dl dt {
 }
 
 footer {
+    border-top: 1px solid #ccc;
     padding-top: 20px;
     padding-bottom: 30px;
     margin-top: 40px;
