@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-22381566-4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-22381566-4');
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Chivo:900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="https://ismyhostfastyet.com/thinking.png">
+
+    <title>Is my host fast yet?</title>
+    <meta name="author" content="Rick Viscomi">
+    <meta name="description" content="A study of web host performance using real-world transparency data from Chrome UX Report and HTTP Archive.">
+    <meta property="og:title" content="Is my host fast yet?" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="canonical" href="https://ismyhostfastyet.com/" />
+    <meta property="og:url" content="https://ismyhostfastyet.com/" />
+    <meta property="og:site_name" content="Is my host fast yet?" />
+    <script type="application/ld+json">
+    {"@type":"WebSite","url":"https://ismyhostfastyet.com/","name":"ismyhostfastyet","headline":"Is my host fast yet?","@context":"http://schema.org"}
+    </script>
+    
+    <style>
+      p, td {
+        font-weight: 400;
+      }
+      section {
+        margin-bottom: 30px;
+      }
+      small {
+        font-size: small;
+      }
+      dd {
+        margin-left: 20px;
+      }
+      td {
+        vertical-align: middle;
+      }
+      #results.loading {
+        color: #ddd;
+      }
+      #results.loading .fast {
+        background-color: hsla(153, 0%, 34%, 1);
+        color: hsla(153, 0%, 34%, 1);
+      }
+      #results.loading .avg {
+        background-color: hsl(44, 0%, 62%);
+        color: hsl(44, 0%, 62%);
+      }
+      #results.loading .slow {
+        background-color: hsl(4, 0%, 56%);
+        color: hsl(4, 0%, 56%);
+      }
+      .ttfb {
+        width: 60%;
+        text-align: right;
+      }
+      .ttfb span {
+        display: inline-block;
+        overflow: hidden;
+        line-height: 30px;
+        font-size: 0.8em;
+        font-weight: bold;
+        text-shadow: none;
+        color: #fff;
+      }
+      .fast {
+        background-color: #0aa55f;
+      }
+      .fast:hover {
+        outline: 1px solid #0aa55f;
+      }
+      .avg {
+        background-color: #fbca42;
+      }
+      .avg:hover {
+        outline: 1px solid #fbca42;
+      }
+      .slow {
+        background-color: #dd493f;
+      }
+      .slow:hover {
+        outline: 1px solid #dd493f;
+      }
+      @media only screen and (min-width: 768px) {
+        .inner {
+          width: 800px;
+        }
+        code {
+          white-space: nowrap;
+        }
+      }
+      @media ((-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx)) {
+        p, td {
+          font-weight: 300;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+          <h1>Is my host fast yet?</h1>
+          <h2>Real-world server response (Time to First Byte) latencies, as experienced by real-world users navigating the web.</h2>
+        </header>
+        
+        <hr>
+        
+        <section>
+          <h2>Leaderboard: August 2019</h2>
+          
+          <form id="filter">
+            <label>
+              Sort by
+              <select name="sort">
+                <option value="fast" selected>Fast</option>
+                <option value="avg">Average</option>
+                <option value="slow">Slow</option>
+                <option value="platform">Host</option>
+                <option value="client">Client</option>
+                <option value="n">Websites</option>
+              </select>
+            </label>
+          </form>
+          
+          <table>
+             <thead>
+               <th>Host</th>
+               <th>Client</th>
+               <th>Websites</th>
+               <th>Fast</th>
+               <th>Average</th>
+               <th>Slow</th>
+            </thead>
+            <tbody id="results" class="loading"></tbody>
+          </table>
+        </section>
+        
+        <section>
+          <p>
+            See a missing hosting provider?
+            <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#contribute">
+              Please help us identify how to surface them here.
+            </a>
+          </p>
+        </section>
+        
+        <section>
+          <h2>How do you measure real-world Time to First Byte?</h2>
+          
+          <p>
+            This report is powered by <a href="http://bit.ly/chrome-ux-report">Chrome User Experience Report</a>, 
+            which provides user experience metrics for how real-world Chrome users experience popular 
+            destinations on the web. As a result, this report does not rely on synthentic tests of 
+            each hosting provider, but instead provides insight into how real-world users experience 
+            the speed of sites hosted by various providers.
+          </p>
+          
+          <h2>What is Time to First Byte?</h2>
+          
+          <p>
+            TTFB is measured as the time from the start of navigation request until the time that the 
+            client receives the first byte of the response from the server. It includes network setup time 
+            (SSL, DNS, TCP) as well as server-side processing.
+          </p>
+          
+          <img src="ttfb.png" loading="lazy" height="248" width="800" alt="Diagram showing TTFB as the network events from the prompt for unload to the response start">
+          
+          <p>
+            As you can see in the <a href="https://w3c.github.io/navigation-timing/">Navigation Timing Level 2 draft spec</a> 
+            screenshot above, the metric is equivalent to <code>performance.getEntriesByType('navigation')[0].responseStart</code>.
+          </p>
+          
+          <h2>How do you determine: Fast, Average, Slow?</h2>
+
+          <p>
+            The thresholds for fast/average/slow TTFB are 200 ms as the upper limit for fast TTFB and 1000 ms 
+            as the lower limit for slow TTFB.
+          </p>
+          
+          <ul>
+            <li>
+              “fast” TTFB &lt; 200 ms is based on the <a href="https://developers.google.com/speed/docs/insights/Server">server responsiveness</a> 
+                   best practice.
+            </li>
+            <li>
+              “slow” TTFB &gt;= 1000 ms is based on the requirement for the fast First Contentful Paint (FCP) threshold 
+              to be &lt; 1000 ms. A server response that exceeds 1000 ms cannot, by definition, meet the fast FCP goal.
+            </li>
+          </ul>
+          
+          <h2>What about other metrics, why just TTFB?</h2>
+          
+          <p>
+            Chrome UX Report provides other metrics like First Paint, First Contentful Paint, First Input Delay, 
+            and others. We plan to add more metrics to this report in the future. If you would like to help out, 
+            please <a href="https://github.com/rviscomi/ismyhostfastyet">let us know on GitHub</a>.
+          </p>
+
+          <h2>How frequently is this reported updated?</h2>
+          
+          <p>
+            Chrome UX Report publishes monthly datasets and this report is updated once a month based on that data.
+          </p>
+          
+          <h2>How are the hosting providers detected?</h2>
+          
+          <p>
+            Chrome UX Report does not provide an explicit dimension for which hosting provider 
+            is associated with each origin. To perform the classification we rely on another 
+            dataset: <a href="https://httparchive.org">HTTP Archive</a> crawls all of the origins provided 
+            in CrUX and runs logic to identify providers based on header signatures, DNS records, and other signals. 
+          </p>
+          
+          <p>
+            For example, a response header of <code>X-Powered-By: HubSpot</code> for a website's HTML page indicates that 
+            it is hosted by HubSpot. 
+          </p>
+          
+          <p>
+            Would you like to see a hosting provider included in this report that’s currently 
+            not on the list? Please <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#methodology">read more about our methodology</a> 
+            and <a href="https://github.com/rviscomi/ismyhostfastyet/">join us on GitHub</a> — we’d appreciate your help to 
+            allow us to expand coverage of this report!
+          </p>
+          
+          <h2>What about <em>X</em>?</h2>
+          
+          <p>Good question! Please <a href="https://github.com/rviscomi/ismyhostfastyet/issues">start a discussion</a> on GitHub, so we can answer it.</p>
+        </section>
+
+        <footer>
+          ismyhostfastyet is maintained by <a href="https://twitter.com/rick_viscomi">Rick Viscomi</a>
+        </footer>
+      </div>
+    </div>
+    <script>
+function makeRow(host, client, n, fast, avg, slow) {
+  const tr = document.createElement('tr');
+  let td = document.createElement('td');
+  td.innerText = host;
+  tr.appendChild(td);
+  td = document.createElement('td');
+  td.innerText = client;
+  tr.appendChild(td);
+  td = document.createElement('td');
+  td.innerText = isNaN(parseInt(n, 10)) ? n : (+n).toLocaleString();
+  tr.appendChild(td);
+  td = document.createElement('td');
+  td.setAttribute('colspan', 3);
+  td.className = 'ttfb';
+  let span = document.createElement('span');
+  span.className = 'fast'
+  span.title = `Fast: ${formatPct(fast)}`;
+  span.style.width = `${fast * 100}%`;
+  span.innerText = formatPct(fast);
+  td.appendChild(span);
+  span = document.createElement('span');
+  span.className = 'avg'
+  span.title = `Average: ${formatPct(avg)}`;
+  span.style.width = `${avg * 100}%`;
+  span.innerText = formatPct(avg);
+  td.appendChild(span);
+  tr.appendChild(td);
+  span = document.createElement('span');
+  span.className = 'slow'
+  span.title = `Slow: ${formatPct(slow)}`;
+  span.style.width = `${slow * 100}%`;
+  span.innerText = formatPct(slow);
+  td.appendChild(span);
+  return tr;
+}
+      
+function formatPct(n) {
+  return (n * 100).toFixed(2) + '%';
+}
+      
+function updateResultsTable(data) {
+  const results = document.getElementById('results');
+  // Clear any stale contents.
+  results.innerHTML = '';
+  
+  const frag = document.createDocumentFragment();
+  data.forEach(i => {
+    const tr = makeRow(i.platform, i.client, i.n, i.fast, i.avg, i.slow);
+    frag.appendChild(tr);
+  });
+  results.appendChild(frag);
+}
+
+function sortResults(data, field) {
+  if (!(field in data[0])) return data;
+  return data.sort((a, b) => {
+    const diff = b[field] - a[field];
+    if (isNaN(diff)) {
+      // Do string comparison instead.
+      return a[field].localeCompare(b[field]);
+    }
+    return diff;
+  });
+}
+
+fetch('ttfb.json').then(r => r.text()).then(r => {
+  // Convert newline-delimited JSON to regular JSON.
+  r = r.trim().split('\n').reduce((a, i) => {
+    a.push(JSON.parse(i));
+    return a;
+  }, []);
+  window.data = r;
+
+  updateResultsTable(sortResults(r, 'fast'));
+});
+
+document.getElementById('filter').addEventListener('change', (e) => {
+  const field = e.target.value;
+  gtag('event', 'sort', {'event_category': 'engagement', 'event_label': field});
+  updateResultsTable(sortResults(window.data, field));
+});
+    </script>
+  </body>
+</html>
