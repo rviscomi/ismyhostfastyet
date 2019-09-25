@@ -25,9 +25,9 @@
 {"platform":"Kinsta","client":"desktop","n":"4107","fast":"0.24665821394402065","avg":"0.4476311640329239","slow":"0.30571062202305754"}
 {"platform":"Kinsta","client":"mobile","n":"3968","fast":"0.2481434035130508","avg":"0.42616283375234787","slow":"0.3256937627346071"}
 {"platform":"Netlify","client":"desktop","n":"3837","fast":"0.34081005226313177","avg":"0.5133771404110645","slow":"0.14581280732580368"}
-{"platform":"GoDaddy Website Builder","client":"mobile","n":"3764","fast":"0.46012028991823967","avg":"0.42137496685937553","slow":"0.11850474322238691"}
+{"platform":"GoDaddy Website Builder","client":"mobile","n":"3326","fast":"0.49119585782873276","avg":"0.41369328992747273","slow":"0.09511085224379473"}
 {"platform":"Netlify","client":"mobile","n":"2884","fast":"0.2995051266639055","avg":"0.5344818578098085","slow":"0.16601301552629102"}
-{"platform":"GoDaddy Website Builder","client":"desktop","n":"2704","fast":"0.5564888613655603","avg":"0.34683612169258754","slow":"0.09667501694185265"}
+{"platform":"GoDaddy Website Builder","client":"desktop","n":"2331","fast":"0.6238992645858052","avg":"0.3208904601726094","slow":"0.055210275241586365"}
 {"platform":"Liquid Web","client":"desktop","n":"1833","fast":"0.2530291840389192","avg":"0.45862118075176417","slow":"0.2883496352093188"}
 {"platform":"Liquid Web","client":"mobile","n":"1752","fast":"0.256095931181548","avg":"0.4472566206741575","slow":"0.29664744814429855"}
 {"platform":"Seravo","client":"mobile","n":"518","fast":"0.34760267818118434","avg":"0.514194058534297","slow":"0.138203263284522"}

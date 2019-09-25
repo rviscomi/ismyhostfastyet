@@ -19,7 +19,7 @@ SELECT
    WHEN platform = 'x-now-cache' THEN 'ZEIT Now'
    WHEN platform = 'flywheel' THEN 'Flywheel'
    WHEN platform = 'weebly' THEN 'Weebly'
-   WHEN platform = 'dps' THEN 'GoDaddy Website Builder'
+   WHEN platform = 'dps/' THEN 'GoDaddy Website Builder'
    ELSE NULL
   END AS platform,
   client,
@@ -32,7 +32,7 @@ FROM
   UNNEST(experimental.time_to_first_byte.histogram.bin) AS ttfb
 JOIN
   (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)),
-      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-now-cache|flywheel|weebly|dps)')
+      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-now-cache|flywheel|weebly|dps/)')
     AS platform
   FROM `httparchive.summary_requests.2019_07_01_*`)
 ON
@@ -66,7 +66,7 @@ SELECT
    WHEN platform = 'x-now-cache' THEN 'ZEIT Now'
    WHEN platform = 'flywheel' THEN 'Flywheel'
    WHEN platform = 'weebly' THEN 'Weebly'
-   WHEN platform = 'dps' THEN 'GoDaddy Website Builder'
+   WHEN platform = 'dps/' THEN 'GoDaddy Website Builder'
    ELSE NULL
   END AS platform,
   client,
@@ -79,7 +79,7 @@ FROM
   UNNEST(experimental.time_to_first_byte.histogram.bin) AS ttfb
 JOIN
   (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)),
-      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-now-cache|flywheel|weebly|dps)')
+      '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-now-cache|flywheel|weebly|dps/)')
     AS platform
   FROM `httparchive.summary_requests.2019_08_01_*`)
 ON
