@@ -28,13 +28,14 @@ SELECT
   SUM(IF(ttfb.start >= 200 AND ttfb.start < 1000, ttfb.density, 0)) / SUM(ttfb.density) AS avg,
   SUM(IF(ttfb.start >= 1000, ttfb.density, 0)) / SUM(ttfb.density) AS slow
 FROM
-  `chrome-ux-report.all.201908`,
+  `chrome-ux-report.all.201909`,
   UNNEST(experimental.time_to_first_byte.histogram.bin) AS ttfb
 JOIN
   (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)),
       '(seravo|x-kinsta-cache|automattic.com/jobs|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|hubspot|192fc2e7e50945beb8231a492d6a8024|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-now-cache|flywheel|weebly|dps/)')
     AS platform
-  FROM `httparchive.summary_requests.2019_08_01_*`)
+  FROM `httparchive.summary_requests.2019_09_01_*`
+  WHERE firstHtml)
 ON
   client = IF(form_factor.name = 'desktop', 'desktop', 'mobile') AND
   CONCAT(origin, '/') = url
