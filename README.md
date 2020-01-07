@@ -13,3 +13,8 @@ If you'd like to add a new host, you'll need to do three things:
 1. Determine its HTTP header fingerprint, for example `X-Powered-By: YourHost`
 2. Submit a PR to update [ttfb.sql](ttfb.sql) with your new host's metadata
 3. Run `ttfb.sql` on [BigQuery](https://cloud.google.com/bigquery/) and update [ttfb.json](ttfb.json) with the results
+
+List of available datasets:
+
+* [chrome-ux-report](https://bigquery.cloud.google.com/dataset/chrome-ux-report:all?pli=1)
+* [httparchive](https://bigquery.cloud.google.com/dataset/httparchive:summary_requests?pli=1)
