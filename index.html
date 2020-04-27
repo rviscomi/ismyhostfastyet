@@ -120,7 +120,7 @@
         <hr>
         
         <section>
-          <h2>Leaderboard: December 2019</h2>
+          <h2>Leaderboard: March 2020</h2>
           
           <form id="filter">
             <label>
@@ -141,9 +141,9 @@
                <th>Host</th>
                <th>Client</th>
                <th>Websites</th>
-               <th>Fast</th>
+               <th>Fast<br>(&lt; 200ms)</th>
                <th>Average</th>
-               <th>Slow</th>
+               <th>Slow<br>(&gt;= 1000ms)</th>
             </thead>
             <tbody id="results" class="loading"></tbody>
           </table>
@@ -341,12 +341,7 @@ for (var i = 0; i < 36; i++) {
 }
 updateResultsTable(sortResults(window.data, 'fast'));
 
-fetch('ttfb.json').then(r => r.text()).then(r => {
-  // Convert newline-delimited JSON to regular JSON.
-  r = r.trim().split('\n').reduce((a, i) => {
-    a.push(JSON.parse(i));
-    return a;
-  }, []);
+fetch('ttfb.json').then(r => r.json()).then(r => {
   window.data = r;
 
   const results = document.getElementById('results');
