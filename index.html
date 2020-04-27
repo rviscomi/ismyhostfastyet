@@ -264,20 +264,20 @@ function makeRow(host, client, n, fast, avg, slow) {
   td.className = 'ttfb';
   let span = document.createElement('span');
   span.className = 'fast'
-  span.title = `Fast: ${formatPct(fast)}`;
+  span.title = `Fast: ${formatPct(fast)} of websites`;
   span.style.width = `${fast * 100}%`;
   span.innerText = formatPct(fast);
   td.appendChild(span);
   span = document.createElement('span');
   span.className = 'avg'
-  span.title = `Average: ${formatPct(avg)}`;
+  span.title = `Average: ${formatPct(avg)} of websites`;
   span.style.width = `${avg * 100}%`;
   span.innerText = formatPct(avg);
   td.appendChild(span);
   tr.appendChild(td);
   span = document.createElement('span');
   span.className = 'slow'
-  span.title = `Slow: ${formatPct(slow)}`;
+  span.title = `Slow: ${formatPct(slow)} of websites`;
   span.style.width = `${slow * 100}%`;
   span.innerText = formatPct(slow);
   td.appendChild(span);
