@@ -341,12 +341,7 @@ for (var i = 0; i < 36; i++) {
 }
 updateResultsTable(sortResults(window.data, 'fast'));
 
-fetch('ttfb.json').then(r => r.text()).then(r => {
-  // Convert newline-delimited JSON to regular JSON.
-  r = r.trim().split('\n').reduce((a, i) => {
-    a.push(JSON.parse(i));
-    return a;
-  }, []);
+fetch('ttfb.json').then(r => r.json()).then(r => {
   window.data = r;
 
   const results = document.getElementById('results');
