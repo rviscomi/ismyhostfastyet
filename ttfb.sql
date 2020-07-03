@@ -20,7 +20,7 @@ SELECT
    WHEN platform = 'squarespace' THEN 'Squarespace'
    WHEN platform = 'x-wix-request-id' THEN 'Wix'
    WHEN platform = 'x-shopify-stage' THEN 'Shopify'
-   WHEN platform = 'x-now-cache' THEN 'ZEIT Now'
+   WHEN platform = 'x-vercel-id' THEN 'Vercel'
    WHEN platform = 'flywheel' THEN 'Flywheel'
    WHEN platform = 'weebly' THEN 'Weebly'
    WHEN platform = 'dps/' THEN 'GoDaddy Website Builder'
@@ -36,7 +36,7 @@ FROM
   UNNEST(experimental.time_to_first_byte.histogram.bin) AS ttfb
 JOIN
   (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)),
-      '(seravo|x-kinsta-cache|automattic.com/jobs|wpvip.com/careers|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|wp engine|hubspot|b7440e60b07ee7b8044761568fab26e8|624d5be7be38418a3e2a818cc8b7029b|6b7412fb82ca5edfd0917e3957f05d89|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-now-cache|flywheel|weebly|dps/)')
+      '(seravo|x-kinsta-cache|automattic.com/jobs|wpvip.com/careers|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|wp engine|hubspot|b7440e60b07ee7b8044761568fab26e8|624d5be7be38418a3e2a818cc8b7029b|6b7412fb82ca5edfd0917e3957f05d89|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-vercel-id|flywheel|weebly|dps/)')
     AS platform
   FROM `httparchive.summary_requests.2020_04_01_*`
   WHERE firstHtml)
