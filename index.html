@@ -120,7 +120,7 @@
         <hr>
 
         <section>
-          <h2>Leaderboard: August 2020</h2>
+          <h2>Leaderboard: November 2020</h2>
 
           <form id="filter">
             <label>
@@ -141,9 +141,9 @@
                <th>Host</th>
                <th>Client</th>
                <th>Websites</th>
-               <th>Fast<br>(&lt; 200ms)</th>
+               <th>Fast<br>(p75 &lt; 200ms)</th>
                <th>Average</th>
-               <th>Slow<br>(&gt;= 1000ms)</th>
+               <th>Slow<br>(p75 &gt;= 1000ms)</th>
             </thead>
             <tbody id="results" class="loading"></tbody>
           </table>
@@ -187,8 +187,7 @@
           <h2>How do you determine: Fast, Average, Slow?</h2>
 
           <p>
-            The thresholds for fast/average/slow TTFB are 200 ms as the upper limit for fast TTFB and 1000 ms
-            as the lower limit for slow TTFB.
+            The thresholds for fast/average/slow TTFB are 200 ms as the upper limit for fast TTFB and 1000 ms as the lower limit for slow TTFB.
           </p>
 
           <ul>
@@ -201,6 +200,14 @@
               to be &lt; 1000 ms. A server response that exceeds 1000 ms cannot, by definition, meet the fast FCP goal.
             </li>
           </ul>
+
+          <p>
+            The 75th percentile (p75) TTFB is analyzed for each website, which is determined to be fast or slow by where it falls between those thresholds.
+          </p>
+
+          <p>
+            The percentages for each host are calculated by taking the number of websites whose p75 TTFB is fast, average, and slow, and dividing each by the total number of websites. A previous version of this report averaged all websites' TTFB experiences together into a big, muddled distribution. This new approach is more accurate since it counts websites, not averaged experiences.
+          </p>
 
           <h2>What about other metrics, why just TTFB?</h2>
 

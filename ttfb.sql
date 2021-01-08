@@ -1,5 +1,5 @@
 #standardSQL
-SELECT
+SELECT DISTINCT
   CASE
    WHEN platform = 'seravo' THEN 'Seravo'
    WHEN platform = 'automattic.com/jobs' THEN 'Automattic'
@@ -28,26 +28,43 @@ SELECT
    ELSE NULL
   END AS platform,
   client,
-  COUNT(DISTINCT origin) AS n,
-  SUM(IF(ttfb.start < 200, ttfb.density, 0)) / SUM(ttfb.density) AS fast,
-  SUM(IF(ttfb.start >= 200 AND ttfb.start < 1000, ttfb.density, 0)) / SUM(ttfb.density) AS avg,
-  SUM(IF(ttfb.start >= 1000, ttfb.density, 0)) / SUM(ttfb.density) AS slow
-FROM
-  `chrome-ux-report.all.202008`,
-  UNNEST(experimental.time_to_first_byte.histogram.bin) AS ttfb
-JOIN
-  (SELECT _TABLE_SUFFIX AS client, url, REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)),
-      r'(seravo|x-kinsta-cache|automattic.com/jobs|wpvip.com/careers|wordpress\.com|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|wp engine|hubspot|b7440e60b07ee7b8044761568fab26e8|624d5be7be38418a3e2a818cc8b7029b|6b7412fb82ca5edfd0917e3957f05d89|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-vercel-id|flywheel|weebly|dps/)')
-    AS platform
-  FROM `httparchive.summary_requests.2020_08_01_*`
-  WHERE firstHtml)
-ON
-  client = IF(form_factor.name = 'desktop', 'desktop', 'mobile') AND
-  CONCAT(origin, '/') = url
+  COUNT(DISTINCT url) AS n,
+  COUNT(DISTINCT IF(ttfb = 'Good', url, NULL)) / COUNT(DISTINCT url) AS fast,
+  COUNT(DISTINCT IF(ttfb = 'Needs Improvement', url, NULL)) / COUNT(DISTINCT url) AS avg,
+  COUNT(DISTINCT IF(ttfb = 'Poor', url, NULL)) / COUNT(DISTINCT url) AS slow
+FROM (
+  SELECT
+    IF(device = 'desktop', 'desktop', 'mobile') AS client,
+    CONCAT(origin, '/') AS url,
+    IF (
+      (fast_ttfb / (fast_ttfb + avg_ttfb + slow_ttfb)) >= 0.75,
+      'Good',
+      IF(
+        (slow_ttfb / (fast_ttfb + avg_ttfb + slow_ttfb)) >= 0.25,
+        'Poor',
+        'Needs Improvement'
+    )) AS ttfb
+  FROM
+    `chrome-ux-report.materialized.device_summary`
+  WHERE
+    date = '2020-11-01' AND
+    device IN ('desktop', 'phone'))
+JOIN (
+  SELECT
+    _TABLE_SUFFIX AS client,
+    url,
+    REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)),
+      r'(seravo|x-kinsta-cache|automattic.com/jobs|wpvip.com/careers|wordpress\.com|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|wp engine|hubspot|b7440e60b07ee7b8044761568fab26e8|624d5be7be38418a3e2a818cc8b7029b|6b7412fb82ca5edfd0917e3957f05d89|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-vercel-id|flywheel|weebly|dps/)') AS platform
+  FROM
+    `httparchive.summary_requests.2020_11_01_*`
+  WHERE
+    firstHtml)
+USING
+  (client, url)
 WHERE
   platform IS NOT NULL
 GROUP BY
   platform,
   client
 ORDER BY
-  n DESC
+  fast DESC
