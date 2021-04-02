@@ -47,7 +47,7 @@ FROM (
   FROM
     `chrome-ux-report.materialized.device_summary`
   WHERE
-    date = '2020-11-01' AND
+    date = '2021-2-01' AND
     device IN ('desktop', 'phone'))
 JOIN (
   SELECT
@@ -56,7 +56,7 @@ JOIN (
     REGEXP_EXTRACT(LOWER(CONCAT(respOtherHeaders, resp_x_powered_by, resp_via, resp_server)),
       r'(seravo|x-kinsta-cache|automattic.com/jobs|wpvip.com/careers|wordpress\.com|x-ah-environment|x-pantheon-styx-hostname|wpe-backend|wp engine|hubspot|b7440e60b07ee7b8044761568fab26e8|624d5be7be38418a3e2a818cc8b7029b|6b7412fb82ca5edfd0917e3957f05d89|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-vercel-id|flywheel|weebly|dps/)') AS platform
   FROM
-    `httparchive.summary_requests.2020_11_01_*`
+    `httparchive.summary_requests.2021_02_01_*`
   WHERE
     firstHtml)
 USING
