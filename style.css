@@ -180,7 +180,7 @@ header h2 {
 
 #container {
     min-height: 595px;
-    background: radial-gradient(at center top, #fff, transparent 55%)
+    background: radial-gradient(at center top, #fff, rgba(255,255,255,0) 55%)
 }
 
 .inner {
