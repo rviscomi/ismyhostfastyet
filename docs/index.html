@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <title>Is my host fast yet?</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link rel="shortcut icon" href="https://ismyhostfastyet.com/assets/favicon.svg">
+    <!-- <link rel="canonical" href="https://ismyhostfastyet.com/" /> -->
+    <meta name="author" content="Rick Viscomi">
+    <meta name="description" content="A study of web host performance using real-world transparency data from Chrome UX Report and HTTP Archive.">
+    <meta property="og:title" content="Is my host fast yet?" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://ismyhostfastyet.com/" />
+    <meta property="og:site_name" content="Is my host fast yet?" />
+    <style>:root {
+  /* Colors */
+  --primaryH: 210;
+  --primaryS: 50%;
+  --primaryL: 40%;
+  --primary-bg: #fff;
+  --secondaryH: 0;
+  --secondaryS: 0%;
+  --secondaryL: 13%;
+  --secondary-bg: #fff;
+
+  /* Font */
+  --font-family-main: Raleway, sans-serif;
+  --font-family-alt1: Raleway, sans-serif;
+  --font-family-alt2: Raleway, sans-serif;
+  --font-family-mono: Menlo, Consolas, "Roboto Mono", "Ubuntu Monospace", "Oxygen Mono", "Liberation Mono", monospace;
+  --font-size-root: 1rem;
+  --font-weight-bolder: 700;
+  --font-weight-bold: 400;
+  --font-weight-normal: 200;
+  --font-weight-thin: 100;
+  --line-height: 1.75rem;
+  --heading-margin: 1.5rem 0 1rem;
+
+  /* Inputs */
+  --border-radius: 5px;
+
+  /* Status */
+  --danger: #d00;
+  --warning: #ec0;
+  --info: #369;
+  --success: #080;
+}
+
+/* Dark/Light Theme */
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.is-light) { /* :root is <html> for HTML documents */
+    --primaryH: 185;
+    --primaryS: 100%;
+    --primaryL: 86%;
+    --primary-bg: #263238;
+    --secondaryH: 0;
+    --secondaryS: 1%;
+    --secondaryL: 89%;
+    --secondary-bg: #263238;
+  }
+  img {
+    opacity: .75;
+    transition: opacity .5s ease-in-out;
+  }
+  img:hover {
+    opacity: 1;
+  }
+}
+
+:root.is-dark { /* :root is <html> for HTML documents */
+  --primaryH: 185;
+  --primaryS: 100%;
+  --primaryL: 86%;
+  --primary-bg: #263238;
+  --secondaryH: 0;
+  --secondaryS: 1%;
+  --secondaryL: 89%;
+  --secondary-bg: #263238;
+}
+
+/* Calculated colors */
+
+:root {
+  --primary: hsl(var(--primaryH), var(--primaryS), var(--primaryL));
+  --primary-bright: hsl(var(--primaryH), calc(var(--primaryS) * 1.25), 90%);
+  --primary-transparent: hsla(var(--primaryH), var(--primaryS), var(--primaryL), 0.05);
+  --primary-dark: hsl(var(--primaryH), var(--primaryS), calc(var(--primaryL) * 0.5));
+  --primary-darker: hsl(var(--primaryH), var(--primaryS), calc(var(--primaryL) * 0.2));
+  --primary-light: hsl(var(--primaryH), var(--primaryS), 75%);
+  --primary-lighter: hsl(var(--primaryH), var(--primaryS), 96%);
+  --secondary: hsl(var(--secondaryH), var(--secondaryS), var(--secondaryL));
+  --secondary-transparent: hsl(var(--secondaryH), var(--secondaryS), var(--secondaryL), 0.05);
+  --secondary-dark: hsl(var(--secondaryH), var(--secondaryS), calc(var(--secondaryL) * 0.5));
+  --secondary-darker: hsl(var(--secondaryH), var(--secondaryS), calc(var(--secondaryL) * 0.2));
+  --secondary-light: hsl(var(--secondaryH), var(--secondaryS), 75%);
+  --secondary-lighter: hsl(var(--secondaryH), var(--secondaryS), 96%);
+}
+
+*,:after,:before{box-sizing:border-box}
+
+:where(html){scroll-behavior:smooth}
+
+:where(body){text-rendering:optimizeSpeed;line-height:1.5}
+
+:where(img),:where(picture){display:block;max-width:100%}
+
+:where(button),:where(input),:where(select),:where(textarea){font:inherit}
+
+:where(ol[role=list]),:where(ul[role=list]){list-style:none}
+
+:where(a):not([class]){-webkit-text-decoration-skip:ink;text-decoration-skip-ink:auto}
+
+@media (prefers-reduced-motion:reduce){*,:after,:before{-webkit-animation-duration:.01ms!important;animation-duration:.01ms!important;-webkit-animation-iteration-count:1!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+:where(body){font-family:var(--font-family-main);font-size:1rem;letter-spacing:.01em;line-height:var(--line-height);min-height:100vh;min-height:-moz-stretch;min-height:-webkit-fill-stretch;min-height:fill-stretch;scroll-behavior:smooth}
+
+:where(html){-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:var(--secondary-bg);box-sizing:border-box;color:var(--secondary);cursor:default;font-family:var(--font-family);font-size:var(--font-size-root);font-weight:var(--font-weight-normal);line-height:1.3;word-break:break-word}
+
+:focus{outline:1px dashed var(--primary);outline-offset:2px}
+
+::-moz-selection{background-color:var(--primary);color:var(--primary-bg);text-shadow:none}
+
+::selection{background-color:var(--primary);color:var(--primary-bg);text-shadow:none}
+
+:where([hidden]),:where(template){display:none}
+
+:where(button),:where(input),:where(select){margin:.3rem 0}
+
+:where(button),:where(input[type=button]),:where(input[type=checkbox]),:where(input[type=radio]),:where(input[type=range]),:where(input[type=submit]),:where(select){cursor:pointer}
+
+.sr-only{height:1px!important;left:-100000px!important;overflow:hidden!important;position:absolute!important;top:auto!important;width:1px!important}
+
+:where(a),:where(a.link){background-color:transparent;color:var(--primary);font-weight:var(--font-weight-bold);text-decoration:underline}
+
+:where(a):visited,:where(a.link):visited{color:var(--primary-dark)}
+
+:where(a):focus,:where(a):hover,:where(a.link):focus,:where(a.link):hover{background-color:var(--primary-dark);box-shadow:0 0 .3rem var(--primary);color:var(--primary-bg);outline:0;text-decoration:none}
+
+:where(a[href^="file:"]):before,:where(a[href^="mailto:"]):before,:where(a[href^="sms:"]):before,:where(a[href^="tel:"]):before,:where(a[rel=bookmark]):before,:where(a[rel=download]):before,:where(a[rel=external]):before{display:inline-block;margin-right:.5rem;text-decoration:none}
+
+:where(a[href^="mailto:"]):before{content:"✉️"}
+
+:where(a[href^="tel:"]):before{content:"📱"}
+
+:where(a[href^="sms:"]):before{content:"💬"}
+
+:where(a[href^="file:"]):before{content:"📁"}
+
+:where(a[rel=external]):before{content:"↩︎"}
+
+:where(a[rel=bookmark]):before{content:"🔖"}
+
+:where(a[rel=download]):before{content:"⤵️"}
+
+:where(abbr[title]){border-bottom:0;position:relative;-webkit-text-decoration:underline dashed var(--primary);text-decoration:underline dashed var(--primary)}
+
+:where(abbr):hover:after{background:var(--primary);border-radius:var(--border-radius);bottom:100%;color:var(--primary-bg);content:attr(title);display:block;left:0;padding:.5rem;position:absolute;width:100px;width:-webkit-max-content;width:-moz-max-content;width:max-content}
+
+:where(address){display:block;font-style:normal;margin:var(--line-height) 0}
+
+:where(audio){display:inline-block;max-width:100%;vertical-align:baseline}
+
+:where(audio):not([controls]){display:none;height:0}
+
+:where(b),:where(strong){font-weight:var(--font-weight-bolder)}
+
+:where(blockquote){background-color:var(--secondary-transparent);border-left:4px solid var(--primary);font-style:italic;margin:1.5rem 0;padding:1rem 1.5rem}
+
+:where(blockquote) p{margin:.5rem 0}
+
+:where(blockquote>footer){border:0;font-style:normal}
+
+:where(blockquote cite){font-style:normal}
+
+:where(button){-webkit-appearance:none;background-color:var(--primary-transparent);border:1px solid var(--primary);border-radius:var(--border-radius);color:var(--primary);display:inline-block;font-size:inherit;line-height:1;overflow:visible;padding:1rem 2.5rem;text-align:center;text-decoration:none;text-transform:none;transform:scale(1);transition:opacity .2s ease}
+
+:where(button):active{transform:scale(.98)}
+
+:where([role=button]),:where([type=button]),:where([type=reset]),:where([type=submit]){-webkit-appearance:none;background-color:var(--primary-transparent);border:1px solid var(--primary);border-radius:var(--border-radius);color:var(--primary);display:inline-block;font-size:inherit;line-height:1;overflow:visible;padding:1rem 2.5rem;text-align:center;text-decoration:none;text-transform:none;transform:scale(1);transition:opacity .2s ease}
+
+:where([role=button]):active,:where([type=button]):active,:where([type=reset]):active,:where([type=submit]):active{transform:scale(.98)}
+
+:where(button:not([disabled])):focus,:where(button:not([disabled])):hover{background-color:var(--primary);border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);color:var(--primary-bg);cursor:pointer;outline:0}
+
+:where([role=button][disabled]),:where([type=button][disabled]),:where([type=reset][disabled]),:where([type=submit][disabled]){background:var(--secondary-lighter);border:1px solid var(--secondary-lighter);color:var(--secondary-darker);cursor:not-allowed}
+
+:where([role=button][disabled]):hover,:where([type=button][disabled]):hover,:where([type=reset][disabled]):hover,:where([type=submit][disabled]):hover{cursor:not-allowed}
+
+:where([role=button]:not([disabled])):focus,:where([role=button]:not([disabled])):hover,:where([type=button]:not([disabled])):focus,:where([type=button]:not([disabled])):hover,:where([type=reset]:not([disabled])):focus,:where([type=reset]:not([disabled])):hover,:where([type=submit]:not([disabled])):focus,:where([type=submit]:not([disabled])):hover{background-color:var(--primary);border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);color:var(--primary-bg);cursor:pointer;outline:0}
+
+:where(canvas){display:inline-block;max-width:100%;vertical-align:baseline}
+
+:where(code){background:var(--secondary-transparent);border-radius:6px;color:var(--secondary);font-size:1em;padding:2.5px 5px}
+
+:where(details){border:0;display:block}
+
+:where(summary){-webkit-appearance:none;background-color:var(--primary-transparent);border:1px solid var(--primary);border-radius:var(--border-radius);color:var(--primary);display:inline-block;font-size:inherit;line-height:1;overflow:visible;padding:1rem 2.5rem;text-align:center;text-decoration:none;text-transform:none;transform:scale(1);transition:opacity .2s ease;width:100%}
+
+:where(summary):focus,:where(summary):hover{background-color:var(--primary);border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);color:var(--primary-bg);cursor:pointer;outline:0}
+
+:where(dfn){font-style:italic;font-weight:var(--font-weight-bold)}
+
+:where(dl){font-size:1rem;line-height:var(--line-height);margin:var(--line-height) 0;max-width:80ch}
+
+:where(dt){font-weight:var(--font-weight-bold);margin-top:1rem}
+
+:where(dd){font-style:italic;margin-left:1rem}
+
+:where(figure){display:inline-flex;flex-direction:column;margin:var(--line-height) 0}
+
+:where(figure figcaption){margin:0;padding:.75rem 1.5rem}
+
+:where(h1),:where(h2),:where(h3),:where(h4),:where(h5),:where(h6){color:var(--primary);font-family:var(--font-family-alt1);font-weight:var(--font-weight-bold);margin:var(--heading-margin)}
+
+:where(h1){font-size:clamp(1.5rem,8vw - 2rem,3rem);line-height:clamp(1.5rem,8vw - 2rem,3rem)}
+
+:where(h2){font-size:clamp(1.2rem,8vw - 2rem,2.5rem);line-height:clamp(1.2rem,8vw - 2rem,2.5rem)}
+
+:where(h3){font-size:clamp(1.1rem,8vw - 2rem,1.66rem);line-height:clamp(1.1rem,8vw - 2rem,1.66rem)}
+
+:where(h4){font-size:clamp(1rem,8vw - 2rem,1.45rem)}
+
+:where(h5){font-size:clamp(.9rem,8vw - 2rem,1.25rem)}
+
+:where(h6){font-size:clamp(.8rem,8vw - 2rem,1.125rem)}
+
+:where(hgroup){border-left:5px solid var(--primary);display:block;margin:var(--heading-margin);padding-left:1rem}
+
+:where(hr){border:none;border-top:1px solid var(--secondary-light)}
+
+:where(img){border:0;display:block;height:auto;max-width:100%}
+
+:where(select),:where(textarea){background-color:var(--secondary-lighter);border:1px solid var(--secondary-light);border-radius:var(--border-radius);box-sizing:border-box;font:inherit;font-size:1rem;height:2.5rem;line-height:1;margin:0;max-width:100%;min-width:15rem;padding:0 .5rem;text-transform:none;width:100%}
+
+:where(select):disabled,:where(select)[readonly],:where(textarea):disabled,:where(textarea)[readonly]{background-color:var(--secondary-light);border:1px solid var(--secondary-light);color:var(--secondary-darker);cursor:not-allowed}
+
+:where(select):focus:not([disabled]):not([type=range]),:where(select):hover:not([disabled]):not([type=range]),:where(textarea):focus:not([disabled]):not([type=range]),:where(textarea):hover:not([disabled]):not([type=range]){border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);outline:0}
+
+:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color])){background-color:var(--secondary-lighter);border:1px solid var(--secondary-light);border-radius:var(--border-radius);box-sizing:border-box;font:inherit;font-size:1rem;height:2.5rem;line-height:1;margin:0;max-width:100%;min-width:15rem;padding:0 .5rem;text-transform:none;width:100%}
+
+:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color])):disabled,:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color]))[readonly]{background-color:var(--secondary-light);border:1px solid var(--secondary-light);color:var(--secondary-darker);cursor:not-allowed}
+
+:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color])):focus:not([disabled]):not([type=range]),:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color])):hover:not([disabled]):not([type=range]){border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);outline:0}
+
+:where(kbd){background-color:var(--secondary-lighter);border:1px solid var(--secondary-light);border-radius:var(--border-radius);color:var(--secondary-darker);font-family:var(--font-family-mono);padding:2px 4px}
+
+:where(ol),:where(ul){margin:var(--line-height) 0;padding-left:2rem}
+
+:where(ol ol),:where(ul ul){margin:0}
+
+:where(li){font-size:1rem;line-height:var(--line-height);max-width:80ch;max-width:calc(80ch - 3rem)}
+
+:where(li>ul){margin:0}
+
+:where(mark){background-color:var(--primary-bright);border-radius:2px;color:var(--secondary-darker);padding:0 2px}
+
+:where(p){font-size:1rem;line-height:var(--line-height);margin:var(--line-height) 0;max-width:80ch}
+
+:where(pre>code){display:block;overflow-x:auto;padding:10px}
+
+:where(q){font-style:italic}
+
+:where(q) :before{content:open-quote;font-style:normal}
+
+:where(q) :after{content:close-quote;font-style:normal}
+
+:where(samp){font-family:var(--font-family-mono);font-size:1em;font-weight:var(--font-weight-bold)}
+
+:where(small){font-size:.75em}
+
+:where(sub),:where(sup){font-size:.75em;line-height:0;position:relative;vertical-align:baseline}
+
+:where(sup){top:-.5em}
+
+:where(sub){bottom:-.25em}
+
+:where(svg):not(:root){display:inline-block;font-size:inherit;height:1.2em;overflow:visible;vertical-align:-.2em}
+
+:where(table){background-color:var(--secondary-bg);border:0;border-collapse:collapse;border-spacing:0;width:100%}
+
+:where(thead){box-shadow:inset 0 -2px var(--primary)}
+
+:where(tfoot){box-shadow:inset 0 2px var(--primary)}
+
+[dir=ltr] :where(caption){text-align:left}
+
+[dir=rtl] :where(caption){text-align:right}
+
+:where(caption){caption-side:top;padding:.5rem 0}
+
+:where(td),:where(th){padding:.5rem;text-align:left;vertical-align:middle}
+
+:where(th){background:hsla(0,0%,39%,.03);font-weight:var(--font-weight-bolder)}
+
+:where(tbody tr:nth-child(2n)){background-color:var(--secondary-transparent);color:var(--secondary)}
+
+:where(var){font-family:var(--font-family-mono);font-style:normal;font-weight:var(--font-weight-bold)}
+
+:where(video){display:inline-block;max-width:100%;vertical-align:baseline}
+
+:where(select) {
+  display: block;
+  font-family: inherit;
+  background: var(--secondary-lighter) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='40' fill='var(--primary)'><polygon points='0,0 60,0 30,40'/></svg>")  calc(100% - 12px) 50% / 12px no-repeat;
+  border: 1px solid var(--secondary-light);
+  border-radius: var(--border-radius);
+  padding-right: 2rem;
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+/* @import 'custom.css';
+@import 'menu.css';
+@import 'highlight.css'; */
+
+.container {
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ttfb {
+  display: table-cell;
+  padding: 0.5rem 0;
+  width: 60%;
+  text-align: right;
+}
+
+.ttfb span {
+  display: inline-block;
+  float: left;
+  overflow: hidden;
+  line-height: 3rem;
+  font-size: 0.8em;
+  text-shadow: none;
+  color: #fff;
+  vertical-align: middle;
+  word-break: keep-all;
+}
+
+.fast {
+  background-color: #0aa55f;
+}
+
+.avg {
+  background-color: #fbca42;
+}
+
+.slow {
+  background-color: #dd493f;
+}
+</style>
+    <script type="application/ld+json">{"@type":"WebSite","url":"https://ismyhostfastyet.com","name":"ismyhostfastyet","headline":"Is my host fast yet?","@context":"http://schema.org"}</script>
+    <script type="module">var e=e=>({get:t=>e.get(t),set:(t,n)=>(e.set(t,n),n)});const t=/([^\s\\>"'=]+)\s*=\s*(['"]?)$/,n=/^(?:area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)$/i,r=/<[a-z][^>]+$/i,a=/>[^<>]*$/,o=/<([a-z]+[a-z0-9:._-]*)([^>]*?)(\/>)/gi,l=/\s+$/,s=(e,t)=>0<t--&&(r.test(e[t])||!a.test(e[t])&&s(e,t)),i=(e,t,r)=>n.test(t)?e:`<${t}${r.replace(l,"")}></${t}>`;const{isArray:c}=Array,{indexOf:u,slice:d}=[],p=(e,t)=>111===e.nodeType?1/t<0?t?(({firstChild:e,lastChild:t})=>{const n=document.createRange();return n.setStartAfter(e),n.setEndAfter(t),n.deleteContents(),e})(e):e.lastChild:t?e.valueOf():e.firstChild:e;const f=(e,t)=>{let n,r=t.slice(2);return!(t in e)&&t.toLowerCase()in e&&(r=r.toLowerCase()),t=>{const a=c(t)?t:[t,!1];n!==a[0]&&(n&&e.removeEventListener(r,n,a[1]),(n=a[0])&&e.addEventListener(r,n,a[1]))}},h=({childNodes:e},t)=>e[t],m=(e,t,n)=>((e,t,n,r,a)=>{const o=n.length;let l=t.length,s=o,i=0,c=0,u=null;for(;i<l||c<s;)if(l===i){const t=s<o?c?r(n[c-1],-0).nextSibling:r(n[s-c],0):a;for(;c<s;)e.insertBefore(r(n[c++],1),t)}else if(s===c)for(;i<l;)u&&u.has(t[i])||e.removeChild(r(t[i],-1)),i++;else if(t[i]===n[c])i++,c++;else if(t[l-1]===n[s-1])l--,s--;else if(t[i]===n[s-1]&&n[c]===t[l-1]){const a=r(t[--l],-1).nextSibling;e.insertBefore(r(n[c++],1),r(t[i++],-1).nextSibling),e.insertBefore(r(n[--s],1),a),t[l]=n[s]}else{if(!u){u=new Map;let e=c;for(;e<s;)u.set(n[e],e++)}if(u.has(t[i])){const a=u.get(t[i]);if(c<a&&a<s){let o=i,d=1;for(;++o<l&&o<s&&u.get(t[o])===a+d;)d++;if(d>a-c){const o=r(t[i],0);for(;c<a;)e.insertBefore(r(n[c++],1),o)}else e.replaceChild(r(n[c++],1),r(t[i++],-1))}else i++}else e.removeChild(r(t[i++],-1))}return n})(e.parentNode,t,n,p,e),g=(e,t)=>{switch(t[0]){case"?":return((e,t,n)=>r=>{n!==!!r&&((n=!!r)?e.setAttribute(t,""):e.removeAttribute(t))})(e,t.slice(1),!1);case".":return((e,t)=>"dataset"===t?(({dataset:e})=>t=>{for(const n in t){const r=t[n];null==r?delete e[n]:e[n]=r}})(e):n=>{e[t]=n})(e,t.slice(1));case"@":return f(e,"on"+t.slice(1));case"o":if("n"===t[1])return f(e,t)}switch(t){case"ref":return(e=>{let t;return n=>{t!==n&&(t=n,"function"==typeof n?n(e):n.current=e)}})(e);case"aria":return(e=>t=>{for(const n in t){const r="role"===n?n:`aria-${n}`,a=t[n];null==a?e.removeAttribute(r):e.setAttribute(r,a)}})(e)}return((e,t)=>{let n,r=!0;const a=document.createAttributeNS(null,t);return t=>{n!==t&&(n=t,null==n?r||(e.removeAttributeNode(a),r=!0):(a.value=t,r&&(e.setAttributeNodeNS(a),r=!1)))}})(e,t)};function v(e){const{type:t,path:n}=e,r=n.reduceRight(h,this);return"node"===t?(e=>{let t,n,r=[];const a=o=>{switch(typeof o){case"string":case"number":case"boolean":t!==o&&(t=o,n||(n=document.createTextNode("")),n.data=o,r=m(e,r,[n]));break;case"object":case"undefined":if(null==o){t!=o&&(t=o,r=m(e,r,[]));break}if(c(o)){t=o,0===o.length?r=m(e,r,[]):"object"==typeof o[0]?r=m(e,r,o):a(String(o));break}t!==o&&"ELEMENT_NODE"in o&&(t=o,r=m(e,r,11===o.nodeType?d.call(o.childNodes):[o]));break;case"function":a(o(e))}};return a})(r):"attr"===t?g(r,e.name):(e=>{let t;return n=>{t!=n&&(t=n,e.textContent=null==n?"":n)}})(r)}
+/*! (c) Andrea Giammarchi - ISC */var $=function(e){var t="fragment",n="template",r="content"in o(n)?function(e){var t=o(n);return t.innerHTML=e,t.content}:function(e){var r=o(t),l=o(n),s=null;if(/^[^\S]*?<(col(?:group)?|t(?:head|body|foot|r|d|h))/i.test(e)){var i=RegExp.$1;l.innerHTML="<table>"+e+"</table>",s=l.querySelectorAll(i)}else l.innerHTML=e,s=l.childNodes;return a(r,s),r};return function(e,t){return("svg"===t?l:r)(e)};function a(e,t){for(var n=t.length;n--;)e.appendChild(t[0])}function o(n){return n===t?e.createDocumentFragment():e.createElementNS("http://www.w3.org/1999/xhtml",n)}function l(e){var n=o(t),r=o("div");return r.innerHTML='<svg xmlns="http://www.w3.org/2000/svg">'+e+"</svg>",a(n,r.firstChild.childNodes),n}}(document);const w=1!=document.importNode.length,b=w?(e,t,n)=>document.importNode($(e,t,n),!0):$,y=w?e=>document.createTreeWalker(e,129,null,!1):e=>document.createTreeWalker(e,129),C=e=>{const t=[];let{parentNode:n}=e;for(;n;)t.push(u.call(n.childNodes,e)),n=(e=n).parentNode;return t},k=e(new WeakMap),N=/^(?:plaintext|script|style|textarea|title|xmp)$/i,x=(e,n)=>{const r=((e,n,r)=>{const a=[],{length:l}=e;for(let r=1;r<l;r++){const o=e[r-1];a.push(t.test(o)&&s(e,r)?o.replace(t,((e,t,a)=>`${n}${r-1}=${a||'"'}${t}${a?"":'"'}`)):`${o}\x3c!--${n}${r-1}--\x3e`)}a.push(e[l-1]);const c=a.join("").trim();return r?c:c.replace(o,i)})(n,"isµ","svg"===e),a=b(r,e),l=y(a),c=[],u=n.length-1;let d=0,p=`isµ${d}`;for(;d<u;){const e=l.nextNode();if(!e)throw`bad template: ${r}`;if(8===e.nodeType)e.data===p&&(c.push({type:"node",path:C(e)}),p="isµ"+ ++d);else{for(;e.hasAttribute(p);)c.push({type:"attr",path:C(e),name:e.getAttribute(p)}),e.removeAttribute(p),p="isµ"+ ++d;N.test(e.tagName)&&e.textContent.trim()===`\x3c!--${p}--\x3e`&&(e.textContent="",c.push({type:"text",path:C(e)}),p="isµ"+ ++d)}}return{content:a,nodes:c}},S=(e,t)=>{const{content:n,nodes:r}=k.get(t)||k.set(t,x(e,t)),a=document.importNode(n,!0);return{content:a,updates:r.map(v,a)}},A=(e,{type:t,template:n,values:r})=>{const{length:a}=r;M(e,r,a);let{entry:o}=e;o&&o.template===n&&o.type===t||(e.entry=o=((e,t)=>{const{content:n,updates:r}=S(e,t);return{type:e,template:t,content:n,updates:r,wire:null}})(t,n));const{content:l,updates:s,wire:i}=o;for(let e=0;e<a;e++)s[e](r[e]);return i||(o.wire=(e=>{const{childNodes:t}=e,{length:n}=t;if(n<2)return n?t[0]:e;const r=d.call(t,0);return{ELEMENT_NODE:1,nodeType:111,firstChild:r[0],lastChild:r[n-1],valueOf(){if(t.length!==n){let t=0;for(;t<n;)e.appendChild(r[t++])}return e}}})(l))},M=({stack:e},t,n)=>{for(let r=0;r<n;r++){const n=t[r];n instanceof T?t[r]=A(e[r]||(e[r]={stack:[],entry:null,wire:null}),n):c(n)?M(e[r]||(e[r]={stack:[],entry:null,wire:null}),n,n.length):e[r]=null}n<e.length&&e.splice(n)};function T(e,t,n){this.type=e,this.template=t,this.values=n}const{create:E,defineProperties:L}=Object,O=t=>{const n=e(new WeakMap);return L(((e,...n)=>new T(t,e,n)),{for:{value(e,r){const a=n.get(e)||n.set(e,E(null));return a[r]||(a[r]=(e=>(n,...r)=>A(e,{type:t,template:n,values:r}))({stack:[],entry:null,wire:null}))}},node:{value:(e,...n)=>A({stack:[],entry:null,wire:null},{type:t,template:e,values:n}).valueOf()}})},H=e(new WeakMap),D=O("html");O("svg");const j={data:{v:"1",tid:"UA-22381566-4",cid:`${Date.now()}${Math.random()}`,dl:location.href,aip:"1"},send(e){navigator.sendBeacon("https://google-analytics.com/collect",new URLSearchParams({...this.data,...e}).toString())}};j.send({t:"pageview"});const B=document.querySelector(".data-json"),W=document.querySelector(".app-container");if(!B||!W)throw new Error("Could not find a required element");const _=JSON.parse(B.innerHTML);let q="fast",F=_.filter((e=>"mobile"===e.client));const R=e=>{e.preventDefault();const{currentTarget:t}=e;console.log(e);const n=t.value;console.log(n),z(n),U(q),J()},z=e=>{if("all"===e)return F=_;F=_.filter((t=>t.client===e))},P=e=>{e.preventDefault();const{currentTarget:t}=e,n=t.dataset.field;q=n,U(n),J(),j.send({event:"sort",event_category:"engagement",event_label:n})},U=e=>{if(!(e in F[0]))return F;F=F.sort(((t,n)=>{const r=n[e]-t[e];return isNaN(r)?t[e].localeCompare(n[e]):r}))},J=()=>{((e,t)=>{const n="function"==typeof t?t():t,r=H.get(e)||H.set(e,{stack:[],entry:null,wire:null}),a=n instanceof T?A(r,n):n;a!==r.wire&&(r.wire=a,e.textContent="",e.appendChild(a.valueOf()))})(W,D`<table>${(e=>D`<thead><th>${"platform"!==e?D`<a href="#" onClick="${P}" data-field="platform">Host</a>`:D`Host`}</th><th><select style="min-width:1ch" onChange="${R}" value="mobile"><option value="mobile">📱</option><option value="desktop">🖥</option><option value="all">📱🖥</option></select></th><th>${"n"!==e?D`<a href="#" onClick="${P}" data-field="n">Sites</a>`:D`Sites`}</th><th>${"fast"!==e?D`<a href="#" onClick="${P}" data-field="fast">Fast</a>`:D`Fast`}</th><th style="text-align:center">${"avg"!==e?D`<a href="#" onClick="${P}" data-field="avg">Average<br>(p75 > 500ms)</a>`:D`Average<br>(p75 > 500ms)`}</th><th style="text-align:right">${"slow"!==e?D`<a href="#" onClick="${P}" data-field="slow">Slow<br>(p75 >= 1500ms)</a>`:D`Slow<br>(p75 >= 1500ms)`}</th></thead>`)(q)}<tbody>${F.map((e=>D`<tr><td>${e.platform}</td><td><span aria-label="${"desktop"===e.client?"desktop":"mobile"}">${"desktop"===e.client?"🖥":"📱"}</span></td><td>${e.n}</td><td colspan="3" class="ttfb"><span class="fast" title="${`Fast: ${Math.round(100*e.fast*100)/100}% of websites`}" style="${`width: ${100*e.fast}%`}">${Math.round(100*e.fast*100)/100}%</span> <span class="avg" title="${`Average: ${Math.round(100*e.avg*100)/100}% of websites`}" style="${`width: ${100*e.avg}%`}">${Math.round(100*e.avg*100)/100}%</span> <span class="slow" title="${`Slow: ${Math.round(100*e.slow*100)/100}% of websites`}" style="${`width: ${100*e.slow}%`}">${Math.round(100*e.slow*100)/100}%</span></td></tr>`))}</tbody></table>`)};J();
+</script>
+  </head>
+  <body class="container">
+    <header>
+  <h1>Is my host fast yet?</h1>
+  <blockquote>Real-world server response (Time to First Byte) latencies, as experienced by real-world users navigating the web.</blockquote>
+</header>
+
+
+    <hr>
+    <h2>Leaderboard: July 2021</h2>
+<div class="app-container"></div>
+<section>
+  <p>
+    See a missing hosting provider?
+    <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#contribute">
+      Please help us identify how to surface them here.
+    </a>
+  </p>
+</section>
+<section>
+  <h2>How do you measure real-world Time to First Byte?</h2>
+  <p>
+    This report is powered by <a href="http://bit.ly/chrome-ux-report">Chrome User Experience Report</a>,
+    which provides user experience metrics for how real-world Chrome users experience popular
+    destinations on the web. As a result, this report does not rely on synthentic tests of
+    each hosting provider, but instead provides insight into how real-world users experience
+    the speed of sites hosted by various providers.
+  </p>
+  <h2>What is Time to First Byte?</h2>
+  <p>
+    TTFB is measured as the time from the start of navigation request until the time that the
+    client receives the first byte of the response from the server. It includes network setup time
+    (SSL, DNS, TCP) as well as server-side processing.
+  </p>
+  <img src="/assets/ttfb.png" loading="lazy" height="248" width="800" alt="Diagram showing TTFB as the network events from the prompt for unload to the response start">
+  <p>
+    As you can see in the <a href="https://w3c.github.io/navigation-timing/">Navigation Timing Level 2 draft spec</a>
+    screenshot above, the metric is equivalent to <code>performance.getEntriesByType('navigation')[0].responseStart</code>.
+  </p>
+  <h2>How do you determine: Fast, Average, Slow?</h2>
+  <p>
+    The thresholds for fast/average/slow TTFB are 500 ms as the upper limit for fast TTFB and 1500 ms as the lower limit for slow TTFB.
+  </p>
+  <ul>
+    <li>
+      “fast” TTFB &lt; 500 ms is based on the <a href="https://developers.google.com/speed/docs/insights/Server">server responsiveness</a>
+            best practice.
+    </li>
+    <li>
+      “slow” TTFB &gt;= 1500 ms is based on the requirement for the fast First Contentful Paint (FCP) threshold
+      to be &lt; 1800 ms. A server response that exceeds 1500 ms will not, in most cases, meet the fast FCP goal.
+    </li>
+  </ul>
+  <p>
+    The 75th percentile (p75) TTFB is analyzed for each website, which is determined to be fast or slow by where it falls between those thresholds.
+  </p>
+  <p>
+    The percentages for each host are calculated by taking the number of websites whose p75 TTFB is fast, average, and slow, and dividing each by the total number of websites. A previous version of this report averaged all websites' TTFB experiences together into a big, muddled distribution. This new approach is more accurate since it counts websites, not averaged experiences.
+  </p>
+  <h2>What about other metrics, why just TTFB?</h2>
+  <p>
+    Chrome UX Report provides other metrics like First Paint, First Contentful Paint, First Input Delay,
+    and others. We plan to add more metrics to this report in the future. If you would like to help out,
+    please <a href="https://github.com/rviscomi/ismyhostfastyet">let us know on GitHub</a>.
+  </p>
+  <h2>How frequently is this reported updated?</h2>
+  <p>
+    Chrome UX Report publishes monthly datasets and this report is updated once a month based on that data.
+  </p>
+  <h2>How are the hosting providers detected?</h2>
+  <p>
+    Chrome UX Report does not provide an explicit dimension for which hosting provider
+    is associated with each origin. To perform the classification we rely on another
+    dataset: <a href="https://httparchive.org">HTTP Archive</a> crawls all of the origins provided
+    in CrUX and runs logic to identify providers based on header signatures, DNS records, and other signals.
+  </p>
+  <p>
+    For example, a response header of <code>X-Powered-By: HubSpot</code> for a website's HTML page indicates that
+    it is hosted by HubSpot.
+  </p>
+  <p>
+    Would you like to see a hosting provider included in this report that’s currently
+    not on the list? Please <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#methodology">read more about our methodology</a>
+    and <a href="https://github.com/rviscomi/ismyhostfastyet/">join us on GitHub</a> — we’d appreciate your help to
+    allow us to expand coverage of this report!
+  </p>
+  <h2>What about <q>X</q> ?</h2>
+  <p>Good question! Please <a href="https://github.com/rviscomi/ismyhostfastyet/issues">start a discussion</a> on GitHub, so we can answer it.</p>
+</section>
+
+
+    <footer>
+  ismyhostfastyet is maintained by <a href="https://twitter.com/rick_viscomi">Rick Viscomi</a>
+</footer>
+
+    <script class="data-json" type="application/json">[{"platform":"GoDaddy Website Builder","client":"desktop","n":"6585","fast":"0.8069855732725892","avg":"0.1880030372057707","slow":"0.005011389521640091"},{"platform":"GitHub","client":"desktop","n":"13137","fast":"0.5408388520971302","avg":"0.4562685544644896","slow":"0.002892593438380148"},{"platform":"Squarespace","client":"desktop","n":"55819","fast":"0.5136064780809402","avg":"0.4829180028305774","slow":"0.0034755190884824165"},{"platform":"Seravo","client":"desktop","n":"776","fast":"0.44072164948453607","avg":"0.49226804123711343","slow":"0.06701030927835051"},{"platform":"AlwaysData","client":"desktop","n":"717","fast":"0.37099023709902373","avg":"0.5676429567642957","slow":"0.061366806136680614"},{"platform":"Weebly","client":"desktop","n":"12081","fast":"0.35319923847363627","avg":"0.6331429517424054","slow":"0.013657809783958282"},{"platform":"Zone.eu","client":"desktop","n":"2848","fast":"0.3497191011235955","avg":"0.5010533707865169","slow":"0.14922752808988765"},{"platform":"GoDaddy Website Builder","client":"mobile","n":"9877","fast":"0.3437278525868179","avg":"0.6212412675913739","slow":"0.03503087982180824"},{"platform":"Seravo","client":"mobile","n":"938","fast":"0.32409381663113007","avg":"0.5852878464818764","slow":"0.0906183368869936"},{"platform":"Wix","client":"desktop","n":"51628","fast":"0.2863175021306268","avg":"0.7010924304640892","slow":"0.012590067405283954"},{"platform":"Vercel","client":"desktop","n":"4713","fast":"0.2766815192022067","avg":"0.6195629110969658","slow":"0.1037555697008275"},{"platform":"Acquia","client":"desktop","n":"8835","fast":"0.24368986983588004","avg":"0.6555744199207697","slow":"0.1007357102433503"},{"platform":"Zone.eu","client":"mobile","n":"2904","fast":"0.24207988980716252","avg":"0.5840220385674931","slow":"0.17389807162534435"},{"platform":"GitHub","client":"mobile","n":"7320","fast":"0.22404371584699453","avg":"0.7646174863387978","slow":"0.01133879781420765"},{"platform":"AlwaysData","client":"mobile","n":"744","fast":"0.21505376344086022","avg":"0.6868279569892473","slow":"0.09811827956989247"},{"platform":"Squarespace","client":"mobile","n":"56677","fast":"0.20015173703618752","avg":"0.7787109409460627","slow":"0.021137322017749705"},{"platform":"WP Engine","client":"desktop","n":"77751","fast":"0.18010057748453395","avg":"0.7031678049156924","slow":"0.11673161759977364"},{"platform":"Pantheon","client":"desktop","n":"12665","fast":"0.1795499407816818","avg":"0.68251085669167","slow":"0.13793920252664824"},{"platform":"Weebly","client":"mobile","n":"14311","fast":"0.1537977779330585","avg":"0.7937949828803018","slow":"0.05240723918663965"},{"platform":"Netlify","client":"desktop","n":"10988","fast":"0.15116490717145978","avg":"0.815435020021842","slow":"0.03340007280669822"},{"platform":"Liquid Web","client":"desktop","n":"1891","fast":"0.1343204653622422","avg":"0.686409307244844","slow":"0.1792702273929138"},{"platform":"Kinsta","client":"desktop","n":"14064","fast":"0.12620875995449374","avg":"0.7107508532423208","slow":"0.16304038680318544"},{"platform":"Flywheel","client":"desktop","n":"16519","fast":"0.10727041588473879","avg":"0.5668018645196441","slow":"0.32592771959561717"},{"platform":"Shopify","client":"desktop","n":"140681","fast":"0.09934532737185547","avg":"0.8755197930068737","slow":"0.02513487962127082"},{"platform":"Shopify","client":"mobile","n":"154840","fast":"0.09684835959700336","avg":"0.8642469646086283","slow":"0.03890467579436838"},{"platform":"Vercel","client":"mobile","n":"4689","fast":"0.08296011942844957","avg":"0.7423757730859458","slow":"0.1746641074856046"},{"platform":"Acquia","client":"mobile","n":"8211","fast":"0.06442577030812324","avg":"0.7150164413591523","slow":"0.22055778833272438"},{"platform":"Pantheon","client":"mobile","n":"11159","fast":"0.05045254951160498","avg":"0.7153866833945695","slow":"0.2341607670938256"},{"platform":"SiteGround","client":"desktop","n":"35701","fast":"0.049606453600739474","avg":"0.5143553401865494","slow":"0.4360382062127111"},{"platform":"Wix","client":"mobile","n":"84521","fast":"0.04927769430082465","avg":"0.9159498822777771","slow":"0.03477242342139823"},{"platform":"Netlify","client":"mobile","n":"10260","fast":"0.04649122807017544","avg":"0.8559454191033138","slow":"0.09756335282651073"},{"platform":"Automattic","client":"desktop","n":"38246","fast":"0.04403074831354913","avg":"0.867175652355802","slow":"0.08879359933064895"},{"platform":"WP Engine","client":"mobile","n":"72562","fast":"0.04219839585457953","avg":"0.7228163501557289","slow":"0.23498525398969158"},{"platform":"HubSpot","client":"desktop","n":"10520","fast":"0.04011406844106464","avg":"0.6620722433460076","slow":"0.29781368821292775"},{"platform":"Kinsta","client":"mobile","n":"13837","fast":"0.039965310399653106","avg":"0.6687143166871432","slow":"0.29132037291320373"},{"platform":"Flywheel","client":"mobile","n":"15640","fast":"0.0391304347826087","avg":"0.5274936061381074","slow":"0.4333759590792839"},{"platform":"Liquid Web","client":"mobile","n":"1817","fast":"0.029168959823885527","avg":"0.6681342872867364","slow":"0.3026967528893781"},{"platform":"SiteGround","client":"mobile","n":"38184","fast":"0.018987010266080035","avg":"0.42454954954954954","slow":"0.5564634401843704"},{"platform":"HubSpot","client":"mobile","n":"9306","fast":"0.009348807221147646","avg":"0.49806576402321084","slow":"0.49258542875564154"},{"platform":"Automattic","client":"mobile","n":"50117","fast":"0.00610571263244009","avg":"0.8744338248498513","slow":"0.11946046251770856"}]</script>
+  </body>
+</html>

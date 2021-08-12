@@ -1,0 +1,56 @@
+@import './site/src_assets/css/_vars.css';
+@import './site/src_assets/css/_var_calc.css';
+@import 'naf-css/css/base.min.css';
+
+:where(select) {
+  display: block;
+  font-family: inherit;
+  background: var(--secondary-lighter) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='40' fill='var(--primary)'><polygon points='0,0 60,0 30,40'/></svg>")  calc(100% - 12px) 50% / 12px no-repeat;
+  border: 1px solid var(--secondary-light);
+  border-radius: var(--border-radius);
+  padding-right: 2rem;
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+
+
+/* @import 'custom.css';
+@import 'menu.css';
+@import 'highlight.css'; */
+
+
+.container {
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ttfb {
+  display: table-cell;
+  padding: 0.5rem 0;
+  width: 60%;
+  text-align: right;
+}
+
+.ttfb span {
+  display: inline-block;
+  float: left;
+  overflow: hidden;
+  line-height: 3rem;
+  font-size: 0.8em;
+  text-shadow: none;
+  color: #fff;
+  vertical-align: middle;
+  word-break: keep-all;
+}
+
+.fast {
+  background-color: #0aa55f;
+}
+.avg {
+  background-color: #fbca42;
+}
+.slow {
+  background-color: #dd493f;
+}
