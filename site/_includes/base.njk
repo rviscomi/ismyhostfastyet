@@ -16,17 +16,14 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="{{ metadata.url }}/" />
     <meta property="og:site_name" content="{{ metadata.title }}" />
-    <style>{{ getCSS | safe }}</style>
+    <style>{{ processCSS | safe }}</style>
     <script type="application/ld+json">{"@type":"WebSite","url":"{{ metadata.url }}","name":"{{ metadata.name }}","headline":"{{ metadata.title }}","@context":"http://schema.org"}</script>
-    <script type="module">{{ getJS | safe }}</script>
   </head>
   <body class="container">
     {% include "header.njk" %}
 
-    <hr>
     {{ content | safe }}
 
     {% include "footer.njk" %}
-    <script class="data-json" type="application/json">{{ metadata.inlineJSON | dump | safe }}</script>
   </body>
 </html>

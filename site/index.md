@@ -2,9 +2,19 @@
 layout: base.njk
 ---
 
+<script class="data-json" type="application/json">{{ metadata.inlineJSON | dump | safe }}</script>
+<script type="module" src="/assets/js/main.js?{{metadata.version}}"></script>
+
 <h2>Leaderboard: July 2021</h2>
 
 <div class="app-container"></div>
+
+<section>
+  <p>
+    Are you looking for the rate of improvment per host?
+    Check the timeline <a href="/archive">here</a>.
+  </p>
+</section>
 
 <section>
   <p>
