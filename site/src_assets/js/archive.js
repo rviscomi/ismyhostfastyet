@@ -50,7 +50,7 @@ const filter = (platform, client) => {
     });
   });
 
-  ['Fast', 'Average', 'Slow'].forEach(item => {
+  ['Slow', 'Average', 'Fast'].forEach(item => {
       out.push({
       name: item,
       type: 'line',
@@ -95,7 +95,7 @@ echarts.use(
 let myChart = echarts.init(chartDom, 'dark');
 myChart.setOption({
   backgroundColor: 'transparent',
-  color: ['#0aa55f', '#fbca42', '#dd493f'],
+  color: ['#dd493f', '#fbca42', '#0aa55f'],
 });
 
 let option = {
@@ -109,7 +109,7 @@ let option = {
     }
   },
   legend: {
-    data: ['Fast', 'Average', 'Slow']
+    data: ['Slow', 'Average', 'Fast']
   },
   grid: {
     left: '3%',
