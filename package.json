@@ -23,6 +23,7 @@
     "uhtml": "^2.7.6"
   },
   "dependencies": {
-    "echarts": "^5.1.2"
+    "echarts": "^5.1.2",
+    "frappe-charts": "^1.6.2"
   }
 }
