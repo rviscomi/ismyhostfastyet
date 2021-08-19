@@ -17,12 +17,13 @@ let filtered = original.filter(x => x.client === 'mobile');
 const filter = (event) =>{
   event.preventDefault();
   const {currentTarget} = event;
-  console.log(event)
   const client = currentTarget.value;
-  console.log(client);
   filterResults(client);
   sortResults(sorterer);
   redraw();
+
+  //gtag('event', 'sort', {'event_category': 'engagement', 'event_label': field});
+  analytics.send({ event: 'client', 'event_category': 'engagement', 'event_label': client });
 }
 
 const filterResults = (client) => {

@@ -9,6 +9,9 @@ import {
 } from 'echarts/components';
 import { LineChart } from 'echarts/charts';
 import { SVGRenderer } from 'echarts/renderers';
+import {analytics} from './analytics';
+
+analytics.send({ t: "pageview" });
 
 const chartDom = document.getElementById('main');
 const data = JSON.parse(document.querySelector('.data-json').innerHTML);
@@ -131,11 +134,16 @@ const update = (platform, client) => {
   option.series = filter(platform, client);
   option.title= { text: platform };
   myChart.setOption(option);
+
+  //gtag('event', 'sort', {'event_category': 'engagement', 'event_label': field});
+  analytics.send({ event: 'Chart.timeline', 'event_category': 'engagement', 'event_label': `${platform}-${client}` });
 };
 
 const platforms = getPrviders();
 const selectPlatformEl = document.createElement('select');
+selectPlatformEl.id = 'select-platform';
 const selectClientEl = document.createElement('select');
+selectClientEl.id = 'select-client';
 
 selectClientEl.innerHTML = `<option value="mobile">Mobile</option><option value="desktop">Desktop</option>`
 platforms.sort().forEach(item => {
@@ -153,7 +161,16 @@ selectClientEl.addEventListener('change', (ev) => {
   update(selectPlatformEl.value, ev.target.value,);
 });
 
+const selectPlatformLabelEl = document.createElement('label');
+selectPlatformLabelEl.innerHTML = 'Host:';
+selectPlatformLabelEl.setAttribute('for', 'select-platform');
+chartDom.insertAdjacentElement('beforebegin', selectPlatformLabelEl);
 chartDom.insertAdjacentElement('beforebegin', selectPlatformEl);
+
+const selectClientLabelEl = document.createElement('label');
+selectClientLabelEl.innerHTML = 'Client:';
+selectClientLabelEl.setAttribute('for', 'select-client');
+chartDom.insertAdjacentElement('beforebegin', selectClientLabelEl);
 chartDom.insertAdjacentElement('beforebegin', selectClientEl);
 
 update(platforms[0], 'mobile');

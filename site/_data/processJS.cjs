@@ -14,7 +14,11 @@ module.exports = async () => {
         input: `${process.cwd()}/site/src_assets/js/main.js`,
         plugins: [
           template(),
-          nodeResolve(),
+          nodeResolve({
+            browser: true,
+            modulesOnly: true,
+            mainFields: ['module']
+          }),
           terser()
         ]
       });

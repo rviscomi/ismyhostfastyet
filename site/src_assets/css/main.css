@@ -1,6 +1,5 @@
 @import './site/src_assets/css/_vars.css';
-@import './site/src_assets/css/_var_calc.css';
-@import 'naf-css/css/base.min.css';
+@import './site/src_assets/css/base.css';
 
 :where(select) {
   display: block;
@@ -12,13 +11,6 @@
   width: 100%;
   -webkit-appearance: none;
 }
-
-
-
-/* @import 'custom.css';
-@import 'menu.css';
-@import 'highlight.css'; */
-
 
 .container {
   max-width: 60rem;
