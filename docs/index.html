@@ -19,445 +19,132 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://ismyhostfastyet.com/" />
     <meta property="og:site_name" content="Is my host fast yet?" />
-    <style>:root {
-  /* Colors */
-  --primaryH: 210;
-  --primaryS: 50%;
-  --primaryL: 40%;
-  --primary-bg: #fff;
-  --secondaryH: 0;
-  --secondaryS: 0%;
-  --secondaryL: 13%;
-  --secondary-bg: #fff;
-
-  /* Font */
-  --font-family-main: Raleway, sans-serif;
-  --font-family-alt1: Raleway, sans-serif;
-  --font-family-alt2: Raleway, sans-serif;
-  --font-family-mono: Menlo, Consolas, "Roboto Mono", "Ubuntu Monospace", "Oxygen Mono", "Liberation Mono", monospace;
-  --font-size-root: 1rem;
-  --font-weight-bolder: 700;
-  --font-weight-bold: 400;
-  --font-weight-normal: 200;
-  --font-weight-thin: 100;
-  --line-height: 1.75rem;
-  --heading-margin: 1.5rem 0 1rem;
-
-  /* Inputs */
-  --border-radius: 5px;
-
-  /* Status */
-  --danger: #d00;
-  --warning: #ec0;
-  --info: #369;
-  --success: #080;
-}
-
-/* Dark/Light Theme */
-
-@media (prefers-color-scheme: dark) {
-  :root:not(.is-light) { /* :root is <html> for HTML documents */
-    --primaryH: 185;
-    --primaryS: 100%;
-    --primaryL: 86%;
-    --primary-bg: #263238;
-    --secondaryH: 0;
-    --secondaryS: 1%;
-    --secondaryL: 89%;
-    --secondary-bg: #263238;
-  }
-  img {
-    opacity: .75;
-    transition: opacity .5s ease-in-out;
-  }
-  img:hover {
-    opacity: 1;
-  }
-}
-
-:root.is-dark { /* :root is <html> for HTML documents */
-  --primaryH: 185;
-  --primaryS: 100%;
-  --primaryL: 86%;
-  --primary-bg: #263238;
-  --secondaryH: 0;
-  --secondaryS: 1%;
-  --secondaryL: 89%;
-  --secondary-bg: #263238;
-}
-
-:root {
-  --primary: hsl(var(--primaryH), var(--primaryS), var(--primaryL));
-  --primary-bright: hsl(var(--primaryH), calc(var(--primaryS) * 1.25), 90%);
-  --primary-transparent: hsla(var(--primaryH), var(--primaryS), var(--primaryL), 0.05);
-  --primary-dark: hsl(var(--primaryH), var(--primaryS), calc(var(--primaryL) * 0.5));
-  --primary-darker: hsl(var(--primaryH), var(--primaryS), calc(var(--primaryL) * 0.2));
-  --primary-light: hsl(var(--primaryH), var(--primaryS), 75%);
-  --primary-lighter: hsl(var(--primaryH), var(--primaryS), 96%);
-  --secondary: hsl(var(--secondaryH), var(--secondaryS), var(--secondaryL));
-  --secondary-transparent: hsl(var(--secondaryH), var(--secondaryS), var(--secondaryL), 0.05);
-  --secondary-dark: hsl(var(--secondaryH), var(--secondaryS), calc(var(--secondaryL) * 0.5));
-  --secondary-darker: hsl(var(--secondaryH), var(--secondaryS), calc(var(--secondaryL) * 0.2));
-  --secondary-light: hsl(var(--secondaryH), var(--secondaryS), 75%);
-  --secondary-lighter: hsl(var(--secondaryH), var(--secondaryS), 96%);
-}
-
-/* CSS from https://github.com/dgrammatiko/naf-css */
-
-*,:after,:before{box-sizing:border-box}
-
-:where(html){scroll-behavior:smooth}
-
-:where(body){text-rendering:optimizeSpeed;line-height:1.5}
-
-:where(img),:where(picture){display:block;max-width:100%}
-
-:where(button),:where(input),:where(select),:where(textarea){font:inherit}
-
-:where(ol[role=list]),:where(ul[role=list]){list-style:none}
-
-:where(a):not([class]){-webkit-text-decoration-skip:ink;text-decoration-skip-ink:auto}
-
-@media (prefers-reduced-motion:reduce){*,:after,:before{-webkit-animation-duration:.01ms!important;animation-duration:.01ms!important;-webkit-animation-iteration-count:1!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
-
-:where(body){font-family:var(--font-family-main);font-size:1rem;letter-spacing:.01em;line-height:var(--line-height);min-height:100vh;min-height:-moz-stretch;min-height:-webkit-fill-stretch;min-height:fill-stretch;scroll-behavior:smooth}
-
-:where(html){-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:var(--secondary-bg);box-sizing:border-box;color:var(--secondary);cursor:default;font-family:var(--font-family);font-size:var(--font-size-root);font-weight:var(--font-weight-normal);line-height:1.3;word-break:break-word}
-
-:focus{outline:1px dashed var(--primary);outline-offset:2px}
-
-::-moz-selection{background-color:var(--primary);color:var(--primary-bg);text-shadow:none}
-
-::selection{background-color:var(--primary);color:var(--primary-bg);text-shadow:none}
-
-:where([hidden]),:where(template){display:none}
-
-:where(button),:where(input),:where(select){margin:.3rem 0}
-
-:where(button),:where(input[type=button]),:where(input[type=checkbox]),:where(input[type=radio]),:where(input[type=range]),:where(input[type=submit]),:where(select){cursor:pointer}
-
-.sr-only{height:1px!important;left:-100000px!important;overflow:hidden!important;position:absolute!important;top:auto!important;width:1px!important}
-
-:where(a),:where(a.link){background-color:transparent;color:var(--primary);font-weight:var(--font-weight-bold);text-decoration:underline}
-
-:where(a):visited,:where(a.link):visited{color:var(--primary-dark)}
-
-:where(a):focus,:where(a):hover,:where(a.link):focus,:where(a.link):hover{background-color:var(--primary-dark);box-shadow:0 0 .3rem var(--primary);color:var(--primary-bg);outline:0;text-decoration:none}
-
-:where(a[href^="file:"]):before,:where(a[href^="mailto:"]):before,:where(a[href^="sms:"]):before,:where(a[href^="tel:"]):before,:where(a[rel=bookmark]):before,:where(a[rel=download]):before,:where(a[rel=external]):before{display:inline-block;margin-right:.5rem;text-decoration:none}
-
-:where(a[href^="mailto:"]):before{content:"✉️"}
-
-:where(a[href^="tel:"]):before{content:"📱"}
-
-:where(a[href^="sms:"]):before{content:"💬"}
-
-:where(a[href^="file:"]):before{content:"📁"}
-
-:where(a[rel=external]):before{content:"↩︎"}
-
-:where(a[rel=bookmark]):before{content:"🔖"}
-
-:where(a[rel=download]):before{content:"⤵️"}
-
-:where(abbr[title]){border-bottom:0;position:relative;-webkit-text-decoration:underline dashed var(--primary);text-decoration:underline dashed var(--primary)}
-
-:where(abbr):hover:after{background:var(--primary);border-radius:var(--border-radius);bottom:100%;color:var(--primary-bg);content:attr(title);display:block;left:0;padding:.5rem;position:absolute;width:100px;width:-webkit-max-content;width:-moz-max-content;width:max-content}
-
-:where(address){display:block;font-style:normal;margin:var(--line-height) 0}
-
-:where(audio){display:inline-block;max-width:100%;vertical-align:baseline}
-
-:where(audio):not([controls]){display:none;height:0}
-
-:where(b),:where(strong){font-weight:var(--font-weight-bolder)}
-
-:where(blockquote){background-color:var(--secondary-transparent);border-left:4px solid var(--primary);font-style:italic;margin:1.5rem 0;padding:1rem 1.5rem}
-
-:where(blockquote) p{margin:.5rem 0}
-
-:where(blockquote>footer){border:0;font-style:normal}
-
-:where(blockquote cite){font-style:normal}
-
-:where(button){-webkit-appearance:none;background-color:var(--primary-transparent);border:1px solid var(--primary);border-radius:var(--border-radius);color:var(--primary);display:inline-block;font-size:inherit;line-height:1;overflow:visible;padding:1rem 2.5rem;text-align:center;text-decoration:none;text-transform:none;transform:scale(1);transition:opacity .2s ease}
-
-:where(button):active{transform:scale(.98)}
-
-:where([role=button]),:where([type=button]),:where([type=reset]),:where([type=submit]){-webkit-appearance:none;background-color:var(--primary-transparent);border:1px solid var(--primary);border-radius:var(--border-radius);color:var(--primary);display:inline-block;font-size:inherit;line-height:1;overflow:visible;padding:1rem 2.5rem;text-align:center;text-decoration:none;text-transform:none;transform:scale(1);transition:opacity .2s ease}
-
-:where([role=button]):active,:where([type=button]):active,:where([type=reset]):active,:where([type=submit]):active{transform:scale(.98)}
-
-:where(button:not([disabled])):focus,:where(button:not([disabled])):hover{background-color:var(--primary);border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);color:var(--primary-bg);cursor:pointer;outline:0}
-
-:where([role=button][disabled]),:where([type=button][disabled]),:where([type=reset][disabled]),:where([type=submit][disabled]){background:var(--secondary-lighter);border:1px solid var(--secondary-lighter);color:var(--secondary-darker);cursor:not-allowed}
-
-:where([role=button][disabled]):hover,:where([type=button][disabled]):hover,:where([type=reset][disabled]):hover,:where([type=submit][disabled]):hover{cursor:not-allowed}
-
-:where([role=button]:not([disabled])):focus,:where([role=button]:not([disabled])):hover,:where([type=button]:not([disabled])):focus,:where([type=button]:not([disabled])):hover,:where([type=reset]:not([disabled])):focus,:where([type=reset]:not([disabled])):hover,:where([type=submit]:not([disabled])):focus,:where([type=submit]:not([disabled])):hover{background-color:var(--primary);border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);color:var(--primary-bg);cursor:pointer;outline:0}
-
-:where(canvas){display:inline-block;max-width:100%;vertical-align:baseline}
-
-:where(code){background:var(--secondary-transparent);border-radius:6px;color:var(--secondary);font-size:1em;padding:2.5px 5px}
-
-:where(details){border:0;display:block}
-
-:where(summary){-webkit-appearance:none;background-color:var(--primary-transparent);border:1px solid var(--primary);border-radius:var(--border-radius);color:var(--primary);display:inline-block;font-size:inherit;line-height:1;overflow:visible;padding:1rem 2.5rem;text-align:center;text-decoration:none;text-transform:none;transform:scale(1);transition:opacity .2s ease;width:100%}
-
-:where(summary):focus,:where(summary):hover{background-color:var(--primary);border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);color:var(--primary-bg);cursor:pointer;outline:0}
-
-:where(dfn){font-style:italic;font-weight:var(--font-weight-bold)}
-
-:where(dl){font-size:1rem;line-height:var(--line-height);margin:var(--line-height) 0;max-width:80ch}
-
-:where(dt){font-weight:var(--font-weight-bold);margin-top:1rem}
-
-:where(dd){font-style:italic;margin-left:1rem}
-
-:where(figure){display:inline-flex;flex-direction:column;margin:var(--line-height) 0}
-
-:where(figure figcaption){margin:0;padding:.75rem 1.5rem}
-
-:where(h1),:where(h2),:where(h3),:where(h4),:where(h5),:where(h6){color:var(--primary);font-family:var(--font-family-alt1);font-weight:var(--font-weight-bold);margin:var(--heading-margin)}
-
-:where(h1){font-size:clamp(1.5rem,8vw - 2rem,3rem);line-height:clamp(1.5rem,8vw - 2rem,3rem)}
-
-:where(h2){font-size:clamp(1.2rem,8vw - 2rem,2.5rem);line-height:clamp(1.2rem,8vw - 2rem,2.5rem)}
-
-:where(h3){font-size:clamp(1.1rem,8vw - 2rem,1.66rem);line-height:clamp(1.1rem,8vw - 2rem,1.66rem)}
-
-:where(h4){font-size:clamp(1rem,8vw - 2rem,1.45rem)}
-
-:where(h5){font-size:clamp(.9rem,8vw - 2rem,1.25rem)}
-
-:where(h6){font-size:clamp(.8rem,8vw - 2rem,1.125rem)}
-
-:where(hgroup){border-left:5px solid var(--primary);display:block;margin:var(--heading-margin);padding-left:1rem}
-
-:where(hr){border:none;border-top:1px solid var(--secondary-light)}
-
-:where(img){border:0;display:block;height:auto;max-width:100%}
-
-:where(select),:where(textarea){background-color:var(--secondary-lighter);border:1px solid var(--secondary-light);border-radius:var(--border-radius);box-sizing:border-box;font:inherit;font-size:1rem;height:2.5rem;line-height:1;margin:0;max-width:100%;min-width:15rem;padding:0 .5rem;text-transform:none;width:100%}
-
-:where(select):disabled,:where(select)[readonly],:where(textarea):disabled,:where(textarea)[readonly]{background-color:var(--secondary-light);border:1px solid var(--secondary-light);color:var(--secondary-darker);cursor:not-allowed}
-
-:where(select):focus:not([disabled]):not([type=range]),:where(select):hover:not([disabled]):not([type=range]),:where(textarea):focus:not([disabled]):not([type=range]),:where(textarea):hover:not([disabled]):not([type=range]){border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);outline:0}
-
-:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color])){background-color:var(--secondary-lighter);border:1px solid var(--secondary-light);border-radius:var(--border-radius);box-sizing:border-box;font:inherit;font-size:1rem;height:2.5rem;line-height:1;margin:0;max-width:100%;min-width:15rem;padding:0 .5rem;text-transform:none;width:100%}
-
-:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color])):disabled,:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color]))[readonly]{background-color:var(--secondary-light);border:1px solid var(--secondary-light);color:var(--secondary-darker);cursor:not-allowed}
-
-:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color])):focus:not([disabled]):not([type=range]),:where(input:not([type=file]):not([type=submit]):not([type=reset]):not([type=button]):not([type=checkbox]):not([type=radio]):not([type=color])):hover:not([disabled]):not([type=range]){border:1px solid var(--primary);box-shadow:0 0 .3rem var(--primary);outline:0}
-
-:where(kbd){background-color:var(--secondary-lighter);border:1px solid var(--secondary-light);border-radius:var(--border-radius);color:var(--secondary-darker);font-family:var(--font-family-mono);padding:2px 4px}
-
-:where(ol),:where(ul){margin:var(--line-height) 0;padding-left:2rem}
-
-:where(ol ol),:where(ul ul){margin:0}
-
-:where(li){font-size:1rem;line-height:var(--line-height);max-width:80ch;max-width:calc(80ch - 3rem)}
-
-:where(li>ul){margin:0}
-
-:where(mark){background-color:var(--primary-bright);border-radius:2px;color:var(--secondary-darker);padding:0 2px}
-
-:where(p){font-size:1rem;line-height:var(--line-height);margin:var(--line-height) 0;max-width:80ch}
-
-:where(pre>code){display:block;overflow-x:auto;padding:10px}
-
-:where(q){font-style:italic}
-
-:where(q) :before{content:open-quote;font-style:normal}
-
-:where(q) :after{content:close-quote;font-style:normal}
-
-:where(samp){font-family:var(--font-family-mono);font-size:1em;font-weight:var(--font-weight-bold)}
-
-:where(small){font-size:.75em}
-
-:where(sub),:where(sup){font-size:.75em;line-height:0;position:relative;vertical-align:baseline}
-
-:where(sup){top:-.5em}
-
-:where(sub){bottom:-.25em}
-
-:where(svg):not(:root){display:inline-block;font-size:inherit;height:1.2em;overflow:visible;vertical-align:-.2em}
-
-:where(table){background-color:var(--secondary-bg);border:0;border-collapse:collapse;border-spacing:0;width:100%}
-
-:where(thead){box-shadow:inset 0 -2px var(--primary)}
-
-:where(tfoot){box-shadow:inset 0 2px var(--primary)}
-
-[dir=ltr] :where(caption){text-align:left}
-
-[dir=rtl] :where(caption){text-align:right}
-
-:where(caption){caption-side:top;padding:.5rem 0}
-
-:where(td),:where(th){padding:.5rem;text-align:left;vertical-align:middle}
-
-:where(th){background:hsla(0,0%,39%,.03);font-weight:var(--font-weight-bolder)}
-
-:where(tbody tr:nth-child(2n)){background-color:var(--secondary-transparent);color:var(--secondary)}
-
-:where(var){font-family:var(--font-family-mono);font-style:normal;font-weight:var(--font-weight-bold)}
-
-:where(video){display:inline-block;max-width:100%;vertical-align:baseline}
-
-:where(select) {
-  display: block;
-  font-family: inherit;
-  background: var(--secondary-lighter) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='40' fill='var(--primary)'><polygon points='0,0 60,0 30,40'/></svg>")  calc(100% - 12px) 50% / 12px no-repeat;
-  border: 1px solid var(--secondary-light);
-  border-radius: var(--border-radius);
-  padding-right: 2rem;
-  width: 100%;
-  -webkit-appearance: none;
-}
-
-.container {
-  max-width: 60rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.ttfb {
-  display: table-cell;
-  padding: 0.5rem 0;
-  width: 60%;
-  text-align: right;
-}
-
-.ttfb span {
-  display: inline-block;
-  float: left;
-  overflow: hidden;
-  line-height: 3rem;
-  font-size: 0.8em;
-  text-shadow: none;
-  color: #fff;
-  vertical-align: middle;
-  word-break: keep-all;
-}
-
-.fast {
-  background-color: #0aa55f;
-}
-
-.avg {
-  background-color: #fbca42;
-}
-
-.slow {
-  background-color: #dd493f;
-}
-</style>
+    <link rel="stylesheet" href="/assets/css/main.css?1630665577458">
     <script type="application/ld+json">{"@type":"WebSite","url":"https://ismyhostfastyet.com","name":"ismyhostfastyet","headline":"Is my host fast yet?","@context":"http://schema.org"}</script>
+    <script class="data-json" type="application/json">[{"platform":"GoDaddy Website Builder","client":"desktop","n":"6585","fast":"0.8069855732725892","avg":"0.1880030372057707","slow":"0.005011389521640091"},{"platform":"GitHub","client":"desktop","n":"13137","fast":"0.5408388520971302","avg":"0.4562685544644896","slow":"0.002892593438380148"},{"platform":"Squarespace","client":"desktop","n":"55819","fast":"0.5136064780809402","avg":"0.4829180028305774","slow":"0.0034755190884824165"},{"platform":"Seravo","client":"desktop","n":"776","fast":"0.44072164948453607","avg":"0.49226804123711343","slow":"0.06701030927835051"},{"platform":"AlwaysData","client":"desktop","n":"717","fast":"0.37099023709902373","avg":"0.5676429567642957","slow":"0.061366806136680614"},{"platform":"Weebly","client":"desktop","n":"12081","fast":"0.35319923847363627","avg":"0.6331429517424054","slow":"0.013657809783958282"},{"platform":"Zone.eu","client":"desktop","n":"2848","fast":"0.3497191011235955","avg":"0.5010533707865169","slow":"0.14922752808988765"},{"platform":"GoDaddy Website Builder","client":"mobile","n":"9877","fast":"0.3437278525868179","avg":"0.6212412675913739","slow":"0.03503087982180824"},{"platform":"Seravo","client":"mobile","n":"938","fast":"0.32409381663113007","avg":"0.5852878464818764","slow":"0.0906183368869936"},{"platform":"Wix","client":"desktop","n":"51628","fast":"0.2863175021306268","avg":"0.7010924304640892","slow":"0.012590067405283954"},{"platform":"Vercel","client":"desktop","n":"4713","fast":"0.2766815192022067","avg":"0.6195629110969658","slow":"0.1037555697008275"},{"platform":"Acquia","client":"desktop","n":"8835","fast":"0.24368986983588004","avg":"0.6555744199207697","slow":"0.1007357102433503"},{"platform":"Zone.eu","client":"mobile","n":"2904","fast":"0.24207988980716252","avg":"0.5840220385674931","slow":"0.17389807162534435"},{"platform":"GitHub","client":"mobile","n":"7320","fast":"0.22404371584699453","avg":"0.7646174863387978","slow":"0.01133879781420765"},{"platform":"AlwaysData","client":"mobile","n":"744","fast":"0.21505376344086022","avg":"0.6868279569892473","slow":"0.09811827956989247"},{"platform":"Squarespace","client":"mobile","n":"56677","fast":"0.20015173703618752","avg":"0.7787109409460627","slow":"0.021137322017749705"},{"platform":"WP Engine","client":"desktop","n":"77751","fast":"0.18010057748453395","avg":"0.7031678049156924","slow":"0.11673161759977364"},{"platform":"Pantheon","client":"desktop","n":"12665","fast":"0.1795499407816818","avg":"0.68251085669167","slow":"0.13793920252664824"},{"platform":"Weebly","client":"mobile","n":"14311","fast":"0.1537977779330585","avg":"0.7937949828803018","slow":"0.05240723918663965"},{"platform":"Netlify","client":"desktop","n":"10988","fast":"0.15116490717145978","avg":"0.815435020021842","slow":"0.03340007280669822"},{"platform":"Liquid Web","client":"desktop","n":"1891","fast":"0.1343204653622422","avg":"0.686409307244844","slow":"0.1792702273929138"},{"platform":"Kinsta","client":"desktop","n":"14064","fast":"0.12620875995449374","avg":"0.7107508532423208","slow":"0.16304038680318544"},{"platform":"Flywheel","client":"desktop","n":"16519","fast":"0.10727041588473879","avg":"0.5668018645196441","slow":"0.32592771959561717"},{"platform":"Shopify","client":"desktop","n":"140681","fast":"0.09934532737185547","avg":"0.8755197930068737","slow":"0.02513487962127082"},{"platform":"Shopify","client":"mobile","n":"154840","fast":"0.09684835959700336","avg":"0.8642469646086283","slow":"0.03890467579436838"},{"platform":"Vercel","client":"mobile","n":"4689","fast":"0.08296011942844957","avg":"0.7423757730859458","slow":"0.1746641074856046"},{"platform":"Acquia","client":"mobile","n":"8211","fast":"0.06442577030812324","avg":"0.7150164413591523","slow":"0.22055778833272438"},{"platform":"Pantheon","client":"mobile","n":"11159","fast":"0.05045254951160498","avg":"0.7153866833945695","slow":"0.2341607670938256"},{"platform":"SiteGround","client":"desktop","n":"35701","fast":"0.049606453600739474","avg":"0.5143553401865494","slow":"0.4360382062127111"},{"platform":"Wix","client":"mobile","n":"84521","fast":"0.04927769430082465","avg":"0.9159498822777771","slow":"0.03477242342139823"},{"platform":"Netlify","client":"mobile","n":"10260","fast":"0.04649122807017544","avg":"0.8559454191033138","slow":"0.09756335282651073"},{"platform":"Automattic","client":"desktop","n":"38246","fast":"0.04403074831354913","avg":"0.867175652355802","slow":"0.08879359933064895"},{"platform":"WP Engine","client":"mobile","n":"72562","fast":"0.04219839585457953","avg":"0.7228163501557289","slow":"0.23498525398969158"},{"platform":"HubSpot","client":"desktop","n":"10520","fast":"0.04011406844106464","avg":"0.6620722433460076","slow":"0.29781368821292775"},{"platform":"Kinsta","client":"mobile","n":"13837","fast":"0.039965310399653106","avg":"0.6687143166871432","slow":"0.29132037291320373"},{"platform":"Flywheel","client":"mobile","n":"15640","fast":"0.0391304347826087","avg":"0.5274936061381074","slow":"0.4333759590792839"},{"platform":"Liquid Web","client":"mobile","n":"1817","fast":"0.029168959823885527","avg":"0.6681342872867364","slow":"0.3026967528893781"},{"platform":"SiteGround","client":"mobile","n":"38184","fast":"0.018987010266080035","avg":"0.42454954954954954","slow":"0.5564634401843704"},{"platform":"HubSpot","client":"mobile","n":"9306","fast":"0.009348807221147646","avg":"0.49806576402321084","slow":"0.49258542875564154"},{"platform":"Automattic","client":"mobile","n":"50117","fast":"0.00610571263244009","avg":"0.8744338248498513","slow":"0.11946046251770856"},{"platform":"GoDaddy Website Builder","client":"desktop","n":"6585","fast":"0.8069855732725892","avg":"0.1880030372057707","slow":"0.005011389521640091"},{"platform":"GitHub","client":"desktop","n":"13137","fast":"0.5408388520971302","avg":"0.4562685544644896","slow":"0.002892593438380148"},{"platform":"Squarespace","client":"desktop","n":"55819","fast":"0.5136064780809402","avg":"0.4829180028305774","slow":"0.0034755190884824165"},{"platform":"Seravo","client":"desktop","n":"776","fast":"0.44072164948453607","avg":"0.49226804123711343","slow":"0.06701030927835051"},{"platform":"AlwaysData","client":"desktop","n":"717","fast":"0.37099023709902373","avg":"0.5676429567642957","slow":"0.061366806136680614"},{"platform":"Weebly","client":"desktop","n":"12081","fast":"0.35319923847363627","avg":"0.6331429517424054","slow":"0.013657809783958282"},{"platform":"Zone.eu","client":"desktop","n":"2848","fast":"0.3497191011235955","avg":"0.5010533707865169","slow":"0.14922752808988765"},{"platform":"GoDaddy Website Builder","client":"mobile","n":"9877","fast":"0.3437278525868179","avg":"0.6212412675913739","slow":"0.03503087982180824"},{"platform":"Seravo","client":"mobile","n":"938","fast":"0.32409381663113007","avg":"0.5852878464818764","slow":"0.0906183368869936"},{"platform":"Wix","client":"desktop","n":"51628","fast":"0.2863175021306268","avg":"0.7010924304640892","slow":"0.012590067405283954"},{"platform":"Vercel","client":"desktop","n":"4713","fast":"0.2766815192022067","avg":"0.6195629110969658","slow":"0.1037555697008275"},{"platform":"Acquia","client":"desktop","n":"8835","fast":"0.24368986983588004","avg":"0.6555744199207697","slow":"0.1007357102433503"},{"platform":"Zone.eu","client":"mobile","n":"2904","fast":"0.24207988980716252","avg":"0.5840220385674931","slow":"0.17389807162534435"},{"platform":"GitHub","client":"mobile","n":"7320","fast":"0.22404371584699453","avg":"0.7646174863387978","slow":"0.01133879781420765"},{"platform":"AlwaysData","client":"mobile","n":"744","fast":"0.21505376344086022","avg":"0.6868279569892473","slow":"0.09811827956989247"},{"platform":"Squarespace","client":"mobile","n":"56677","fast":"0.20015173703618752","avg":"0.7787109409460627","slow":"0.021137322017749705"},{"platform":"WP Engine","client":"desktop","n":"77751","fast":"0.18010057748453395","avg":"0.7031678049156924","slow":"0.11673161759977364"},{"platform":"Pantheon","client":"desktop","n":"12665","fast":"0.1795499407816818","avg":"0.68251085669167","slow":"0.13793920252664824"},{"platform":"Weebly","client":"mobile","n":"14311","fast":"0.1537977779330585","avg":"0.7937949828803018","slow":"0.05240723918663965"},{"platform":"Netlify","client":"desktop","n":"10988","fast":"0.15116490717145978","avg":"0.815435020021842","slow":"0.03340007280669822"},{"platform":"Liquid Web","client":"desktop","n":"1891","fast":"0.1343204653622422","avg":"0.686409307244844","slow":"0.1792702273929138"},{"platform":"Kinsta","client":"desktop","n":"14064","fast":"0.12620875995449374","avg":"0.7107508532423208","slow":"0.16304038680318544"},{"platform":"Flywheel","client":"desktop","n":"16519","fast":"0.10727041588473879","avg":"0.5668018645196441","slow":"0.32592771959561717"},{"platform":"Shopify","client":"desktop","n":"140681","fast":"0.09934532737185547","avg":"0.8755197930068737","slow":"0.02513487962127082"},{"platform":"Shopify","client":"mobile","n":"154840","fast":"0.09684835959700336","avg":"0.8642469646086283","slow":"0.03890467579436838"},{"platform":"Vercel","client":"mobile","n":"4689","fast":"0.08296011942844957","avg":"0.7423757730859458","slow":"0.1746641074856046"},{"platform":"Acquia","client":"mobile","n":"8211","fast":"0.06442577030812324","avg":"0.7150164413591523","slow":"0.22055778833272438"},{"platform":"Pantheon","client":"mobile","n":"11159","fast":"0.05045254951160498","avg":"0.7153866833945695","slow":"0.2341607670938256"},{"platform":"SiteGround","client":"desktop","n":"35701","fast":"0.049606453600739474","avg":"0.5143553401865494","slow":"0.4360382062127111"},{"platform":"Wix","client":"mobile","n":"84521","fast":"0.04927769430082465","avg":"0.9159498822777771","slow":"0.03477242342139823"},{"platform":"Netlify","client":"mobile","n":"10260","fast":"0.04649122807017544","avg":"0.8559454191033138","slow":"0.09756335282651073"},{"platform":"Automattic","client":"desktop","n":"38246","fast":"0.04403074831354913","avg":"0.867175652355802","slow":"0.08879359933064895"},{"platform":"WP Engine","client":"mobile","n":"72562","fast":"0.04219839585457953","avg":"0.7228163501557289","slow":"0.23498525398969158"},{"platform":"HubSpot","client":"desktop","n":"10520","fast":"0.04011406844106464","avg":"0.6620722433460076","slow":"0.29781368821292775"},{"platform":"Kinsta","client":"mobile","n":"13837","fast":"0.039965310399653106","avg":"0.6687143166871432","slow":"0.29132037291320373"},{"platform":"Flywheel","client":"mobile","n":"15640","fast":"0.0391304347826087","avg":"0.5274936061381074","slow":"0.4333759590792839"},{"platform":"Liquid Web","client":"mobile","n":"1817","fast":"0.029168959823885527","avg":"0.6681342872867364","slow":"0.3026967528893781"},{"platform":"SiteGround","client":"mobile","n":"38184","fast":"0.018987010266080035","avg":"0.42454954954954954","slow":"0.5564634401843704"},{"platform":"HubSpot","client":"mobile","n":"9306","fast":"0.009348807221147646","avg":"0.49806576402321084","slow":"0.49258542875564154"},{"platform":"Automattic","client":"mobile","n":"50117","fast":"0.00610571263244009","avg":"0.8744338248498513","slow":"0.11946046251770856"}]</script>
+    <script type="module" src="/assets/js/main.js?1630665577458"></script>
   </head>
   <body class="container">
     <header>
-  <h1>Is my host fast yet?</h1>
-  <blockquote>Real-world server response (Time to First Byte) latencies, as experienced by real-world users navigating the web.</blockquote>
-</header>
+      <h1>Is my host fast yet?</h1>
+      <blockquote>Real-world server response (Time to First Byte) latencies, as experienced by real-world users navigating the web.</blockquote>
+    </header>
 
-<hr>
+    <hr>
 
+    <h2>Leaderboard: July 2021</h2>
 
-    <script class="data-json" type="application/json">[{"platform":"GoDaddy Website Builder","client":"desktop","n":"6585","fast":"0.8069855732725892","avg":"0.1880030372057707","slow":"0.005011389521640091"},{"platform":"GitHub","client":"desktop","n":"13137","fast":"0.5408388520971302","avg":"0.4562685544644896","slow":"0.002892593438380148"},{"platform":"Squarespace","client":"desktop","n":"55819","fast":"0.5136064780809402","avg":"0.4829180028305774","slow":"0.0034755190884824165"},{"platform":"Seravo","client":"desktop","n":"776","fast":"0.44072164948453607","avg":"0.49226804123711343","slow":"0.06701030927835051"},{"platform":"AlwaysData","client":"desktop","n":"717","fast":"0.37099023709902373","avg":"0.5676429567642957","slow":"0.061366806136680614"},{"platform":"Weebly","client":"desktop","n":"12081","fast":"0.35319923847363627","avg":"0.6331429517424054","slow":"0.013657809783958282"},{"platform":"Zone.eu","client":"desktop","n":"2848","fast":"0.3497191011235955","avg":"0.5010533707865169","slow":"0.14922752808988765"},{"platform":"GoDaddy Website Builder","client":"mobile","n":"9877","fast":"0.3437278525868179","avg":"0.6212412675913739","slow":"0.03503087982180824"},{"platform":"Seravo","client":"mobile","n":"938","fast":"0.32409381663113007","avg":"0.5852878464818764","slow":"0.0906183368869936"},{"platform":"Wix","client":"desktop","n":"51628","fast":"0.2863175021306268","avg":"0.7010924304640892","slow":"0.012590067405283954"},{"platform":"Vercel","client":"desktop","n":"4713","fast":"0.2766815192022067","avg":"0.6195629110969658","slow":"0.1037555697008275"},{"platform":"Acquia","client":"desktop","n":"8835","fast":"0.24368986983588004","avg":"0.6555744199207697","slow":"0.1007357102433503"},{"platform":"Zone.eu","client":"mobile","n":"2904","fast":"0.24207988980716252","avg":"0.5840220385674931","slow":"0.17389807162534435"},{"platform":"GitHub","client":"mobile","n":"7320","fast":"0.22404371584699453","avg":"0.7646174863387978","slow":"0.01133879781420765"},{"platform":"AlwaysData","client":"mobile","n":"744","fast":"0.21505376344086022","avg":"0.6868279569892473","slow":"0.09811827956989247"},{"platform":"Squarespace","client":"mobile","n":"56677","fast":"0.20015173703618752","avg":"0.7787109409460627","slow":"0.021137322017749705"},{"platform":"WP Engine","client":"desktop","n":"77751","fast":"0.18010057748453395","avg":"0.7031678049156924","slow":"0.11673161759977364"},{"platform":"Pantheon","client":"desktop","n":"12665","fast":"0.1795499407816818","avg":"0.68251085669167","slow":"0.13793920252664824"},{"platform":"Weebly","client":"mobile","n":"14311","fast":"0.1537977779330585","avg":"0.7937949828803018","slow":"0.05240723918663965"},{"platform":"Netlify","client":"desktop","n":"10988","fast":"0.15116490717145978","avg":"0.815435020021842","slow":"0.03340007280669822"},{"platform":"Liquid Web","client":"desktop","n":"1891","fast":"0.1343204653622422","avg":"0.686409307244844","slow":"0.1792702273929138"},{"platform":"Kinsta","client":"desktop","n":"14064","fast":"0.12620875995449374","avg":"0.7107508532423208","slow":"0.16304038680318544"},{"platform":"Flywheel","client":"desktop","n":"16519","fast":"0.10727041588473879","avg":"0.5668018645196441","slow":"0.32592771959561717"},{"platform":"Shopify","client":"desktop","n":"140681","fast":"0.09934532737185547","avg":"0.8755197930068737","slow":"0.02513487962127082"},{"platform":"Shopify","client":"mobile","n":"154840","fast":"0.09684835959700336","avg":"0.8642469646086283","slow":"0.03890467579436838"},{"platform":"Vercel","client":"mobile","n":"4689","fast":"0.08296011942844957","avg":"0.7423757730859458","slow":"0.1746641074856046"},{"platform":"Acquia","client":"mobile","n":"8211","fast":"0.06442577030812324","avg":"0.7150164413591523","slow":"0.22055778833272438"},{"platform":"Pantheon","client":"mobile","n":"11159","fast":"0.05045254951160498","avg":"0.7153866833945695","slow":"0.2341607670938256"},{"platform":"SiteGround","client":"desktop","n":"35701","fast":"0.049606453600739474","avg":"0.5143553401865494","slow":"0.4360382062127111"},{"platform":"Wix","client":"mobile","n":"84521","fast":"0.04927769430082465","avg":"0.9159498822777771","slow":"0.03477242342139823"},{"platform":"Netlify","client":"mobile","n":"10260","fast":"0.04649122807017544","avg":"0.8559454191033138","slow":"0.09756335282651073"},{"platform":"Automattic","client":"desktop","n":"38246","fast":"0.04403074831354913","avg":"0.867175652355802","slow":"0.08879359933064895"},{"platform":"WP Engine","client":"mobile","n":"72562","fast":"0.04219839585457953","avg":"0.7228163501557289","slow":"0.23498525398969158"},{"platform":"HubSpot","client":"desktop","n":"10520","fast":"0.04011406844106464","avg":"0.6620722433460076","slow":"0.29781368821292775"},{"platform":"Kinsta","client":"mobile","n":"13837","fast":"0.039965310399653106","avg":"0.6687143166871432","slow":"0.29132037291320373"},{"platform":"Flywheel","client":"mobile","n":"15640","fast":"0.0391304347826087","avg":"0.5274936061381074","slow":"0.4333759590792839"},{"platform":"Liquid Web","client":"mobile","n":"1817","fast":"0.029168959823885527","avg":"0.6681342872867364","slow":"0.3026967528893781"},{"platform":"SiteGround","client":"mobile","n":"38184","fast":"0.018987010266080035","avg":"0.42454954954954954","slow":"0.5564634401843704"},{"platform":"HubSpot","client":"mobile","n":"9306","fast":"0.009348807221147646","avg":"0.49806576402321084","slow":"0.49258542875564154"},{"platform":"Automattic","client":"mobile","n":"50117","fast":"0.00610571263244009","avg":"0.8744338248498513","slow":"0.11946046251770856"}]</script>
-<script type="module" src="/assets/js/main.js?1629367416523"></script>
-<h2>Leaderboard: July 2021</h2>
-<div class="app-container"></div>
-<section>
-  <p>
-    Are you looking for the rate of improvment per host?
-    Check the timeline <a href="/archive">here</a>.
-  </p>
-</section>
-<section>
-  <p>
-    See a missing hosting provider?
-    <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#contribute">
-      Please help us identify how to surface them here.
-    </a>
-  </p>
-</section>
-<section>
-  <h2>How do you measure real-world Time to First Byte?</h2>
-  <p>
-    This report is powered by <a href="http://bit.ly/chrome-ux-report">Chrome User Experience Report</a>,
-    which provides user experience metrics for how real-world Chrome users experience popular
-    destinations on the web. As a result, this report does not rely on synthentic tests of
-    each hosting provider, but instead provides insight into how real-world users experience
-    the speed of sites hosted by various providers.
-  </p>
-  <h2>What is Time to First Byte?</h2>
-  <p>
-    TTFB is measured as the time from the start of navigation request until the time that the
-    client receives the first byte of the response from the server. It includes network setup time
-    (SSL, DNS, TCP) as well as server-side processing.
-  </p>
-  <img src="/assets/ttfb.png" loading="lazy" height="248" width="800" alt="Diagram showing TTFB as the network events from the prompt for unload to the response start">
-  <p>
-    As you can see in the <a href="https://w3c.github.io/navigation-timing/">Navigation Timing Level 2 draft spec</a>
-    screenshot above, the metric is equivalent to <code>performance.getEntriesByType('navigation')[0].responseStart</code>.
-  </p>
-  <h2>How do you determine: Fast, Average, Slow?</h2>
-  <p>
-    The thresholds for fast/average/slow TTFB are 500 ms as the upper limit for fast TTFB and 1500 ms as the lower limit for slow TTFB.
-  </p>
-  <ul>
-    <li>
-      “fast” TTFB &lt; 500 ms is based on the <a href="https://developers.google.com/speed/docs/insights/Server">server responsiveness</a>
-            best practice.
-    </li>
-    <li>
-      “slow” TTFB &gt;= 1500 ms is based on the requirement for the fast First Contentful Paint (FCP) threshold
-      to be &lt; 1800 ms. A server response that exceeds 1500 ms will not, in most cases, meet the fast FCP goal.
-    </li>
-  </ul>
-  <p>
-    The 75th percentile (p75) TTFB is analyzed for each website, which is determined to be fast or slow by where it falls between those thresholds.
-  </p>
-  <p>
-    The percentages for each host are calculated by taking the number of websites whose p75 TTFB is fast, average, and slow, and dividing each by the total number of websites. A previous version of this report averaged all websites' TTFB experiences together into a big, muddled distribution. This new approach is more accurate since it counts websites, not averaged experiences.
-  </p>
-  <h2>What about other metrics, why just TTFB?</h2>
-  <p>
-    Chrome UX Report provides other metrics like First Paint, First Contentful Paint, First Input Delay,
-    and others. We plan to add more metrics to this report in the future. If you would like to help out,
-    please <a href="https://github.com/rviscomi/ismyhostfastyet">let us know on GitHub</a>.
-  </p>
-  <h2>How frequently is this reported updated?</h2>
-  <p>
-    Chrome UX Report publishes monthly datasets and this report is updated once a month based on that data.
-  </p>
-  <h2>How are the hosting providers detected?</h2>
-  <p>
-    Chrome UX Report does not provide an explicit dimension for which hosting provider
-    is associated with each origin. To perform the classification we rely on another
-    dataset: <a href="https://httparchive.org">HTTP Archive</a> crawls all of the origins provided
-    in CrUX and runs logic to identify providers based on header signatures, DNS records, and other signals.
-  </p>
-  <p>
-    For example, a response header of <code>X-Powered-By: HubSpot</code> for a website's HTML page indicates that
-    it is hosted by HubSpot.
-  </p>
-  <p>
-    Would you like to see a hosting provider included in this report that’s currently
-    not on the list? Please <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#methodology">read more about our methodology</a>
-    and <a href="https://github.com/rviscomi/ismyhostfastyet/">join us on GitHub</a> — we’d appreciate your help to
-    allow us to expand coverage of this report!
-  </p>
-  <h2>What about <q>X</q> ?</h2>
-  <p>Good question! Please <a href="https://github.com/rviscomi/ismyhostfastyet/issues">start a discussion</a> on GitHub, so we can answer it.</p>
-</section>
+    <div class="app-container"></div>
 
+    <section>
+      <p>
+        Are you looking for the rate of improvment per host?
+        Check the timeline <a href="/archive">here</a>.
+      </p>
+    </section>
+
+    <section>
+      <p>
+        See a missing hosting provider?
+        <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#contribute">
+          Please help us identify how to surface them here.
+        </a>
+      </p>
+    </section>
+
+    <section>
+      <h2>How do you measure real-world Time to First Byte?</h2>
+
+      <p>
+        This report is powered by <a href="http://bit.ly/chrome-ux-report">Chrome User Experience Report</a>,
+        which provides user experience metrics for how real-world Chrome users experience popular
+        destinations on the web. As a result, this report does not rely on synthentic tests of
+        each hosting provider, but instead provides insight into how real-world users experience
+        the speed of sites hosted by various providers.
+      </p>
+
+      <h2>What is Time to First Byte?</h2>
+
+      <p>
+        TTFB is measured as the time from the start of navigation request until the time that the
+        client receives the first byte of the response from the server. It includes network setup time
+        (SSL, DNS, TCP) as well as server-side processing.
+      </p>
+
+      <img src="/assets/ttfb.png" loading="lazy" height="248" width="800" alt="Diagram showing TTFB as the network events from the prompt for unload to the response start">
+
+      <p>
+        As you can see in the <a href="https://w3c.github.io/navigation-timing/">Navigation Timing Level 2 draft spec</a>
+        screenshot above, the metric is equivalent to <code>performance.getEntriesByType('navigation')[0].responseStart</code>.
+      </p>
+
+      <h2>How do you determine: Fast, Average, Slow?</h2>
+
+      <p>
+        The thresholds for fast/average/slow TTFB are 500 ms as the upper limit for fast TTFB and 1500 ms as the lower limit for slow TTFB.
+      </p>
+
+      <ul>
+        <li>
+          “fast” TTFB &lt; 500 ms is based on the <a href="https://developers.google.com/speed/docs/insights/Server">server responsiveness</a>
+                best practice.
+        </li>
+        <li>
+          “slow” TTFB &gt;= 1500 ms is based on the requirement for the fast First Contentful Paint (FCP) threshold
+          to be &lt; 1800 ms. A server response that exceeds 1500 ms will not, in most cases, meet the fast FCP goal.
+        </li>
+      </ul>
+
+      <p>
+        The 75th percentile (p75) TTFB is analyzed for each website, which is determined to be fast or slow by where it falls between those thresholds.
+      </p>
+
+      <p>
+        The percentages for each host are calculated by taking the number of websites whose p75 TTFB is fast, average, and slow, and dividing each by the total number of websites. A previous version of this report averaged all websites' TTFB experiences together into a big, muddled distribution. This new approach is more accurate since it counts websites, not averaged experiences.
+      </p>
+
+      <h2>What about other metrics, why just TTFB?</h2>
+
+      <p>
+        Chrome UX Report provides other metrics like First Paint, First Contentful Paint, First Input Delay,
+        and others. We plan to add more metrics to this report in the future. If you would like to help out,
+        please <a href="https://github.com/rviscomi/ismyhostfastyet">let us know on GitHub</a>.
+      </p>
+
+      <h2>How frequently is this reported updated?</h2>
+
+      <p>
+        Chrome UX Report publishes monthly datasets and this report is updated once a month based on that data.
+      </p>
+
+      <h2>How are the hosting providers detected?</h2>
+
+      <p>
+        Chrome UX Report does not provide an explicit dimension for which hosting provider
+        is associated with each origin. To perform the classification we rely on another
+        dataset: <a href="https://httparchive.org">HTTP Archive</a> crawls all of the origins provided
+        in CrUX and runs logic to identify providers based on header signatures, DNS records, and other signals.
+      </p>
+
+      <p>
+        For example, a response header of <code>X-Powered-By: HubSpot</code> for a website's HTML page indicates that
+        it is hosted by HubSpot.
+      </p>
+
+      <p>
+        Would you like to see a hosting provider included in this report that’s currently
+        not on the list? Please <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#methodology">read more about our methodology</a>
+        and <a href="https://github.com/rviscomi/ismyhostfastyet/">join us on GitHub</a> — we’d appreciate your help to
+        allow us to expand coverage of this report!
+      </p>
+
+      <h2>What about <q>X</q> ?</h2>
+
+      <p>Good question! Please <a href="https://github.com/rviscomi/ismyhostfastyet/issues">start a discussion</a> on GitHub, so we can answer it.</p>
+    </section>
 
     <footer>
-  ismyhostfastyet is maintained by <a href="https://twitter.com/rick_viscomi">Rick Viscomi</a>
-</footer>
-
+      ismyhostfastyet is maintained by <a href="https://twitter.com/rick_viscomi">Rick Viscomi</a>
+    </footer>
   </body>
 </html>

@@ -1,46 +1,30 @@
-const fs = require('fs');
-const anchor = require('markdown-it-anchor');
+const { writeFileSync } = require('fs');
 
 module.exports = function (eleventyConfig) {
-  let liquidJs = require('liquidjs');
-  let options = {
-    extname: '.liquid',
-    dynamicPartials: true,
-    strictFilters: false,
-    root: ['site/_includes']
-  };
-
-  eleventyConfig.setLibrary('liquid', liquidJs(options));
   eleventyConfig.setDataDeepMerge(true);
+  eleventyConfig.addGlobalData('metadata', () => {
+    return {
+      url: 'https://ismyhostfastyet.com',
+      inlineJSON : require('./ttfb.json'),
+      version: new Date().valueOf(),
+      title: 'Is my host fast yet?',
+      description: 'A study of web host performance using real-world transparency data from Chrome UX Report and HTTP Archive.',
+      name: 'ismyhostfastyet',
+      author: 'Rick Viscomi'
+    }
+  });
   eleventyConfig.addPassthroughCopy({ 'site/assets': 'assets' });
   eleventyConfig.addPassthroughCopy({ 'site/CNAME': 'CNAME' });
 
   eleventyConfig.on('afterBuild', () => {
-    fs.writeFileSync('docs/.nojekyll', '', 'utf8');
+    writeFileSync('docs/.nojekyll', '', 'utf8');
   });
-
-  eleventyConfig.setLibrary(
-    'md',
-    require('markdown-it')({
-      html: true,
-      breaks: true,
-      linkify: true,
-    })
-  .use(anchor, {
-    permalink: anchor.permalink.headerLink(),
-    permalinkClass: 'direct-link',
-    permalinkSymbol: '¶',
-  })
-  );
 
   return {
     pathPrefix: '/',
     passthroughFileCopy: true,
     dir: {
-      data: `_data`,
       input: 'site',
-      includes: `_includes`,
-      layouts: `_includes`,
       output: 'docs',
     },
   };

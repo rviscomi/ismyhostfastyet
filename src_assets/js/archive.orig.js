@@ -1,4 +1,3 @@
-
 import * as echarts from 'echarts/core';
 import {
     TitleComponent,

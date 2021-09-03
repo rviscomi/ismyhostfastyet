@@ -3,13 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "eleventy --config=.eleventy.cjs",
-    "serve": "eleventy --config=.eleventy.cjs --serve"
+    "build": "rollup -c && node postcss.js && eleventy --config=.eleventy.cjs",
+    "serve": "rollup -c && node postcss.js && eleventy --config=.eleventy.cjs --serve"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
-    "@11ty/eleventy-img": "^0.9.0",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.2",
+    "@11ty/eleventy": "^1.0.0-canary.41",
     "@rollup/plugin-node-resolve": "^13.0.2",
     "@rollup/plugin-replace": "^3.0.0",
     "markdown-it-anchor": "^8.0.1",
@@ -22,7 +20,6 @@
   },
   "dependencies": {
     "uhtml": "^2.7.6",
-    "echarts": "^5.1.2",
     "frappe-charts": "^1.6.2"
   }
 }

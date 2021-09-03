@@ -1,5 +1,6 @@
-@import './site/src_assets/css/_vars.css';
-@import './site/src_assets/css/base.css';
+@import './src_assets/css/_vars.css';
+@import './src_assets/css/base.css';
+@import './src_assets/css/chart.css';
 
 :where(select) {
   display: block;

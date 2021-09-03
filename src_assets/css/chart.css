@@ -1,21 +1,17 @@
-
-
-
-
-
+svg text {
+  fill: var(--primary);
+}
 .chart-container {
   position: relative; /* for absolutely positioned tooltip */
 
   /* https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/ */
-  font-family: -apple-system, BlinkMacSystemFont,
-    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-family-main);
 
   .axis, .chart-label {
-    fill: #555b51;
+    fill: var(--primary);
 
     line {
-      stroke: #dadada;
+      stroke: var(--primary);
     }
   }
   .dataset-units {
@@ -94,7 +90,7 @@
     margin: 0 0 0 -5px;
     content: ' ';
     border: 5px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.8);
+    border-top-color: var(--primary);
   }
   &.comparison {
     padding: 0;

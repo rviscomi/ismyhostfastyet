@@ -1,5 +1,4 @@
-import { Chart } from "frappe-charts/dist/frappe-charts.esm.js";
-import "frappe-charts/src/css/chartsCss";
+import { Chart } from 'frappe-charts/dist/frappe-charts.esm.js';
 
 const chartDom = document.getElementById('main');
 const data = JSON.parse(document.querySelector('.data-json').innerHTML);
@@ -45,7 +44,7 @@ const filter = (platform, client) => {
   ['Slow', 'Average', 'Fast'].forEach(item => {
       out.push({
       name: item,
-      chartType: "bar",
+      chartType: 'bar',
       values: tmpData[item],
     });
   });
@@ -68,34 +67,28 @@ const xAxis = () => {
 
 
 const options ={
+  yRegions: [{ label: "%", start: 0, end: 100 }],
   data: {
     labels: xAxis(),
-    // yRegions: [{ label: "%", start: 0, end: 100 }]
   },
-  type: 'bar',
+  // type: 'axis-mixed',
   barOptions: {
-    // spaceRatio: 0.001,
+    spaceRatio: 0.001,
     stacked: true,
   },
   height: 400,
-  colors: ["red", "yellow", "green"],
+  colors: ['red', 'yellow', 'green', 'black'],
   axisOptions: {
     xAxisMode: 'tick',
     yAxisMode: 'span'
   },
-
 };
 
 const update = (platform, client) => {
   if (!chart) {
     options.data.datasets = filter(platform, client);
-    console.log(options);
     chart = new Chart(chartDom, options);
   } else {
-    console.log({
-      labels: xAxis(),
-      datasets: filter(platform, client),
-    });
     chart.update({
       labels: xAxis(),
       datasets: filter(platform, client),
@@ -107,7 +100,7 @@ const platforms = getPrviders();
 const selectPlatformEl = document.createElement('select');
 const selectClientEl = document.createElement('select');
 
-selectClientEl.innerHTML = `<option value="mobile">Mobile</option><option value="desktop">Desktop</option>`
+selectClientEl.innerHTML = `<option value='mobile'>Mobile</option><option value='desktop'>Desktop</option>`
 platforms.sort().forEach(item => {
   const optionEl = document.createElement('option');
   optionEl.text = capitalize(item);
@@ -120,7 +113,7 @@ selectPlatformEl.addEventListener('change', (ev) => {
 });
 
 selectClientEl.addEventListener('change', (ev) => {
-  update(selectPlatformEl.value, ev.target.value,);
+  update(selectPlatformEl.value, ev.target.value);
 });
 
 chartDom.insertAdjacentElement('beforebegin', selectPlatformEl);
