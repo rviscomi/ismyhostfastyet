@@ -100,7 +100,7 @@ const platforms = getPrviders();
 const selectPlatformEl = document.createElement('select');
 const selectClientEl = document.createElement('select');
 
-selectClientEl.innerHTML = `<option value='mobile'>Mobile</option><option value='desktop'>Desktop</option>`
+selectClientEl.innerHTML = `<option value="mobile">Mobile</option><option value="desktop">Desktop</option>`
 platforms.sort().forEach(item => {
   const optionEl = document.createElement('option');
   optionEl.text = capitalize(item);
