@@ -1,0 +1,25 @@
+{
+  "name": "ismyhostfastyet",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c && node postcss.js && eleventy --config=.eleventy.cjs",
+    "serve": "rollup -c && node postcss.js && eleventy --config=.eleventy.cjs --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.0-canary.41",
+    "@rollup/plugin-node-resolve": "^13.0.2",
+    "@rollup/plugin-replace": "^3.0.0",
+    "markdown-it-anchor": "^8.0.1",
+    "postcss": "^8.3.0",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.2",
+    "rollup": "^2.53.2",
+    "rollup-plugin-html-literals": "^1.1.4",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "dependencies": {
+    "uhtml": "^2.7.6",
+    "frappe-charts": "^1.6.2"
+  }
+}

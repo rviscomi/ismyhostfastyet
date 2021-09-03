@@ -1,0 +1,81 @@
+:root {
+  /* Colors */
+  --primaryH: 210;
+  --primaryS: 50%;
+  --primaryL: 40%;
+  --primary-bg: #fff;
+  --secondaryH: 0;
+  --secondaryS: 0%;
+  --secondaryL: 13%;
+  --secondary-bg: #fff;
+
+  /* Font */
+  --font-family-main: Raleway, sans-serif;
+  --font-family-alt1: Raleway, sans-serif;
+  --font-family-alt2: Raleway, sans-serif;
+  --font-family-mono: Menlo, Consolas, "Roboto Mono", "Ubuntu Monospace", "Oxygen Mono", "Liberation Mono", monospace;
+  --font-size-root: 1rem;
+  --font-weight-bolder: 700;
+  --font-weight-bold: 400;
+  --font-weight-normal: 200;
+  --font-weight-thin: 100;
+  --line-height: 1.75rem;
+  --heading-margin: 1.5rem 0 1rem;
+
+  /* Inputs */
+  --border-radius: 5px;
+
+  /* Status */
+  --danger: #d00;
+  --warning: #ec0;
+  --info: #369;
+  --success: #080;
+}
+
+/* Dark/Light Theme */
+@media (prefers-color-scheme: dark) {
+  :root:not(.is-light) { /* :root is <html> for HTML documents */
+    --primaryH: 185;
+    --primaryS: 100%;
+    --primaryL: 86%;
+    --primary-bg: #263238;
+    --secondaryH: 0;
+    --secondaryS: 1%;
+    --secondaryL: 89%;
+    --secondary-bg: #263238;
+  }
+  img {
+    opacity: .75;
+    transition: opacity .5s ease-in-out;
+  }
+  img:hover {
+    opacity: 1;
+  }
+}
+
+:root.is-dark { /* :root is <html> for HTML documents */
+  --primaryH: 185;
+  --primaryS: 100%;
+  --primaryL: 86%;
+  --primary-bg: #263238;
+  --secondaryH: 0;
+  --secondaryS: 1%;
+  --secondaryL: 89%;
+  --secondary-bg: #263238;
+}
+
+:root {
+  --primary: hsl(var(--primaryH), var(--primaryS), var(--primaryL));
+  --primary-bright: hsl(var(--primaryH), calc(var(--primaryS) * 1.25), 90%);
+  --primary-transparent: hsla(var(--primaryH), var(--primaryS), var(--primaryL), 0.05);
+  --primary-dark: hsl(var(--primaryH), var(--primaryS), calc(var(--primaryL) * 0.5));
+  --primary-darker: hsl(var(--primaryH), var(--primaryS), calc(var(--primaryL) * 0.2));
+  --primary-light: hsl(var(--primaryH), var(--primaryS), 75%);
+  --primary-lighter: hsl(var(--primaryH), var(--primaryS), 96%);
+  --secondary: hsl(var(--secondaryH), var(--secondaryS), var(--secondaryL));
+  --secondary-transparent: hsl(var(--secondaryH), var(--secondaryS), var(--secondaryL), 0.05);
+  --secondary-dark: hsl(var(--secondaryH), var(--secondaryS), calc(var(--secondaryL) * 0.5));
+  --secondary-darker: hsl(var(--secondaryH), var(--secondaryS), calc(var(--secondaryL) * 0.2));
+  --secondary-light: hsl(var(--secondaryH), var(--secondaryS), 75%);
+  --secondary-lighter: hsl(var(--secondaryH), var(--secondaryS), 96%);
+}

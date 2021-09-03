@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ metadata.title }}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link rel="shortcut icon" href="{{ metadata.url }}/assets/favicon.svg">
+
+    <!-- <link rel="canonical" href="{{ metadata.url }}/" /> -->
+    <meta name="robots" content="noindex">
+
+    <meta name="author" content="{{ metadata.author }}">
+    <meta name="description" content="{{ metadata.description }}">
+    <meta property="og:title" content="{{ metadata.title }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="{{ metadata.url }}/" />
+    <meta property="og:site_name" content="{{ metadata.title }}" />
+    <link rel="stylesheet" href="/assets/css/main.css?{{metadata.version}}">
+    <script type="application/ld+json">{"@type":"WebSite","url":"{{ metadata.url }}","name":"{{ metadata.name }}","headline":"{{ metadata.title }}","@context":"http://schema.org"}</script>
+    <script class="data-json" type="application/json">{{ archive | dump | safe }}</script>
+    <script type="module" src="/assets/js/archive.js?{{metadata.version}}"></script>
+  </head>
+  <body class="container">
+    <header>
+      <h1>Is my host fast yet?</h1>
+      <blockquote>Real-world server response (Time to First Byte) latencies, as experienced by real-world users navigating the web.</blockquote>
+    </header>
+
+    <hr>
+
+    <h2>Timeline</h2>
+
+    <div id="main" style="width:100%; height:600px;"></div>
+
+    <footer>
+      ismyhostfastyet is maintained by <a href="https://twitter.com/rick_viscomi">Rick Viscomi</a>
+    </footer>
+  </body>
+</html>
