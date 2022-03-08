@@ -5,13 +5,13 @@ WITH crux AS (
   FROM
     `chrome-ux-report.materialized.device_summary`
   WHERE
-    date = '2022-01-01'
+    date = '2022-02-01'
 ), requests AS (
   SELECT
     _TABLE_SUFFIX,
     *
   FROM
-    `httparchive.summary_requests.2022_01_01_*`
+    `httparchive.summary_requests.2022_02_01_*`
 )
 
 SELECT DISTINCT
