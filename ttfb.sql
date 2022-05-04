@@ -5,13 +5,13 @@ WITH crux AS (
   FROM
     `chrome-ux-report.materialized.device_summary`
   WHERE
-    date = '2022-03-01'
+    date = '2022-04-01'
 ), requests AS (
   SELECT
     _TABLE_SUFFIX,
     *
   FROM
-    `httparchive.summary_requests.2022_03_01_*`
+    `httparchive.summary_requests.2022_04_01_*`
 )
 
 SELECT DISTINCT
@@ -52,14 +52,12 @@ FROM (
   SELECT
     IF(device = 'desktop', 'desktop', 'mobile') AS client,
     CONCAT(origin, '/') AS url,
-    IF (
-      (fast_ttfb / (fast_ttfb + avg_ttfb + slow_ttfb)) >= 0.75,
-      'Good',
-      IF(
-        (slow_ttfb / (fast_ttfb + avg_ttfb + slow_ttfb)) >= 0.25,
-        'Poor',
-        'Needs Improvement'
-    )) AS ttfb
+    CASE
+      WHEN SAFE_DIVIDE(fast_ttfb, (fast_ttfb + avg_ttfb + slow_ttfb)) >= 0.75 THEN 'Good'
+      WHEN SAFE_DIVIDE(slow_ttfb, (fast_ttfb + avg_ttfb + slow_ttfb)) >= 0.25 THEN 'Poor'
+      WHEN fast_ttfb IS NOT NULL THEN 'Needs Improvement'
+      ELSE NULL
+    END AS ttfb
   FROM
     crux
   WHERE
