@@ -172,7 +172,7 @@
           <h2>What is Time to First Byte?</h2>
 
           <p>
-            TTFB is measured as the time from the start of navigation request until the time that the
+            <a href="https://web.dev/ttfb">TTFB</ttfb> is measured as the time from the start of navigation request until the time that the
             client receives the first byte of the response from the server. It includes network setup time
             (SSL, DNS, TCP) as well as server-side processing.
           </p>
@@ -187,40 +187,21 @@
           <h2>How do you determine: Fast, Average, Slow?</h2>
 
           <p>
-            The thresholds for fast/average/slow TTFB are 500 ms as the upper limit for fast TTFB and 1500 ms as the lower limit for slow TTFB.
+            The thresholds for fast/average/slow TTFB are 800 ms as the upper limit for fast TTFB and 1800 ms as the lower limit for slow TTFB.
           </p>
-
-          <ul>
-            <li>
-              “fast” TTFB &lt; 500 ms is based on the <a href="https://developers.google.com/speed/docs/insights/Server">server responsiveness</a>
-                   best practice.
-            </li>
-            <li>
-              “slow” TTFB &gt;= 1500 ms is based on the requirement for the fast First Contentful Paint (FCP) threshold
-              to be &lt; 1800 ms. A server response that exceeds 1500 ms will not, in most cases, meet the fast FCP goal.
-            </li>
-          </ul>
 
           <p>
             The 75th percentile (p75) TTFB is analyzed for each website, which is determined to be fast or slow by where it falls between those thresholds.
           </p>
 
           <p>
-            The percentages for each host are calculated by taking the number of websites whose p75 TTFB is fast, average, and slow, and dividing each by the total number of websites. A previous version of this report averaged all websites' TTFB experiences together into a big, muddled distribution. This new approach is more accurate since it counts websites, not averaged experiences.
-          </p>
-
-          <h2>What about other metrics, why just TTFB?</h2>
-
-          <p>
-            Chrome UX Report provides other metrics like First Paint, First Contentful Paint, First Input Delay,
-            and others. We plan to add more metrics to this report in the future. If you would like to help out,
-            please <a href="https://github.com/rviscomi/ismyhostfastyet">let us know on GitHub</a>.
+            The percentages for each host are calculated by taking the number of websites whose p75 TTFB is fast, average, and slow, and dividing each by the total number of websites.
           </p>
 
           <h2>How frequently is this reported updated?</h2>
 
           <p>
-            Chrome UX Report publishes monthly datasets and this report is updated once a month based on that data.
+            Chrome UX Report publishes monthly datasets on the second Tuesday and this report is updated shortly after.
           </p>
 
           <h2>How are the hosting providers detected?</h2>
