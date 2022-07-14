@@ -61,7 +61,8 @@ FROM (
   FROM
     crux
   WHERE
-    device IN ('desktop', 'phone'))
+    device IN ('desktop', 'phone') AND
+    fast_ttfb IS NOT NULL)
 JOIN (
   SELECT
     _TABLE_SUFFIX AS client,

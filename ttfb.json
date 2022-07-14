@@ -1,40 +1,40 @@
-{"platform":"GoDaddy Website Builder","client":"desktop","n":"4376","fast":0.94149908592321752,"avg":0.041819012797074957,"slow":0.0022851919561243145}
-{"platform":"GitHub","client":"desktop","n":"13208","fast":0.87999697153240464,"avg":0.082374318594791038,"slow":0.0013628104179285283}
-{"platform":"Squarespace","client":"desktop","n":"48238","fast":0.84387827024337658,"avg":0.1399519051370289,"slow":0.0018450184501845018}
-{"platform":"GitHub","client":"mobile","n":"8465","fast":0.7757826343768458,"avg":0.20590667454223271,"slow":0.003662138216184288}
-{"platform":"Shopify","client":"desktop","n":"139828","fast":0.75541379408988185,"avg":0.18065766513144721,"slow":0.0038761907486340361}
-{"platform":"GoDaddy Website Builder","client":"mobile","n":"11960","fast":0.74013377926421409,"avg":0.2261705685618729,"slow":0.01722408026755853}
-{"platform":"AlwaysData","client":"desktop","n":"877","fast":0.73888255416191562,"avg":0.22006841505131128,"slow":0.025085518814139111}
-{"platform":"Netlify","client":"desktop","n":"12380","fast":0.71066235864297256,"avg":0.26122778675282715,"slow":0.0098546042003231013}
-{"platform":"Squarespace","client":"mobile","n":"59730","fast":0.70745019253306551,"avg":0.25576762096099115,"slow":0.0096266532730621135}
-{"platform":"Vercel","client":"desktop","n":"9060","fast":0.68807947019867555,"avg":0.24238410596026491,"slow":0.052428256070640174}
-{"platform":"Seravo","client":"desktop","n":"1057","fast":0.68684957426679283,"avg":0.25354777672658468,"slow":0.0510879848628193}
-{"platform":"Weebly","client":"desktop","n":"10665","fast":0.66132208157524608,"avg":0.31233005157055788,"slow":0.010126582278481013}
-{"platform":"AlwaysData","client":"mobile","n":"1041","fast":0.64649375600384251,"avg":0.29490874159462055,"slow":0.037463976945244955}
-{"platform":"Seravo","client":"mobile","n":"1424","fast":0.6432584269662921,"avg":0.2794943820224719,"slow":0.056882022471910113}
-{"platform":"Wix","client":"desktop","n":"44359","fast":0.64232737437724019,"avg":0.28174665794990872,"slow":0.0062219617214094095}
-{"platform":"Shopify","client":"mobile","n":"186849","fast":0.63786265915257778,"avg":0.28952255564653812,"slow":0.0078459076580554357}
-{"platform":"Acquia","client":"desktop","n":"8761","fast":0.5679716927291405,"avg":0.35395502796484418,"slow":0.072594452688049316}
-{"platform":"Zone.eu","client":"desktop","n":"2898","fast":0.564872325741891,"avg":0.31642512077294688,"slow":0.11283643892339544}
-{"platform":"Netlify","client":"mobile","n":"13497","fast":0.53545232273838628,"avg":0.42802104171297323,"slow":0.026153960139290212}
-{"platform":"Wix","client":"mobile","n":"122837","fast":0.50677727394840322,"avg":0.41734168043830444,"slow":0.022656040118205427}
-{"platform":"Vercel","client":"mobile","n":"9696","fast":0.50165016501650161,"avg":0.38479785478547857,"slow":0.10550742574257425}
-{"platform":"WP Engine","client":"desktop","n":"77136","fast":0.50051856461315081,"avg":0.41341267371914542,"slow":0.062927815805849413}
-{"platform":"Pantheon","client":"desktop","n":"12824","fast":0.49976606363069243,"avg":0.39971927635683097,"slow":0.090065502183406115}
-{"platform":"Zone.eu","client":"mobile","n":"3433","fast":0.47043402272065249,"avg":0.3760559277599767,"slow":0.13661520535974367}
-{"platform":"Weebly","client":"mobile","n":"17854","fast":0.43486053545423997,"avg":0.51400246443374031,"slow":0.022123893805309734}
-{"platform":"Liquid Web","client":"desktop","n":"896","fast":0.40513392857142855,"avg":0.46986607142857145,"slow":0.11160714285714286}
-{"platform":"Acquia","client":"mobile","n":"8965","fast":0.36519799219185722,"avg":0.49659788064696042,"slow":0.13329615170105968}
-{"platform":"Automattic","client":"desktop","n":"34272","fast":0.31725606909430437,"avg":0.58843954248366015,"slow":0.047823295985060688}
-{"platform":"Pantheon","client":"mobile","n":"12271","fast":0.29687881998207155,"avg":0.55081085486105452,"slow":0.14326460761144161}
-{"platform":"WP Engine","client":"mobile","n":"78420","fast":0.28596021423106349,"avg":0.56059678653404743,"slow":0.13134404488650855}
-{"platform":"Liquid Web","client":"mobile","n":"915","fast":0.26338797814207648,"avg":0.51475409836065578,"slow":0.20655737704918034}
-{"platform":"Flywheel","client":"desktop","n":"15483","fast":0.24853064651553317,"avg":0.501001097978428,"slow":0.23374023122133952}
-{"platform":"HubSpot","client":"desktop","n":"14820","fast":0.21558704453441296,"avg":0.63549257759784072,"slow":0.12206477732793522}
-{"platform":"Kinsta","client":"desktop","n":"16809","fast":0.20013088226545303,"avg":0.58153370218335421,"slow":0.15931941221964424}
-{"platform":"SiteGround","client":"desktop","n":"34255","fast":0.18464457743395124,"avg":0.50167858706758139,"slow":0.29096482265362722}
-{"platform":"Flywheel","client":"mobile","n":"16382","fast":0.16829446953973873,"avg":0.4769258942742034,"slow":0.33829813209620313}
-{"platform":"Automattic","client":"mobile","n":"70495","fast":0.15164196042272501,"avg":0.74096035179799991,"slow":0.049748209092843464}
-{"platform":"SiteGround","client":"mobile","n":"44286","fast":0.13128302398049044,"avg":0.441990696834214,"slow":0.4031748182269792}
-{"platform":"Kinsta","client":"mobile","n":"17816","fast":0.10176246070947463,"avg":0.52413560844185,"slow":0.32487651549169289}
-{"platform":"HubSpot","client":"mobile","n":"14386","fast":0.095579035173084942,"avg":0.5761156680105658,"slow":0.29959683025163353}
+{"platform":"GoDaddy Website Builder","client":"desktop","n":"4313","fast":0.95525156503593789,"avg":0.042429863204266172,"slow":0.0023185717597959659}
+{"platform":"GitHub","client":"desktop","n":"12729","fast":0.9131117919710896,"avg":0.085474114227354861,"slow":0.0014140938015555031}
+{"platform":"Squarespace","client":"desktop","n":"47547","fast":0.856142343365512,"avg":0.14198582455254802,"slow":0.0018718320819399751}
+{"platform":"Shopify","client":"desktop","n":"131431","fast":0.80367645380465791,"avg":0.19219970935319675,"slow":0.004123836842145308}
+{"platform":"GitHub","client":"mobile","n":"8341","fast":0.78731566958398269,"avg":0.20896774967030332,"slow":0.003716580745713943}
+{"platform":"GoDaddy Website Builder","client":"mobile","n":"11763","fast":0.75252911672192468,"avg":0.22995834395987419,"slow":0.01751253931820114}
+{"platform":"AlwaysData","client":"desktop","n":"863","fast":0.75086906141367327,"avg":0.22363847045191193,"slow":0.025492468134414831}
+{"platform":"Squarespace","client":"mobile","n":"58108","fast":0.7271976319955944,"avg":0.26290700075721068,"slow":0.0098953672471948778}
+{"platform":"Netlify","client":"desktop","n":"12154","fast":0.723876912950469,"avg":0.266085239427349,"slow":0.010037847622181998}
+{"platform":"Vercel","client":"desktop","n":"8905","fast":0.70005614823133067,"avg":0.24660303200449185,"slow":0.053340819764177427}
+{"platform":"Seravo","client":"desktop","n":"1048","fast":0.6927480916030534,"avg":0.25572519083969464,"slow":0.051526717557251911}
+{"platform":"Wix","client":"desktop","n":"41267","fast":0.69045484285264258,"avg":0.30285700438607122,"slow":0.0066881527612862582}
+{"platform":"Shopify","client":"mobile","n":"174747","fast":0.68203745987055575,"avg":0.30957326878286895,"slow":0.0083892713465753346}
+{"platform":"Weebly","client":"desktop","n":"10492","fast":0.6722264582539077,"avg":0.31747998475028594,"slow":0.010293556995806329}
+{"platform":"AlwaysData","client":"mobile","n":"1019","fast":0.66045142296368986,"avg":0.3012757605495584,"slow":0.038272816486751716}
+{"platform":"Seravo","client":"mobile","n":"1395","fast":0.65663082437275988,"avg":0.28530465949820788,"slow":0.058064516129032261}
+{"platform":"Acquia","client":"desktop","n":"8713","fast":0.57110065419488121,"avg":0.35590496958567658,"slow":0.072994376219442214}
+{"platform":"Zone.eu","client":"desktop","n":"2881","fast":0.56820548420687267,"avg":0.31829225963207219,"slow":0.11350225616105519}
+{"platform":"Netlify","client":"mobile","n":"13357","fast":0.54106461031668784,"avg":0.43250729954331063,"slow":0.026428090140001498}
+{"platform":"Wix","client":"mobile","n":"116299","fast":0.53526685526100826,"avg":0.440803446289306,"slow":0.023929698449685725}
+{"platform":"WP Engine","client":"desktop","n":"75351","fast":0.51237541638465312,"avg":0.42320606229512547,"slow":0.06441852132022137}
+{"platform":"Vercel","client":"mobile","n":"9618","fast":0.50571844458307336,"avg":0.38791848617176128,"slow":0.10636306924516531}
+{"platform":"Pantheon","client":"desktop","n":"12690","fast":0.505043341213554,"avg":0.403940110323089,"slow":0.09101654846335698}
+{"platform":"Zone.eu","client":"mobile","n":"3375","fast":0.47851851851851851,"avg":0.38251851851851854,"slow":0.13896296296296295}
+{"platform":"Weebly","client":"mobile","n":"17336","fast":0.44785417628057222,"avg":0.52936086755883716,"slow":0.022784956160590678}
+{"platform":"Liquid Web","client":"desktop","n":"884","fast":0.41063348416289591,"avg":0.47624434389140269,"slow":0.11312217194570136}
+{"platform":"Acquia","client":"mobile","n":"8921","fast":0.36699921533460372,"avg":0.49904719201883196,"slow":0.13395359264656428}
+{"platform":"Automattic","client":"desktop","n":"32679","fast":0.33272131950182077,"avg":0.61712414700572238,"slow":0.050154533492456931}
+{"platform":"Pantheon","client":"mobile","n":"12160","fast":0.29958881578947366,"avg":0.55583881578947369,"slow":0.14457236842105264}
+{"platform":"WP Engine","client":"mobile","n":"76687","fast":0.29242244448211563,"avg":0.57326535136333412,"slow":0.13431220415455031}
+{"platform":"Liquid Web","client":"mobile","n":"901","fast":0.26748057713651496,"avg":0.52275249722530526,"slow":0.20976692563817981}
+{"platform":"Flywheel","client":"desktop","n":"15224","fast":0.25275880189174987,"avg":0.50952443510246981,"slow":0.23771676300578035}
+{"platform":"HubSpot","client":"desktop","n":"14422","fast":0.22153654139509082,"avg":0.65303009291360425,"slow":0.12543336569130495}
+{"platform":"Kinsta","client":"desktop","n":"15817","fast":0.21268255674274514,"avg":0.6180059429727508,"slow":0.169311500284504}
+{"platform":"SiteGround","client":"desktop","n":"33477","fast":0.18893568718821876,"avg":0.51333751530901817,"slow":0.2977267975027631}
+{"platform":"Flywheel","client":"mobile","n":"16112","fast":0.17111469712015889,"avg":0.48491807348560079,"slow":0.34396722939424029}
+{"platform":"Automattic","client":"mobile","n":"66431","fast":0.16091884812813295,"avg":0.78628953350092579,"slow":0.052791618370941276}
+{"platform":"SiteGround","client":"mobile","n":"43243","fast":0.13444950627847282,"avg":0.45265129616354094,"slow":0.41289919755798626}
+{"platform":"Kinsta","client":"mobile","n":"16939","fast":0.10703111163586988,"avg":0.551272212055021,"slow":0.34169667630910916}
+{"platform":"HubSpot","client":"mobile","n":"13973","fast":0.098404064982466191,"avg":0.59314392041794894,"slow":0.30845201459958493}
