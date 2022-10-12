@@ -1,3 +1,5 @@
+[![pages-build-deployment](https://github.com/rviscomi/ismyhostfastyet/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/rviscomi/ismyhostfastyet/actions/workflows/pages/pages-build-deployment)
+
 # Is my host fast yet?
 
 Using web transparency data from the Chrome UX Report and HTTP Archive, this project aims to benchmark hosting providers using real user data. The metric used in this project is TTFB, the time to first byte.
