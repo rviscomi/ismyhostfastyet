@@ -120,7 +120,7 @@
         <hr>
 
         <section>
-          <h2>Leaderboard: August 2022</h2>
+          <h2>Leaderboard: September 2022</h2>
 
           <form id="filter">
             <label>
@@ -329,11 +329,7 @@ for (var i = 0; i < 36; i++) {
 }
 updateResultsTable(sortResults(window.data, 'fast'));
 
-fetch('ttfb.json').then(r => r.text()).then(r => {
-  // Convert newline-delimeted JSON to a traditional JSON string.
-  r = r.trim().split('\n').join(',\n');
-  return JSON.parse(`[${r}]`);
-}).then(r => {
+fetch('ttfb.json').then(r => r.json()).then(r => {
   window.data = r;
 
   const results = document.getElementById('results');
