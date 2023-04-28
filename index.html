@@ -314,34 +314,77 @@ function getRandomDistribution() {
   return [fast, avg, slow];
 }
 
-// Temporary placeholder data.
-window.data = [];
-for (var i = 0; i < 46; i++) {
-  var [fast, avg, slow] = getRandomDistribution();
-  window.data.push({
-    platform: getRandomFiller(10),
-    client: getRandomFiller(5),
-    n: getRandomFiller(1),
-    fast,
-    avg,
-    slow
+function getSortField() {
+  const sortField = new URL(location.href).searchParams.get('sort');
+  
+  const isValid = !!document.querySelector(`#filter option[value="${sortField}"]`);
+  if (!isValid) {
+    return 'fast';
+  }
+  
+  return sortField;
+}
+
+function updateUrlField(key, value) {
+  const url = new URL(location);
+  url.searchParams.set(key, value);
+  history.replaceState({}, '', url);
+}
+
+function setPlaceholderData() {
+  // Temporary placeholder data.
+  const NUM_ROWS = 46;
+  window.data = [];
+  for (var i = 0; i < NUM_ROWS; i++) {
+    var [fast, avg, slow] = getRandomDistribution();
+    window.data.push({
+      platform: getRandomFiller(10),
+      client: getRandomFiller(5),
+      n: getRandomFiller(1),
+      fast,
+      avg,
+      slow
+    });
+  }
+}
+
+function setDefaultSort(sortField) {
+  document.querySelector('#filter select').value = sortField;
+}
+
+function initSortHandler() {
+  document.getElementById('filter').addEventListener('change', (e) => {
+    const field = e.target.value;
+    gtag('event', 'sort', {'event_category': 'engagement', 'event_label': field});
+    updateResultsTable(sortResults(window.data, field));
+    updateUrlField('sort', field);
   });
 }
-updateResultsTable(sortResults(window.data, 'fast'));
 
-fetch('ttfb.json').then(r => r.json()).then(r => {
-  window.data = r;
+function fetchData(sortField) {
+  fetch('ttfb.json').then(r => r.json()).then(r => {
+    window.data = r;
 
-  const results = document.getElementById('results');
-  results.classList.remove('loading');
-  updateResultsTable(sortResults(r, 'fast'));
-});
+    const results = document.getElementById('results');
+    results.classList.remove('loading');
+    updateResultsTable(sortResults(r, sortField));
+  });
+}
 
-document.getElementById('filter').addEventListener('change', (e) => {
-  const field = e.target.value;
-  gtag('event', 'sort', {'event_category': 'engagement', 'event_label': field});
-  updateResultsTable(sortResults(window.data, field));
-});
+function init() {
+  const sortField = getSortField();
+  setDefaultSort(sortField);
+  initSortHandler();
+
+  // Display the placeholder data.
+  setPlaceholderData();
+  updateResultsTable(sortResults(window.data, sortField));
+
+  fetchData(sortField);
+}
+
+init();
+
     </script>
     <script type="module" src="vitals.js"></script>
   </body>
