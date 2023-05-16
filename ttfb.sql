@@ -5,7 +5,7 @@ WITH crux AS (
   FROM
     `chrome-ux-report.materialized.device_summary`
   WHERE
-    date = '2023-03-01'
+    date = '2023-04-01'
 ), requests AS (
   SELECT
     client,
@@ -17,7 +17,7 @@ WITH crux AS (
   FROM
     `httparchive.all.requests`
   WHERE
-    date = '2023-03-01' AND
+    date = '2023-04-01' AND
     is_main_document
 )
 
