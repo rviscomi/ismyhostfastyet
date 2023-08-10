@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Is my host fast yet?</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-22381566-4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -12,26 +13,8 @@
 
       gtag('config', 'UA-22381566-4');
     </script>
-
     <link href="https://fonts.googleapis.com/css?family=Chivo:900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link rel="shortcut icon" href="https://ismyhostfastyet.com/favicon.svg">
-
-    <title>Is my host fast yet?</title>
-    <meta name="author" content="Rick Viscomi">
-    <meta name="description" content="A study of web host performance using real-world transparency data from Chrome UX Report and HTTP Archive.">
-    <meta property="og:title" content="Is my host fast yet?" />
-    <meta property="og:locale" content="en_US" />
-    <link rel="canonical" href="https://ismyhostfastyet.com/" />
-    <meta property="og:url" content="https://ismyhostfastyet.com/" />
-    <meta property="og:site_name" content="Is my host fast yet?" />
-    <script type="application/ld+json">
-    {"@type":"WebSite","url":"https://ismyhostfastyet.com/","name":"ismyhostfastyet","headline":"Is my host fast yet?","@context":"http://schema.org"}
-    </script>
-
     <style>
       p, td {
         font-weight: 400;
@@ -108,6 +91,23 @@
         }
       }
     </style>
+    <link rel="shortcut icon" href="https://ismyhostfastyet.com/favicon.svg">
+    <link rel="canonical" href="https://ismyhostfastyet.com/">
+    <meta name="author" content="Rick Viscomi">
+    <meta name="description" content="A study of web host performance using real-world transparency data from Chrome UX Report and HTTP Archive.">
+    <meta property="og:title" content="Is my host fast yet?">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://ismyhostfastyet.com/">
+    <meta property="og:site_name" content="Is my host fast yet?">
+    <script type="application/ld+json">
+      {
+        "@type": "WebSite",
+        "url": "https://ismyhostfastyet.com/",
+        "name": "ismyhostfastyet",
+        "headline": "Is my host fast yet?",
+        "@context": "http://schema.org"
+      }
+    </script>
   </head>
   <body>
     <div id="container">
@@ -120,7 +120,7 @@
         <hr>
 
         <section>
-          <h2>Leaderboard: October 2022</h2>
+          <h2>Leaderboard: June 2023</h2>
 
           <form id="filter">
             <label>
@@ -314,34 +314,78 @@ function getRandomDistribution() {
   return [fast, avg, slow];
 }
 
-// Temporary placeholder data.
-window.data = [];
-for (var i = 0; i < 36; i++) {
-  var [fast, avg, slow] = getRandomDistribution();
-  window.data.push({
-    platform: getRandomFiller(10),
-    client: getRandomFiller(5),
-    n: getRandomFiller(1),
-    fast,
-    avg,
-    slow
+function getSortField() {
+  const sortField = new URL(location.href).searchParams.get('sort');
+  
+  const isValid = !!document.querySelector(`#filter option[value="${sortField}"]`);
+  if (!isValid) {
+    return 'fast';
+  }
+  
+  return sortField;
+}
+
+function updateUrlField(key, value) {
+  const url = new URL(location);
+  url.searchParams.set(key, value);
+  history.replaceState({}, '', url);
+}
+
+function setPlaceholderData() {
+  // Temporary placeholder data.
+  const NUM_ROWS = 46;
+  window.data = [];
+  for (var i = 0; i < NUM_ROWS; i++) {
+    var [fast, avg, slow] = getRandomDistribution();
+    window.data.push({
+      platform: getRandomFiller(10),
+      client: getRandomFiller(5),
+      n: getRandomFiller(1),
+      fast,
+      avg,
+      slow
+    });
+  }
+}
+
+function setDefaultSort(sortField) {
+  document.querySelector('#filter select').value = sortField;
+}
+
+function initSortHandler() {
+  document.getElementById('filter').addEventListener('change', (e) => {
+    const field = e.target.value;
+    gtag('event', 'sort', {'event_category': 'engagement', 'event_label': field});
+    updateResultsTable(sortResults(window.data, field));
+    updateUrlField('sort', field);
   });
 }
-updateResultsTable(sortResults(window.data, 'fast'));
 
-fetch('ttfb.json').then(r => r.json()).then(r => {
-  window.data = r;
+function fetchData(sortField) {
+  fetch('ttfb.json').then(r => r.json()).then(r => {
+    window.data = r;
 
-  const results = document.getElementById('results');
-  results.classList.remove('loading');
-  updateResultsTable(sortResults(r, 'fast'));
-});
+    const results = document.getElementById('results');
+    results.classList.remove('loading');
+    updateResultsTable(sortResults(r, sortField));
+  });
+}
 
-document.getElementById('filter').addEventListener('change', (e) => {
-  const field = e.target.value;
-  gtag('event', 'sort', {'event_category': 'engagement', 'event_label': field});
-  updateResultsTable(sortResults(window.data, field));
-});
+function init() {
+  const sortField = getSortField();
+  setDefaultSort(sortField);
+  initSortHandler();
+
+  // Display the placeholder data.
+  setPlaceholderData();
+  updateResultsTable(sortResults(window.data, sortField));
+
+  fetchData(sortField);
+}
+
+init();
+
     </script>
+    <script type="module" src="vitals.js"></script>
   </body>
 </html>
