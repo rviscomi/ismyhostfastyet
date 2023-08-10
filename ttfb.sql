@@ -23,6 +23,7 @@ WITH crux AS (
 
 SELECT DISTINCT
   CASE
+   WHEN platform = 'zyro.com' THEN 'Hostinger Website Builder'
    WHEN platform = 'hostinger' THEN 'Hostinger'
    WHEN platform = 'zoneos' THEN 'Zone.eu'
    WHEN platform = 'seravo' THEN 'Seravo'
@@ -79,7 +80,7 @@ JOIN (
     client,
     root_page AS url,
     REGEXP_EXTRACT(LOWER(CONCAT(IFNULL(respOtherHeaders, ''), IFNULL(resp_x_powered_by, ''), IFNULL(resp_via, ''), IFNULL(resp_server, ''))),
-      r'(zoneos|seravo|x-kinsta-cache|automattic.com/jobs|wpvip.com/careers|wordpress\.com|x-ah-environment|x-pantheon-styx-hostname|wp engine atlas|wpe-backend|wp engine|hubspot|b7440e60b07ee7b8044761568fab26e8|624d5be7be38418a3e2a818cc8b7029b|6b7412fb82ca5edfd0917e3957f05d89|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-vercel-id|flywheel|weebly|dps/|hostinger|awex|wp-cloud)') AS platform
+      r'(zoneos|seravo|x-kinsta-cache|automattic.com/jobs|wpvip.com/careers|wordpress\.com|x-ah-environment|x-pantheon-styx-hostname|wp engine atlas|wpe-backend|wp engine|hubspot|b7440e60b07ee7b8044761568fab26e8|624d5be7be38418a3e2a818cc8b7029b|6b7412fb82ca5edfd0917e3957f05d89|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-vercel-id|flywheel|weebly|dps/|hostinger|awex|wp-cloud|zyro.com)') AS platform
   FROM
     requests)
 USING
