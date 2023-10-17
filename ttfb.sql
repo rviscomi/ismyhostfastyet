@@ -27,7 +27,7 @@ SELECT DISTINCT
    WHEN platform = 'hostinger' THEN 'Hostinger'
    WHEN platform = 'zoneos' THEN 'Zone.eu'
    WHEN platform = 'seravo' THEN 'Seravo'
-   WHEN platform = 'automattic.com/jobs' THEN 'Automattic'
+   WHEN platform = 'automattic.com/work-with-us' THEN 'Automattic'
    WHEN platform = 'wpvip.com/careers' THEN 'Automattic'
    WHEN platform = 'wordpress.com' THEN 'Automattic'
    WHEN platform = 'x-ah-environment' THEN 'Acquia'
