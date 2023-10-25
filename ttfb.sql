@@ -27,9 +27,10 @@ SELECT DISTINCT
    WHEN platform = 'hostinger' THEN 'Hostinger'
    WHEN platform = 'zoneos' THEN 'Zone.eu'
    WHEN platform = 'seravo' THEN 'Seravo'
-   WHEN platform = 'automattic.com/jobs' THEN 'Automattic'
+   WHEN platform = 'automattic.com/work-with-us' THEN 'Automattic'
    WHEN platform = 'wpvip.com/careers' THEN 'Automattic'
    WHEN platform = 'wordpress.com' THEN 'Automattic'
+   WHEN platform = 'a9130478a60e5f9135f765b23f26593b' then 'Automattic'
    WHEN platform = 'x-ah-environment' THEN 'Acquia'
    WHEN platform = 'x-pantheon-styx-hostname' THEN 'Pantheon'
    WHEN platform = 'wp engine atlas' THEN 'WP Engine Atlas'
@@ -80,7 +81,7 @@ JOIN (
     client,
     root_page AS url,
     REGEXP_EXTRACT(LOWER(CONCAT(IFNULL(respOtherHeaders, ''), IFNULL(resp_x_powered_by, ''), IFNULL(resp_via, ''), IFNULL(resp_server, ''))),
-      r'(zoneos|seravo|x-kinsta-cache|automattic.com/jobs|wpvip.com/careers|wordpress\.com|x-ah-environment|x-pantheon-styx-hostname|wp engine atlas|wpe-backend|wp engine|hubspot|b7440e60b07ee7b8044761568fab26e8|624d5be7be38418a3e2a818cc8b7029b|6b7412fb82ca5edfd0917e3957f05d89|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-vercel-id|flywheel|weebly|dps/|hostinger|awex|wp-cloud|zyro.com)') AS platform
+      r'(zoneos|seravo|x-kinsta-cache|automattic.com/work-with-us|wpvip.com/careers|wordpress\.com|a9130478a60e5f9135f765b23f26593b|x-ah-environment|x-pantheon-styx-hostname|wp engine atlas|wpe-backend|wp engine|hubspot|b7440e60b07ee7b8044761568fab26e8|624d5be7be38418a3e2a818cc8b7029b|6b7412fb82ca5edfd0917e3957f05d89|x-github-request|alproxy|netlify|x-lw-cache|squarespace|x-wix-request-id|x-shopify-stage|x-vercel-id|flywheel|weebly|dps/|hostinger|awex|wp-cloud|zyro.com)') AS platform
   FROM
     requests)
 USING
