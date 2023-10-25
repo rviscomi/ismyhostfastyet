@@ -8,7 +8,7 @@ DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
   (r'alproxy', 'AlwaysData'),
   (r'automattic.com/work-with-us', 'Automattic'),
   (r'wpvip.com/careers', 'Automattic'),
-  (r'wordpress\.com', 'Automattic'),
+  (r'wordpress.com', 'Automattic'),
   (r'a9130478a60e5f9135f765b23f26593b', 'Automattic'),
   (r'flywheel', 'Flywheel'),
   (r'x-github-request', 'GitHub'),
@@ -72,7 +72,11 @@ requests AS (
 
 platform_regex AS (
   SELECT
-    STRING_AGG(regex, r'|') AS pattern
+    STRING_AGG(
+      # Escape special chars
+      REGEXP_REPLACE(regex, r'([\.\*\+\?\|\(\)\[\]\{\}\^\$])', r'\\\1'),
+      r'|'
+    ) AS pattern
   FROM
     UNNEST(PLATFORMS)
 ),
