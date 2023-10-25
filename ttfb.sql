@@ -30,7 +30,7 @@ SELECT DISTINCT
    WHEN platform = 'automattic.com/work-with-us' THEN 'Automattic'
    WHEN platform = 'wpvip.com/careers' THEN 'Automattic'
    WHEN platform = 'wordpress.com' THEN 'Automattic'
-   WHEN platform = 'a9130478a60e5f9135f765b23f26593b' then Automattic'
+   WHEN platform = 'a9130478a60e5f9135f765b23f26593b' then 'Automattic'
    WHEN platform = 'x-ah-environment' THEN 'Acquia'
    WHEN platform = 'x-pantheon-styx-hostname' THEN 'Pantheon'
    WHEN platform = 'wp engine atlas' THEN 'WP Engine Atlas'
