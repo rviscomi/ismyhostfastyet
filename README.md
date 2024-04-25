@@ -18,5 +18,5 @@ If you'd like to add a new host, you'll need to do three things:
 
 List of available datasets:
 
-* [chrome-ux-report](https://bigquery.cloud.google.com/dataset/chrome-ux-report:all?pli=1)
-* [httparchive](https://bigquery.cloud.google.com/dataset/httparchive:summary_requests?pli=1)
+* [chrome-ux-report](https://console.cloud.google.com/bigquery?p=chrome-ux-report&d=all&page=dataset)
+* [httparchive](https://console.cloud.google.com/bigquery?p=httparchive&d=summary_requests&page=dataset)
