@@ -1,5 +1,5 @@
 # Update this monthly.
-DECLARE QUERY_DATE DATE DEFAULT '2024-04-01';
+DECLARE QUERY_DATE DATE DEFAULT '2024-03-01';
 
 # Add/edit platforms in alphabetical order here.
 DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
@@ -13,6 +13,7 @@ DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
   ('flywheel', 'Flywheel'),
   ('caddy/', 'Framer'),
   ('framer/', 'Framer'),
+  ('fly-request-id', 'Fly.io'),
   ('x-github-request', 'GitHub'),
   ('dps/', 'GoDaddy Website Builder'),
   ('hostinger', 'Hostinger'),
