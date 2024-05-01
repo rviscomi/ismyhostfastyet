@@ -14,7 +14,7 @@ DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
   ('caddy/', 'Framer'),
   ('framer/', 'Framer'),
   ('fly-request-id', 'Fly.io'),
-  ('x-github-request', 'GitHub'),
+  ('x-github-request', 'GitHub Pages'),
   ('dps/', 'GoDaddy Website Builder'),
   ('hostinger', 'Hostinger'),
   ('zyro.com', 'Hostinger Website Builder'),
