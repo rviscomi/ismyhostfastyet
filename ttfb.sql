@@ -25,6 +25,7 @@ DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
   ('x-pantheon-styx-hostname', 'Pantheon'),
   ('seravo', 'Seravo'),
   ('x-shopify-stage', 'Shopify'),
+  ('shopify', 'Shopify'),
   ('b7440e60b07ee7b8044761568fab26e8', 'SiteGround'),
   ('624d5be7be38418a3e2a818cc8b7029b', 'SiteGround'),
   ('6b7412fb82ca5edfd0917e3957f05d89', 'SiteGround'),
