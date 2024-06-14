@@ -30,6 +30,7 @@ DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
   ('6b7412fb82ca5edfd0917e3957f05d89', 'SiteGround'),
   ('squarespace', 'Squarespace'),
   ('x-vercel-id', 'Vercel'),
+  ('web1', 'Web1'),
   ('weebly', 'Weebly'),
   ('x-wix-request-id', 'Wix'),
   ('wp-cloud', 'WP-Cloud'),
