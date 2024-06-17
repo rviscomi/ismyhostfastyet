@@ -11,7 +11,6 @@ DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
   ('wordpress.com', 'Automattic'),
   ('a9130478a60e5f9135f765b23f26593b', 'Automattic'),
   ('flywheel', 'Flywheel'),
-  ('caddy/', 'Framer'),
   ('framer/', 'Framer'),
   ('fly-request-id', 'Fly.io'),
   ('x-github-request', 'GitHub Pages'),
