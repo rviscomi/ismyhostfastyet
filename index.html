@@ -120,7 +120,7 @@
         <hr>
 
         <section>
-          <h2>Leaderboard: May 2024</h2>
+          <h2>Leaderboard: September 2024</h2>
 
           <form id="filter">
             <label>
@@ -181,7 +181,8 @@
 
           <p>
             As you can see in the <a href="https://w3c.github.io/navigation-timing/">Navigation Timing Level 2 draft spec</a>
-            screenshot above, the metric is equivalent to <code>performance.getEntriesByType('navigation')[0].responseStart</code>.
+            screenshot above, the metric is equivalent to <code>performance.getEntriesByType('navigation')[0].responseStart</code>
+            (or <code>firstInterimResponseStart</code> for those servers using 103 Early Hints).
           </p>
 
           <h2>How do you determine: Fast, Average, Slow?</h2>
