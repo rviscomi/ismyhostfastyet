@@ -1,5 +1,5 @@
 # Update this monthly.
-DECLARE QUERY_DATE DATE DEFAULT '2024-10-01';
+DECLARE QUERY_DATE DATE DEFAULT '2024-11-01';
 
 # Add/edit platforms in alphabetical order here.
 DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
