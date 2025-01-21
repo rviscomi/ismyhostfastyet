@@ -1,5 +1,5 @@
 # Update this monthly.
-DECLARE QUERY_DATE DATE DEFAULT '2024-11-01';
+DECLARE QUERY_DATE DATE DEFAULT '2024-12-01';
 
 # Add/edit platforms in alphabetical order here.
 DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
@@ -40,7 +40,6 @@ DECLARE PLATFORMS ARRAY<STRUCT<regex STRING, name STRING>> DEFAULT [
   ('zoneos', 'Zone.eu')
 ];
 
-
 WITH crux AS (
   SELECT
     IF(device = 'desktop', 'desktop', 'mobile') AS client,
@@ -63,15 +62,14 @@ requests AS (
   SELECT
     client,
     root_page,
-    JSON_VALUE(summary, '$.respOtherHeaders') AS respOtherHeaders,
-    JSON_VALUE(summary, '$.resp_x_powered_by') AS resp_x_powered_by,
-    JSON_VALUE(summary, '$.resp_via') AS resp_via,
-    JSON_VALUE(summary, '$.resp_server') AS resp_server
+    (SELECT STRING_AGG(DISTINCT LOWER(name) || ': ' || LOWER(value), ' ') FROM UNNEST(response_headers)) AS response_headers
   FROM
-    `httparchive.all.requests`
+    `httparchive.crawl.requests`,
+    UNNEST (response_headers) AS resp
   WHERE
     date = QUERY_DATE AND
-    is_main_document
+    is_main_document AND
+    is_root_page
 ),
 
 platform_regex AS (
@@ -96,13 +94,12 @@ detected_platforms AS (
     SELECT
       client,
       root_page AS url,
-      REGEXP_EXTRACT(LOWER(CONCAT(IFNULL(respOtherHeaders, ''), IFNULL(resp_x_powered_by, ''), IFNULL(resp_via, ''), IFNULL(resp_server, ''))), (SELECT pattern FROM platform_regex)) AS regex
+      REGEXP_EXTRACT(IFNULL(response_headers, ''), (SELECT pattern FROM platform_regex)) AS regex
     FROM
       requests)
   USING
     (regex)
 )
-
 
 SELECT DISTINCT
   platform,
