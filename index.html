@@ -25,6 +25,9 @@
       small {
         font-size: small;
       }
+	  form label {
+		margin-right: 20px;
+	  }
       dd {
         margin-left: 20px;
       }
@@ -134,6 +137,14 @@
                 <option value="n">Websites</option>
               </select>
             </label>
+            <label>
+              Client
+              <select name="client">
+                <option value="all" selected>All</option>
+                <option value="mobile">Mobile</option>
+                <option value="desktop">Desktop</option>
+              </select>
+            </label>
           </form>
 
           <table>
@@ -238,7 +249,8 @@
     </div>
     <script>
 function makeRow(host, client, n, fast, avg, slow) {
-  const tr = document.createElement('tr');
+  const tr = document.createElement('tr');  
+  tr.classList = 'client-all client-' + client;
   let td = document.createElement('td');
   td.innerText = host;
   tr.appendChild(td);
@@ -288,6 +300,8 @@ function updateResultsTable(data) {
     frag.appendChild(tr);
   });
   results.appendChild(frag);
+  
+  filterByClient( latestParams.client );
 }
 
 function sortResults(data, field) {
@@ -315,18 +329,28 @@ function getRandomDistribution() {
   return [fast, avg, slow];
 }
 
-function getSortField() {
-  const sortField = new URL(location.href).searchParams.get('sort');
-  
-  const isValid = !!document.querySelector(`#filter option[value="${sortField}"]`);
-  if (!isValid) {
-    return 'fast';
-  }
-  
-  return sortField;
+function getAndSetDefaultParams() {
+ const params = {};
+ const searchParams = new URL(location.href).searchParams;
+
+ document.querySelectorAll('#filter select').forEach(select => {
+   const name = select.getAttribute('name');
+   const urlValue = searchParams.get(name);
+   
+   if (urlValue && select.querySelector(`option[value="${urlValue}"]`)) {
+     params[name] = urlValue;
+	 select.value = urlValue;
+   } else {
+     params[name] = select.querySelector('option[selected]')?.value || select.querySelector('option').value;
+   }
+ });
+
+ return params;
 }
 
 function updateUrlField(key, value) {
+  latestParams[ key ] = value;
+  
   const url = new URL(location);
   url.searchParams.set(key, value);
   history.replaceState({}, '', url);
@@ -349,17 +373,13 @@ function setPlaceholderData() {
   }
 }
 
-function setDefaultSort(sortField) {
-  document.querySelector('#filter select').value = sortField;
-}
-
-function initSortHandler() {
-  document.getElementById('filter').addEventListener('change', (e) => {
-    const field = e.target.value;
-    gtag('event', 'sort', {'event_category': 'engagement', 'event_label': field});
-    updateResultsTable(sortResults(window.data, field));
-    updateUrlField('sort', field);
-  });
+function initSelectHandler(name, handler) {
+ document.querySelector(`select[name="${name}"]`).addEventListener('change', (e) => {
+   const value = e.target.value;
+   gtag('event', name, {'event_category': 'engagement', 'event_label': value});
+   handler && handler(value);
+   updateUrlField(name, value);
+ });
 }
 
 function fetchData(sortField) {
@@ -372,21 +392,33 @@ function fetchData(sortField) {
   });
 }
 
+function filterByClient(value) {
+    document.querySelectorAll('#results tr').forEach(tr => {
+      tr.style.display = value === 'all' || tr.classList.contains(`client-${value}`) ? '' : 'none';
+    });
+}
+
+let latestParams;
 function init() {
-  const sortField = getSortField();
-  setDefaultSort(sortField);
-  initSortHandler();
+  latestParams = getAndSetDefaultParams();
+  
+  initSelectHandler('sort', (value) => {
+    updateResultsTable(sortResults(window.data, value));
+  });
+  initSelectHandler('client', (value) => {
+    filterByClient( value );
+  });
 
   // Display the placeholder data.
   setPlaceholderData();
-  updateResultsTable(sortResults(window.data, sortField));
+  updateResultsTable(sortResults(window.data, latestParams.sort ));
 
-  fetchData(sortField);
+  fetchData( latestParams.sort );
 }
 
 init();
 
     </script>
-    <script type="module" src="vitals.js"></script>
+	<script type="module" src="vitals.js"></script>
   </body>
 </html>
