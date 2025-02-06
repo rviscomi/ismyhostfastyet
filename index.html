@@ -152,7 +152,7 @@
         <section>
           <p>
             See a missing hosting provider?
-            <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#contribute">
+            <a href="https://github.com/rviscomi/ismyhostfastyet/blob/main/README.md#contribute">
               Please help us identify how to surface them here.
             </a>
           </p>
@@ -177,12 +177,12 @@
             (SSL, DNS, TCP) as well as server-side processing.
           </p>
 
-          <img src="ttfb.png" loading="lazy" height="320" width="800" alt="Diagram showing TTFB as the network events from the prompt for unload to the response start">
+          <img src="ttfb.png" loading="lazy" height="304" width="800" alt="Diagram showing TTFB as the network events from the prompt for unload to the response start">
 
           <p>
             As you can see in the <a href="https://w3c.github.io/navigation-timing/">Navigation Timing Level 2 draft spec</a>
             screenshot above, the metric is equivalent to <code>performance.getEntriesByType('navigation')[0].responseStart</code>
-            (or <code>firstInterimResponseStart</code> for those servers using 103 Early Hints).
+            (which may be the same as <code>firstInterimResponseStart</code> for those servers using 103 Early Hints).
           </p>
 
           <h2>How do you determine: Fast, Average, Slow?</h2>
@@ -221,7 +221,7 @@
 
           <p>
             Would you like to see a hosting provider included in this report that’s currently
-            not on the list? Please <a href="https://github.com/rviscomi/ismyhostfastyet/blob/master/README.md#methodology">read more about our methodology</a>
+            not on the list? Please <a href="https://github.com/rviscomi/ismyhostfastyet/blob/main/README.md#methodology">read more about our methodology</a>
             and <a href="https://github.com/rviscomi/ismyhostfastyet/">join us on GitHub</a> — we’d appreciate your help to
             allow us to expand coverage of this report!
           </p>
